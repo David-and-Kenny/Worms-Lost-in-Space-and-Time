@@ -45,9 +45,13 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
     {
         set { outputMessage = value; }
     }
-
-    void OnGUI()
+   void Start()
     {
+        RequestBanner();
+    }
+   /* void OnGUI()
+    {
+        
         // Puts some basic buttons onto the screen.
         GUI.skin.button.fontSize = (int) (0.05f * Screen.height);
         GUI.skin.label.fontSize = (int) (0.025f * Screen.height);
@@ -104,7 +108,7 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
         Rect textOutputRect = new Rect(0.1f * Screen.width, 0.925f * Screen.height,
                                    0.8f * Screen.width, 0.05f * Screen.height);
         GUI.Label(textOutputRect, outputMessage);
-    }
+    }*/
 
     private void RequestBanner()
     {
@@ -119,7 +123,7 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
 #endif
 
         // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Top);
+        bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.TopLeft);
         // Register for ad events.
         bannerView.AdLoaded += HandleAdLoaded;
         bannerView.AdFailedToLoad += HandleAdFailedToLoad;

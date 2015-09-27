@@ -25,39 +25,67 @@ public class DisplayRestartText : MonoBehaviour {
 						adjustment = .48f;
 				else if (aspect >= 1.3)
 						adjustment = .28f;
-		xPosition= ((-Screen.width * .4f + 10f)-(Screen.height * .2f - 20))*adjustment;
+		xPosition= ((-Screen.width * .4f + 10f)+(Screen.height * .2f - 20))*adjustment;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		cumulativeTime += Time.deltaTime;
-		if (xPosition < (-Screen.width * .4f + 10f)) {
-			xPosition+= (Screen.height * .2f - 20)* cumulativeTime/4;
+		if (xPosition > (-Screen.width * .4f + 10f)) {
+			xPosition-= (Screen.height * .2f - 20)* cumulativeTime/4;
 		}
-		if (xPosition >= (-Screen.width * .4f + 10f)*adjustment) {
+		if (xPosition <= (-Screen.width * .4f + 10f)*adjustment) {
 			xPosition=	-Screen.width * .4f + 10f;
 		}
 	}
+   /* void Start()
+    {
+        t2D = Resources.Load<Texture2D>("press_anywhere_to_try_again");
+        float aspect = (float)Screen.height / (float)Screen.width;
 
-	void OnGUI(){
+        if (aspect > 1.7f)
+            adjustment = 1f;
+        else if (aspect >= 1.6)
+            adjustment = .48f;
+        else if (aspect >= 1.3)
+            adjustment = .28f;
+        xPosition = (((Screen.width*3) * .4f + 10f) - (Screen.height * .2f - 20)) * adjustment;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        cumulativeTime += Time.deltaTime;
+        if (xPosition > ((Screen.width * 3) * .4f - 10f))
+        {
+            xPosition -= (Screen.height * .2f + 20) * cumulativeTime / 4;
+        }
+        if (xPosition <= ((Screen.width * 3) * .4f - 10f) * adjustment)
+        {
+            xPosition = (Screen.width * 3) * .4f - 10f;
+        }
+    }*/
+
+    void OnGUI(){
 		//cumulativeTime += Time.deltaTime;
 		pivotPoint = new Vector2(Screen.width/2,Screen.height/2);
 		GUIUtility.RotateAroundPivot (rotAngle, pivotPoint); 
 		GUI.BeginGroup (new Rect (xPosition, Screen.height / 2 - (Screen.width / 2) + 10, Screen.height/**.2f*/, Screen.height));
 
-						if (GUI.Button (new Rect (10, 0, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Main\n Menu</size>")) {
+						if (GUI.Button (new Rect (Screen.height-(Screen.height * .2f - 20), 0, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Main\n Menu</size>")) {
 				Application.LoadLevel ("StorySelect");
 
 						}
-						if (GUI.Button (new Rect (10, Screen.width * .9f / 3f, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Back</size>")) {
+						if (GUI.Button (new Rect (Screen.height - (Screen.height * .2f - 20), Screen.width * .9f / 3f, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Back</size>")) {
 				Application.LoadLevel ("World1");
 						}
-		if (GUI.Button (new Rect (10, Screen.width * .9f * (2f / 3f), Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Quit</size>")) {
+		                if (GUI.Button (new Rect (Screen.height - (Screen.height * .2f - 20), Screen.width * .9f * (2f / 3f), Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Quit</size>")) {
 										
 								Application.Quit ();   
 						}
-		if (GUI.Button (new Rect ( Screen.height * .2f ,0, Screen.height -(Screen.height * .2f - 20),Screen.width),"",GUIStyle.none)) {
+		if (GUI.Button (new Rect (0,0, Screen.height -(Screen.height * .2f - 20),Screen.width),"",GUIStyle.none)) {
 			
 			Application.LoadLevel(Application.loadedLevel); 
 		}
