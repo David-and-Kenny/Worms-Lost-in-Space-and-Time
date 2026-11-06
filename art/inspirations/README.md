@@ -138,6 +138,7 @@ using the result in Unity. Generated frame sequences may need manual cleanup.
 
 ## Current direction
 
-No inspiration images or new visual direction have been approved yet. Existing
-game art can be used as a baseline after it has been inspected. Do not infer a
-new style from the game title alone.
+The [existing main character sprite](characters/main-character.md) is included
+as an initial reference, copied from the artwork used by the player prefab.
+No new visual direction or specific qualities to retain have been approved yet.
+Do not infer a new style from the game title alone.
