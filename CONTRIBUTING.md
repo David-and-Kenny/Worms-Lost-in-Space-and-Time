@@ -13,12 +13,13 @@ git switch -c feature/your-change
 
 Run the repository check and applicable Unity checks, review the diff, then push
 your branch and open a PR. Include what changed, scenes/devices tested, and
-screenshots for visible changes. Prefer squash merge after another developer
-reviews the change. Coordinate editor and package upgrades as dedicated PRs.
+screenshots for visible changes. During early development, authors may squash
+merge their own PRs once required checks pass; another developer's approval is
+optional. Coordinate editor and package upgrades as dedicated PRs.
 
-Recommended server protection: require one approving review, dismiss stale
-approvals, resolve conversations, require the `Repository hygiene` status check
-and an up-to-date branch, and block force pushes/deletions of `master`. See
+Current server protection: require a PR with zero mandatory approvals, resolve
+conversations, require the `Repository hygiene` status check and an up-to-date
+branch, and block force pushes/deletions of `master`. See
 `docs/MIGRATION.md` for the settings actually applied during setup.
 
 ## Assets, scenes, and prefabs

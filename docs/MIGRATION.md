@@ -67,7 +67,8 @@ use Git LFS without rewriting shared history.
 
 GitHub settings applied and verified:
 
-- `master`: one approving review; stale approvals dismissed.
+- `master`: pull requests required, with zero mandatory approvals during early
+  development. Authors may merge their own PRs after checks pass.
 - Require resolved conversations and an up-to-date branch.
 - Require `Repository hygiene`; workflow added on the migration branch.
 - Apply protections to administrators; block force pushes and branch deletion.
