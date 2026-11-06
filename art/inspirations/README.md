@@ -138,7 +138,7 @@ using the result in Unity. Generated frame sequences may need manual cleanup.
 
 ## Current direction
 
-The [existing main character collection](characters/README.md) includes the current
-player sprite, larger illustrations, and sketch and pixel variants.
+The [existing main character collection](characters/README.md) includes the large
+finished illustration and sketch illustration.
 No new visual direction or specific qualities to retain have been approved yet.
 Do not infer a new style from the game title alone.
