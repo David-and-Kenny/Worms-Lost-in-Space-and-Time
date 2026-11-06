@@ -9,14 +9,19 @@ $repoRoot = Split-Path $PSScriptRoot -Parent
 $project = Join-Path $repoRoot 'Worms Lost in Space and Time(3.0)'
 $logFolder = Join-Path $repoRoot 'Logs'
 $testFolder = Join-Path $repoRoot 'TestResults'
-$editorPath = (Resolve-Path -LiteralPath $UnityEditor).Path
 New-Item -ItemType Directory -Force -Path $logFolder, $testFolder | Out-Null
+$summaryPath = Join-Path $testFolder 'validation-summary.json'
+# A summary certifies this invocation only; a failed run must not leave an old success.
+if (Test-Path -LiteralPath $summaryPath) { Remove-Item -LiteralPath $summaryPath }
+$editorPath = (Resolve-Path -LiteralPath $UnityEditor).Path
 
 function Read-TestResult([string]$ResultPath) {
     if (!(Test-Path -LiteralPath $ResultPath)) { throw "Unity did not produce a test report: $ResultPath" }
     [xml]$report = Get-Content -LiteralPath $ResultPath -Raw
     $run = $report.'test-run'
-    if (!$run -or [int]$run.total -lt 1) { throw "No tests executed: $ResultPath" }
+    if (!$run -or [int]$run.total -lt 1 -or ([int]$run.passed + [int]$run.failed) -lt 1) {
+        throw "No tests executed: $ResultPath"
+    }
     if ($run.result -ne 'Passed' -or [int]$run.failed -gt 0) {
         $failures = $report.SelectNodes('//test-case/failure/message') | ForEach-Object InnerText
         throw "Tests failed: $($failures -join [Environment]::NewLine). See $ResultPath"
@@ -51,4 +56,4 @@ if ($Check -eq 'All') {
     if ($LASTEXITCODE -ne 0) { throw 'Repository validation failed.' }
 }
 $results = foreach ($name in $checks) { Invoke-UnityCheck $name }
-$results | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $testFolder 'validation-summary.json')
+$results | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $summaryPath

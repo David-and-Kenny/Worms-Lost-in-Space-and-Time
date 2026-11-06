@@ -65,3 +65,22 @@ These are explicit acceptance scripts rather than automated passes. A physics
 finish probe validates integration; it does not prove a naturally reachable exit.
 Old `.dat` progress remains untouched and is not imported. Existing players begin
 fresh JSON progression with a visible notice; a legacy importer is separate work.
+
+## Follow-up review
+
+Review on November 6, 2026 found PR #2 already merged as `5eadcd8`. Review covered
+the domain/save/session boundaries, navigation/input, gameplay adapters, serialized
+bindings and test tooling. No further production-code changes were made in this
+follow-up. The known device/content gaps remain listed above and in `BACKLOG.md`.
+
+The validation runner could leave an earlier successful summary after a failed
+invocation, and accepted a skipped-only report as executed tests. It now clears
+the old summary before validating the editor path, publishes only after success,
+and rejects suites with no passed/failed tests. Seven isolated runner regression
+cases pass, including stale XML/summary, missing editor/report, failed/empty and
+skipped-only suites. The required GitHub check now runs those cases without Unity.
+
+The real Unity EditMode suite was rerun: **66/66 passed**, none skipped. The
+previous **30/30 PlayMode** result, scene checks and Windows/Android builds remain
+the production evidence for the unchanged game code/assets; they were not rerun
+solely for backlog/documentation and runner-report changes.
