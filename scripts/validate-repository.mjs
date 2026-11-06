@@ -31,6 +31,12 @@ function walk(dir) {
   }
 }
 walk(assets);
+const baselinePath = path.join(root, 'docs/asset-guid-baseline.json');
+if (fs.existsSync(baselinePath)) {
+  for (const original of JSON.parse(fs.readFileSync(baselinePath, 'utf8'))) {
+    if (!guids.has(original.guid)) errors.push(`Original asset GUID lost: ${original.path} (${original.guid})`);
+  }
+}
 const settings = fs.readFileSync(path.join(project, 'ProjectSettings/EditorSettings.asset'), 'utf8');
 if (!/m_SerializationMode: 2\b/.test(settings)) errors.push('Enable Force Text serialization.');
 const versionSettings = path.join(project, 'ProjectSettings/VersionControlSettings.asset');

@@ -13,7 +13,9 @@ These PlayMode checks characterize stable runtime behavior of legacy gameplay co
 
 `SceneSmokeTests` separately covers that build scenes load. This baseline avoids save-system callbacks because they write persistent state. The player jump branch is input-driven through legacy `Input`; the deterministic player checks characterize startup and the public forced-detach method. Explosion and oxygen checks use small procedural body part fixtures.
 
-No Unity editor or test runner was launched while preparing this baseline. Run `GameplayBaselineTests` and the existing scene smoke test against the unmodified scripts before refactoring, then retain these characterization expectations after refactoring.
+The initial test preparation did not launch Unity. The subsequent pre-refactor run
+against unmodified production scripts is recorded below; retain its observable
+expectations after refactoring.
 
 ## Recorded result
 

@@ -69,3 +69,9 @@ and the diff. Include package manifests/lockfiles when dependencies change.
 Keep generated output, local editor preferences, license files, and signing
 material out of Git. Do not force-push shared branches or rewrite history to
 remove the old cache; that needs a separate coordinated migration.
+
+For behavioral work, run EditMode and PlayMode suites with `scripts/check-unity.ps1`
+and list the scenario IDs covered from `docs/TESTING.md`. Use `-Check All` for the
+complete pre-merge validation. Read `AGENTS.md` and `docs/ARCHITECTURE.md` for
+dependency boundaries and authoring rules. Keep game logic in ordinary objects,
+Unity adapters small, and serialized prefab/catalog data editable for designers.
