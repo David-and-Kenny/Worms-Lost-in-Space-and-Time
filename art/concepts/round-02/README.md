@@ -6,8 +6,11 @@ background in the same style; this is not approval to replace production art.
 
 ## Files and baseline
 
-- Latest: [background V02](level-background-v02.png), with a smaller window and no
-  decorative cogs. See [revision notes and edit prompt](level-background-v02.md).
+- Latest: [background V03](level-background-v03.png), restoring the mechanical
+  framing with dull rustic background cogs and pipes, a smaller window, and no
+  gears visible through it. See [V03 notes and prompt](level-background-v03.md).
+- Previous: [background V02](level-background-v02.png) and
+  [V02 notes](level-background-v02.md), the simpler wall experiment.
 - [Background concept](level-background-v01.png)
 - [Original versus redesign](original-vs-redesign.png): original on the left,
   redesign on the right, fitted into equal-size panels without cropping or
@@ -37,9 +40,12 @@ not separated parallax layers or a seamless scrolling tile.
 Round 01 feedback: "I like this direction." The character remains the style
 anchor and is not redesigned. The owner likes the V01 window into space but says
 the background competes with playable cogs, requesting a smaller window and no
-random cogs visible through it. V02 addresses this feedback; V01 and its comparison
-remain as design history. The art-direction description below the file list
-describes the original V01 experiment; use the V02 notes for the current direction.
+random cogs visible through it. V02 explored removing decorative machinery.
+The owner then requested more of V01's machinery, with background cogs colored
+differently from playable cogs and duller, more rustic pipes and gears. V03
+addresses that direction while retaining the smaller window and clear space view.
+Earlier versions remain as design history. The art-direction section describes
+the original V01 experiment; use the V03 notes for the current direction.
 
 Check composition, amount of space versus machinery, edge brightness, and whether
 the cartoon treatment belongs with the unchanged character and round-01 assets.
