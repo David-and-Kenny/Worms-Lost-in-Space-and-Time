@@ -1,6 +1,6 @@
 # Round 01: cartoon steampunk-space asset concepts
 
-Status: experiments awaiting owner review. Generated using the built-in Imagegen
+Status: owner likes this direction; production integration is pending. Generated using the built-in Imagegen
 tool. These are concept images outside Unity; no game assets, character artwork,
 scenes, physics, or bindings have been changed.
 
@@ -43,7 +43,10 @@ adapt proportions and pivots to the existing assets, verify silhouette and
 rotation, evaluate at actual phone size, and preserve existing GUIDs and
 bindings. These concepts have not been tested in Unity or on a device.
 
-No owner feedback on these outputs has been recorded yet.
+Owner feedback: "I like this direction." The next requested experiment is a
+level background in the same cartoon steampunk-space style; see
+[round 02](../round-02/README.md). Approval of the direction does not establish
+these images as final production assets.
 
 ## Exact generation prompts
 
