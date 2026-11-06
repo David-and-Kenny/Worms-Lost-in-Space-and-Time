@@ -38,7 +38,7 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-011 | P2 | Proposed | State | Decide legacy-save compatibility policy | Existing `.dat` files are retained, not imported |
 | BL-012 | P1 | Proposed | Levels | Define authoring and difficulty rules | BL-004 and BL-002 observations |
 | BL-013 | P1 | Proposed | Tooling | Build maintainable level-authoring tools | BL-012 |
-| BL-014 | P1 | Proposed | Tooling | Validate generated/authored level feasibility | BL-012; explicit simulation limits |
+| BL-014 | P1 | In progress | Tooling | Validate generated/authored level feasibility | Utility implemented; validation/review in progress |
 | BL-015 | P2 | Proposed | Tooling | Generate and evaluate batches of candidate levels | BL-013 and BL-014 |
 | BL-016 | P2 | Proposed | Monetization | Assess a current ads integration | BL-004; ads currently inactive |
 | BL-017 | P2 | Proposed | Monetization | Model ad revenue across usage scenarios | BL-016; sourced assumptions, not forecasts |
@@ -46,6 +46,7 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
+| BL-022 | P1 | Proposed | Gameplay | Make precision jumps consistent across render rates | Measured fixed-simulation/input/attachment design; physical-device verification |
 
 ## Acceptance criteria
 
@@ -146,6 +147,9 @@ Define a repeatable movement simulation or agent probe with recorded seed/input
 and budgets. Report demonstrated routes separately from inconclusive or failed
 search; a solver timeout must not be labelled proof that a level is impossible.
 Validate results against known playable and deliberately invalid fixtures.
+The initial [level-validation utility](docs/LEVEL_VALIDATION.md) implements local
+search, certificates and replay without AI tokens; unresolved catalog routes and
+physical-device acceptance remain explicit in its reports.
 
 ### BL-015 — Generate candidate level batches
 
@@ -196,6 +200,16 @@ Provision an owned, trusted Windows runner for the pinned editor, Node/Git LFS a
 Android tools. Run the existing manual workflow successfully and retain useful
 failure artifacts. Keep untrusted fork code off the runner and document maintenance
 and license handling. Repository hygiene alone is not gameplay validation.
+
+### BL-022 — Separate simulation timing from rendering
+
+Use [the frame-rate investigation](docs/FRAME_RATE_INVESTIGATION.md) as the starting
+point. There is evidence that recorded jump policies behave differently at
+30/60/120 Hz, not that a faster screen doubles the whole game's speed. Define one
+fixed simulation owner, buffered input and attached-body collision behavior, then
+choose a measured mobile rendering policy. Preserve force/contact baselines and
+recertify routes after the change; measure actual FPS and display refresh separately
+on devices. This gameplay refactor is separate from the level-validation utility.
 
 ## Completed foundation
 

@@ -1,0 +1,34 @@
+{
+    "LevelId": "SealedExit",
+    "SceneName": "SealedExit",
+    "ScenePath": "Assets/Tests/LevelValidation/Fixtures/SealedExit.unity",
+    "Fingerprint": "413342c2c6aa80211a44edbc10a24d8e13920671d857b88c2dc871a7dfd0fc39",
+    "Objects": [
+        {
+            "Id": "GlobalObjectId_V1-2-81a3f38c02e9a2744a0d3cdf403e4203-1962160566-0",
+            "Hierarchy": "0",
+            "Name": "Player",
+            "Role": "spawn",
+            "X": 0.0,
+            "Y": 3.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-81a3f38c02e9a2744a0d3cdf403e4203-448299557-0",
+            "Hierarchy": "2",
+            "Name": "Wheel",
+            "Role": "wheel",
+            "X": 0.0,
+            "Y": 0.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-81a3f38c02e9a2744a0d3cdf403e4203-791984112-0",
+            "Hierarchy": "3",
+            "Name": "Finish",
+            "Role": "finish",
+            "X": 4.0,
+            "Y": 0.0
+        }
+    ],
+    "Errors": [],
+    "Warnings": []
+}

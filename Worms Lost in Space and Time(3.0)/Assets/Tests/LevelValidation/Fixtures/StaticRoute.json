@@ -1,0 +1,34 @@
+{
+    "LevelId": "StaticRoute",
+    "SceneName": "StaticRoute",
+    "ScenePath": "Assets/Tests/LevelValidation/Fixtures/StaticRoute.unity",
+    "Fingerprint": "ce1623642d1dd4b5b34013266091c040a11f422afcbd3ecbf350e65981313d59",
+    "Objects": [
+        {
+            "Id": "GlobalObjectId_V1-2-6ee30f00bf1739f46980646852afe90d-791984112-0",
+            "Hierarchy": "0",
+            "Name": "Player",
+            "Role": "spawn",
+            "X": 0.0,
+            "Y": 3.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-6ee30f00bf1739f46980646852afe90d-393501114-0",
+            "Hierarchy": "2",
+            "Name": "Wheel",
+            "Role": "wheel",
+            "X": 0.0,
+            "Y": 0.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-6ee30f00bf1739f46980646852afe90d-69571045-0",
+            "Hierarchy": "3",
+            "Name": "Finish",
+            "Role": "finish",
+            "X": 4.0,
+            "Y": 0.0
+        }
+    ],
+    "Errors": [],
+    "Warnings": []
+}

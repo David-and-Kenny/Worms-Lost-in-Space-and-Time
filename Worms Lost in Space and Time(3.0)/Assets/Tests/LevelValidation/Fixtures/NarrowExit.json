@@ -1,0 +1,34 @@
+{
+    "LevelId": "NarrowExit",
+    "SceneName": "NarrowExit",
+    "ScenePath": "Assets/Tests/LevelValidation/Fixtures/NarrowExit.unity",
+    "Fingerprint": "c430ba2989f8fc05a9ab826fcde8b2d18f56499694056abae3957dd3c17fac83",
+    "Objects": [
+        {
+            "Id": "GlobalObjectId_V1-2-a0be527443d433f4e9390f3eb24621fa-293687669-0",
+            "Hierarchy": "0",
+            "Name": "Player",
+            "Role": "spawn",
+            "X": 0.0,
+            "Y": 3.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-a0be527443d433f4e9390f3eb24621fa-1555348358-0",
+            "Hierarchy": "2",
+            "Name": "Wheel",
+            "Role": "wheel",
+            "X": 0.0,
+            "Y": 0.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-a0be527443d433f4e9390f3eb24621fa-527603429-0",
+            "Hierarchy": "3",
+            "Name": "Finish",
+            "Role": "finish",
+            "X": 4.0,
+            "Y": 0.0
+        }
+    ],
+    "Errors": [],
+    "Warnings": []
+}

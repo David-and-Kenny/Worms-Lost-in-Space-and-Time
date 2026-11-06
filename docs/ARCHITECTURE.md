@@ -84,3 +84,14 @@ open an unknown or locked level. Back derives the world from catalog metadata.
 For new behavior, start with the scenario/test layer in `TESTING.md`, implement
 the smallest cohesive object, then wire its Unity adapter. Keep migrations, game
 behavior changes, art/layout work and unrelated cleanup distinguishable in diffs.
+
+## Level validation tooling
+
+`Worms.LevelValidation` is a test-only assembly, excluded from shipping builds.
+It searches normal input sequences against real scenes and certifies full routes
+with repeatable controlled trials plus ordinary automatic-physics replays. Search
+rules/contracts are ordinary C# objects; scene inspection and playback are Unity
+adapters. `Player.TraversalChanged` exposes read-only observations, and moving
+spikes accept an optional elapsed-time source without changing human-play defaults.
+See [LEVEL_VALIDATION.md](LEVEL_VALIDATION.md) for the clock, proof boundaries and
+command/artifact contract. This tooling never requires an AI service at runtime.

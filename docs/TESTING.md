@@ -76,3 +76,13 @@ Git LFS, Node 24, the pinned editor, and Android tools on that runner first.
 For a behavior PR, include the executed suite counts/results and relevant scenario
 IDs, not a claim of total coverage. Attach XML/logs or summarize their failures.
 Device cases remain unverified until someone records an actual device run.
+
+## Automated level traversal
+
+The reusable [level validator](LEVEL_VALIDATION.md) adds EditMode search/contract
+tests and physical PlayMode fixtures. Run `-Check PlayMode -TestFilter Worms.LevelValidation`
+for its focused integration suite. Ordinary full-suite execution does not launch
+a catalog search: the command entry point only dispatches a search/replay when a
+request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
+those requests. Search outcomes and saved-route regressions supplement the existing
+24-scene smoke test; they do not duplicate it or replace device/feel acceptance.

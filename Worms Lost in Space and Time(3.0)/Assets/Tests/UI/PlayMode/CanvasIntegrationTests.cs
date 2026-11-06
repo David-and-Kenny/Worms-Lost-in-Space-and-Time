@@ -79,8 +79,9 @@ public sealed class CanvasIntegrationTests
         foreach (var scene in addedScenes)
             if (scene.IsValid() && scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
         addedScenes.Clear();
-        SceneManager.SetActiveScene(original);
-        yield return SceneManager.UnloadSceneAsync(fixture);
+        if (original.IsValid() && original.isLoaded) SceneManager.SetActiveScene(original);
+        else SceneManager.SetActiveScene(SceneManager.CreateScene("UI cleanup fallback"));
+        if (fixture.IsValid() && fixture.isLoaded) yield return SceneManager.UnloadSceneAsync(fixture);
         SceneNavigator.ConfigureForTests(null);
         GameServices.ResetForTests();
     }
