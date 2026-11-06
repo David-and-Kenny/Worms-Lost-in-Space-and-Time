@@ -26,3 +26,8 @@ documents in the same change; do not assume a planned feature is implemented.
 - Keep changes focused and use a PR. Commit source, metadata, catalog/prefab
   assets, package manifests/lockfiles, and shared settings. Exclude caches,
   build outputs, local reports, credentials, and signing material.
+- Use `scripts/validate-levels.ps1` and `docs/LEVEL_VALIDATION.md` for traversal
+  testing. Validation must not depend on an AI model or consume AI tokens. Do not
+  teleport, invoke completion APIs, or replace certificate hashes to obtain a pass.
+  Re-execute recorded inputs to recertify changed content. Keep frame-rate policy
+  and simulation changes separate from level authoring and report their evidence.

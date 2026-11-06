@@ -19,3 +19,6 @@ jobs:
       - name: Validate with the pinned licensed editor
         shell: pwsh
         run: ./scripts/check-unity.ps1 -UnityEditor 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com' -Check All
+      - name: Replay certified level routes without searching
+        shell: pwsh
+        run: ./scripts/validate-levels.ps1 -Operation batch -ReplayDirectory ./ValidationRoutes
