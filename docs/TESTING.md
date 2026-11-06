@@ -11,6 +11,7 @@ Run from the repository root, with Unity closed:
 ```powershell
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 node scripts/validate-repository.mjs
+./scripts/test-check-unity.ps1
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check PlayMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check Scenes
@@ -23,6 +24,10 @@ builds sequentially. Use `-TestFilter FullyQualifiedTestName` to diagnose a fail
 then rerun the affected full suite. The runner rejects an absent report, zero
 executed tests, failed tests, or a failed editor exit. XML reports and a JSON run
 summary are written under ignored `TestResults/`; editor logs are under `Logs/`.
+Each invocation removes any previous summary before running and publishes a new
+one only after every requested check passes. Skipped-only suites are rejected.
+The lightweight runner regression script verifies exit/report handling and stale
+result cleanup in a temporary fixture without launching Unity.
 
 ## What belongs in each suite
 
@@ -60,7 +65,8 @@ the baseline does not claim unsafe tests against a person's old binary save.
 
 ## CI and collaboration
 
-GitHub's required `Repository hygiene` check validates repository structure. It
+GitHub's required `Repository hygiene` check validates repository structure and
+the validation runner's report/exit handling using a fake editor. It
 does not execute Unity and must not be described as a gameplay test. The optional
 `Unity validation` workflow runs the full validation command on a trusted,
 licensed Windows self-hosted runner labelled `unity-6000.6.8f1`; it is manual so

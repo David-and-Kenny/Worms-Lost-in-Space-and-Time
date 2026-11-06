@@ -5,6 +5,8 @@ avoid hazards, and reach the exit before oxygen runs out.
 
 ## Development status
 
+See the [product backlog](BACKLOG.md) for planned features, research and open issues.
+
 The project is upgraded from **Unity 5.2.0f3** to **Unity 6000.6.8f1 (Unity 6.6)**,
 the latest supported release verified on November 6, 2026. All 24 enabled scenes
 pass startup smoke checks; Windows and Android ARM64 development builds succeed,
