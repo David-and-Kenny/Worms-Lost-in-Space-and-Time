@@ -58,3 +58,5 @@ $global:LASTEXITCODE = [int]$scenario.ExitCode
         Remove-Item -LiteralPath $resolvedFixture -Recurse -Force
     }
 }
+# The final fixture intentionally fails; do not leak its native exit code to CI.
+exit 0
