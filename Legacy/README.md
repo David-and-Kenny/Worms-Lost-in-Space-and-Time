@@ -1,11 +1,10 @@
-# Archived integrations
+# Removed legacy integration
 
-`GoogleMobileAds/` contains the original 2015 Google Mobile Ads SDK, native Android
-and iOS plugins, and original demo script. It is outside Unity's `Assets` directory
-so modern Unity does not import the unsupported Android library projects or compile
-the obsolete integration. The scene-attached demo script retains its original GUID
-as a disabled-ad placeholder. Gameplay can be developed without contacting ad servers.
+The unsupported 2015 Google Mobile Ads SDK, Android/iOS native plugins, and demo
+implementation have been removed from the current source tree. They are not needed
+to build the game and remain recoverable from original commit `9bdc650` in Git history.
+The scene-attached demo script retains its original GUID as an inactive placeholder.
 
-Do not copy this SDK back into Assets. Reintegrate a maintained Google Mobile Ads
+Do not restore this SDK to Assets. Reintegrate a maintained Google Mobile Ads
 Unity SDK, test ad units, consent handling, and platform configuration as a separate
 task before shipping. Original sources are also recoverable from Git history.

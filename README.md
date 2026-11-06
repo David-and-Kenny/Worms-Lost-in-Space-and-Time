@@ -100,7 +100,8 @@ iOS requires the matching iOS module and a Mac with Xcode for final compilation,
 signing, and device testing. Windows alone cannot produce a signed iOS app.
 
 Ads are deliberately inactive during migration. The unsupported 2015 SDK and
-native libraries are preserved in [Legacy](Legacy/README.md), outside `Assets`.
+native libraries are removed from the current source tree and remain recoverable
+from Git history; see [legacy integration notes](Legacy/README.md).
 The scene-attached script keeps its GUID. A maintained SDK and consent flow
 must be integrated separately before enabling ads.
 
