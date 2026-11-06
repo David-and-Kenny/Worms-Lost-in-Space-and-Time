@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
@@ -147,6 +148,26 @@ namespace Worms.LevelValidation
             var byPath = SceneInspection.Inspect(byId.ScenePath)[0];
             Assert.That(byPath.LevelId, Is.EqualTo(byId.LevelId));
             Assert.That(byPath.Fingerprint, Is.EqualTo(byId.Fingerprint));
+        }
+        [Test]
+        public void FingerprintIgnoresTextLineEndingsButDetectsContentChanges()
+        {
+            string temporarySource = "Assets/Scripts/ValidationFingerprint-" + Guid.NewGuid().ToString("N") + ".txt";
+            const string scene = "Assets/Scenes/World1/Level1.unity";
+            try
+            {
+                File.WriteAllText(temporarySource, "first\nsecond\n");
+                string original = SceneInspection.Fingerprint(scene);
+                File.WriteAllText(temporarySource, "first\r\nsecond\r\n");
+                Assert.That(SceneInspection.Fingerprint(scene), Is.EqualTo(original));
+                File.WriteAllText(temporarySource, "changed\nsecond\n");
+                Assert.That(SceneInspection.Fingerprint(scene), Is.Not.EqualTo(original));
+            }
+            finally
+            {
+                File.Delete(temporarySource);
+                if (File.Exists(temporarySource + ".meta")) File.Delete(temporarySource + ".meta");
+            }
         }
         [Test]
         public void SearchEnumeratesCoarseThenEveryFrameWithoutMergingDifferentPrefixes()

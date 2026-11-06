@@ -119,7 +119,7 @@ namespace Worms.LevelValidation
                 {
                     byte[] name = Encoding.UTF8.GetBytes(file + "\0");
                     stream.Write(name, 0, name.Length);
-                    bool text = new[] { ".cs", ".meta", ".asmdef", ".json", ".unity", ".prefab", ".asset", ".mat", ".anim", ".controller", ".lighting" }.Contains(Path.GetExtension(file));
+                    bool text = new[] { ".cs", ".meta", ".asmdef", ".json", ".unity", ".prefab", ".asset", ".mat", ".anim", ".controller", ".lighting", ".txt" }.Contains(Path.GetExtension(file));
                     byte[] bytes = text ? Encoding.UTF8.GetBytes(File.ReadAllText(file).Replace("\r\n", "\n")) : File.ReadAllBytes(file);
                     byte[] digest = hash.ComputeHash(bytes);
                     stream.Write(digest, 0, digest.Length);
