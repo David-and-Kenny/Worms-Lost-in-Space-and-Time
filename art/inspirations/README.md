@@ -138,6 +138,12 @@ using the result in Unity. Generated frame sequences may need manual cleanup.
 
 ## Current direction
 
-No inspiration images or new visual direction have been approved yet. Existing
-game art can be used as a baseline after it has been inspected. Do not infer a
-new style from the game title alone.
+The [existing main character collection](characters/README.md) includes the large
+finished illustration and sketch illustration.
+The project owner has specified a **steampunk and space combination**, with a
+heavy focus on **gear cogs and space pipework**. The
+[steampunk-space references](steampunk-space/README.md) collect eight supplied
+images and individual notes about machinery, spacecraft, and industrial interiors.
+Use this stated theme to guide new art. Exact rendering style, palette, and
+character changes remain undecided; image-specific applications are suggestions
+unless explicitly approved by the owner.
