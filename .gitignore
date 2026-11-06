@@ -1,33 +1,51 @@
-# Unity generated #
-# =============== #
-Temp/
-Obj/
+# Unity generated state, at any project depth
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Bb]uild/
+[Bb]uilds/
+[Mm]emoryCaptures/
+[Rr]ecordings/
 UnityGenerated/
-Library/
-Builds/
- 
-# ===================================== #
-# Visual Studio / MonoDevelop generated #
-# ===================================== #
 ExportedObj/
-*.svd
-*.userprefs
+.vs/
+.idea/
+.vscode/
 *.csproj
-*.pidb
-*.suo
 *.sln
-*.user
+*.slnx
 *.unityproj
+*.user
+*.userprefs
+*.pidb
 *.booproj
- 
-# ============ #
-# OS generated #
-# ============ #
+*.svd
+*.suo
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.apk
+*.aab
+*.ipa
+*.app
+*.unitypackage
+*.log
+sysinfo.txt
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
 Thumbs.db
+Desktop.ini
+.local-tools/
+TestResults/
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.pfx
+*.mobileprovision
+*.ulf
+*.alf
+MigrationBridge/

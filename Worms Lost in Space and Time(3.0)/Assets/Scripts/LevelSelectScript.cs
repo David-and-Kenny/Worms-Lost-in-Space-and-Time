@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelSelectScript : MonoBehaviour {
@@ -13,7 +14,7 @@ public class LevelSelectScript : MonoBehaviour {
 	
 	//Level to load on button click. Will be used for Level button click event 
 	public void Selectlevel(string worldLevel){
-		Application.LoadLevel(worldLevel); //load the level
+		SceneManager.LoadScene(worldLevel); //load the level
 	}
 	
 
@@ -24,7 +25,8 @@ public class LevelSelectScript : MonoBehaviour {
 
 		int levelcount = controller.Load ();
 		for(int j = 1; j < levelcount; j++){
-			GameObject.Find("LockedLevel"+(j+1)).SetActive(false);// = false;
+			var lockedLevel = GameObject.Find("LockedLevel" + (j + 1));
+			if (lockedLevel != null) lockedLevel.SetActive(false);
 				
 			}
 		}
@@ -33,7 +35,8 @@ public class LevelSelectScript : MonoBehaviour {
 		bool[] starCount = controller.LoadArray();
 		for(int i=1; i<starCount.Length; i++){
 			if(starCount[i]==false){
-		GameObject.Find ("Conch" + (i)).SetActive (false);
+		var conch = GameObject.Find("Conch" + i);
+		if (conch != null) conch.SetActive(false);
 			}
 		}}}
 	

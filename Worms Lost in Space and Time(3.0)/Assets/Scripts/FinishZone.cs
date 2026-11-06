@@ -25,7 +25,7 @@ public class FinishZone : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D target){
 		if (target.gameObject.tag == "Player") {
-			target.GetComponent<Rigidbody2D>().velocity= target.GetComponent<Rigidbody2D>().velocity*.5f;
+			target.GetComponent<Rigidbody2D>().linearVelocity= target.GetComponent<Rigidbody2D>().linearVelocity*.5f;
 			collided=true;
 			playerPos=target.transform;
 //			target.transform.position=
@@ -34,7 +34,7 @@ public class FinishZone : MonoBehaviour {
 	}
 	void targetReached(){
 		collided = false;
-		playerPos.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+		playerPos.GetComponent<Rigidbody2D>().linearVelocity = Vector3.zero;
 	}
 
 }

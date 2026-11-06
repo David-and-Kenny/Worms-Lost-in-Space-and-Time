@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelSelect : MonoBehaviour {
@@ -40,41 +41,41 @@ public class LevelSelect : MonoBehaviour {
 		//first row add 90 to first parameter to space horizontally
 		if (GUI.Button(new Rect(25,10,170,75),"<size=40>"+SceneOneName+"</size>"))
 		{
-			Application.LoadLevel(SceneOne);
+			SceneManager.LoadScene(SceneOne);
 		}
 		if (GUI.Button(new Rect(215,10,170,75),"<size=40>"+SceneTwoName+"</size>"))
 		{
-			Application.LoadLevel(SceneTwo);
+			SceneManager.LoadScene(SceneTwo);
 		}
 		if (GUI.Button(new Rect(405,10,170,75),"<size=40>"+SceneThreeName+"</size>"))
 		{
-			Application.LoadLevel(SceneThree);     
+			SceneManager.LoadScene(SceneThree);     
 		}
 		if (GUI.Button(new Rect(595,10,170,75),"<size=40>"+SceneFourName+"</size>"))
 		{
-			Application.LoadLevel(SceneFour);     
+			SceneManager.LoadScene(SceneFour);     
 		}
 		if (GUI.Button(new Rect(25,100,170,75),"<size=40>"+SceneFiveName+"</size>"))
 		{
-			Application.LoadLevel(SceneFive);
+			SceneManager.LoadScene(SceneFive);
 		}
 		if (GUI.Button(new Rect(215,100,170,75),"<size=40>"+SceneSixName+"</size>"))
 		{
-			Application.LoadLevel(SceneSix);
+			SceneManager.LoadScene(SceneSix);
 		}
 		if (GUI.Button(new Rect(405,100,170,75),"<size=40>"+SceneSevenName+"</size>"))
 		{
-			Application.LoadLevel(SceneSeven);     
+			SceneManager.LoadScene(SceneSeven);     
 		}
 		if (GUI.Button(new Rect(595,100,170,75),"<size=40>"+SceneEightName+"</size>"))
 		{
-			Application.LoadLevel(SceneEight);     
+			SceneManager.LoadScene(SceneEight);     
 		}
 		
 		
 		if (GUI.Button(new Rect(25,500,120,40),"<size=35>"+"Back"+"</size>"))
 		{
-			Application.LoadLevel("StorySelect");
+			SceneManager.LoadScene("StorySelect");
 		}
 		GUI.EndGroup();
 	

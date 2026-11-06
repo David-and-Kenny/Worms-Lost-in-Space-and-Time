@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class StorySelect : MonoBehaviour {  
@@ -32,19 +33,19 @@ public class StorySelect : MonoBehaviour {
 
 						GameController controller = new GameController ();
 						int levelcount = controller.Load ();
-						Application.LoadLevel ("Level" + levelcount);
+						SceneManager.LoadScene ("Level" + levelcount);
 				}
 		if (GUI.Button(new Rect(10,140,500,120),"<size=45>"+StoryOneName+"</size>"))
 		{
-			Application.LoadLevel(StoryOne);
+			SceneManager.LoadScene(StoryOne);
 		}
 		if (GUI.Button(new Rect(10,270,500,120),"<size=45>"+StoryTwoName+"</size>"))
 		{
-			Application.LoadLevel(StoryTwo);
+			SceneManager.LoadScene(StoryTwo);
 		}
 		if (GUI.Button(new Rect(10,400,500,120),"<size=45>"+StoryThreeName+"</size>"))
 		{
-			Application.LoadLevel(StoryThree);     
+			SceneManager.LoadScene(StoryThree);     
 		}
 		
 		if (GUI.Button(new Rect(10,530,500,120),"<size=45>Quit</size>"))

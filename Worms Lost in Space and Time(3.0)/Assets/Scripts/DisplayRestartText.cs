@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -75,11 +76,11 @@ public class DisplayRestartText : MonoBehaviour {
 		GUI.BeginGroup (new Rect (xPosition, Screen.height / 2 - (Screen.width / 2) + 10, Screen.height/**.2f*/, Screen.height));
 
 						if (GUI.Button (new Rect (Screen.height-(Screen.height * .2f - 20), 0, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Main\n Menu</size>")) {
-				Application.LoadLevel ("StorySelect");
+				SceneManager.LoadScene ("StorySelect");
 
 						}
 						if (GUI.Button (new Rect (Screen.height - (Screen.height * .2f - 20), Screen.width * .9f / 3f, Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Back</size>")) {
-				Application.LoadLevel ("World1");
+				SceneManager.LoadScene ("World1");
 						}
 		                if (GUI.Button (new Rect (Screen.height - (Screen.height * .2f - 20), Screen.width * .9f * (2f / 3f), Screen.height * .2f - 20, Screen.width * .9f / 3f - 10f), "<size=45>Quit</size>")) {
 										
@@ -87,7 +88,7 @@ public class DisplayRestartText : MonoBehaviour {
 						}
 		if (GUI.Button (new Rect (0,0, Screen.height -(Screen.height * .2f - 20),Screen.width),"",GUIStyle.none)) {
 			
-			Application.LoadLevel(Application.loadedLevel); 
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
 		}
 		GUI.EndGroup();
 		var y = (Screen.height - t2D.height) / 2;

@@ -16,7 +16,7 @@ public Transform wheelTransform;
 
 	void Start(){
 
-		this.gameObject.GetComponent<Rigidbody2D>().velocity= Vector3.down* 3;
+		this.gameObject.GetComponent<Rigidbody2D>().linearVelocity= Vector3.down* 3;
 	}
 
 	// Update is called once per frame
@@ -32,7 +32,7 @@ public Transform wheelTransform;
 		if ((Input.touchCount >=1 || Input.GetKey ("space")) && playerAttached==true) {
 			if(ce){ce.playerLeft();}
 			playerAttached=false;
-			this.gameObject.GetComponent<Rigidbody2D>().velocity= transform.up *10;	
+			this.gameObject.GetComponent<Rigidbody2D>().linearVelocity= transform.up *10;	
 		}
 
 	}
@@ -66,7 +66,7 @@ public Transform wheelTransform;
 				conveyor=target.transform;
 				transform.rotation= target.transform.rotation;
 				Conveyor con= target.gameObject.GetComponent<Conveyor>();
-				this.gameObject.GetComponent<Rigidbody2D>().velocity= transform.right *con.speed;
+				this.gameObject.GetComponent<Rigidbody2D>().linearVelocity= transform.right *con.speed;
 				playerAttached = true;
 			}
 				}
@@ -88,7 +88,7 @@ public Transform wheelTransform;
 	}
 	public void detatch(){
 		playerAttached = false;
-		this.gameObject.GetComponent<Rigidbody2D>().velocity= transform.up *5;
+		this.gameObject.GetComponent<Rigidbody2D>().linearVelocity= transform.up *5;
 	}
 
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Explode : MonoBehaviour {
@@ -51,11 +52,11 @@ public class Explode : MonoBehaviour {
 				}
 		GameObject go = new GameObject ("ClickToContinue");
 		go.AddComponent<DisplayRestartText> ();
-		//script.scene = Application.loadedLevelName;
+		//script.scene = SceneManager.GetActiveScene().name;
 		//go.AddComponent<ClickToContinue> ();
 		/*GameObject go = new GameObject ("ClickToContinue");
 		ClickToContinue script = go.AddComponent<ClickToContinue> ();
-		script.scene = Application.loadedLevelName;
+		script.scene = SceneManager.GetActiveScene().name;
 		go.AddComponent<DisplayRestartText> ();*/
 
 	}
