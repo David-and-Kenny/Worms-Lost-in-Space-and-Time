@@ -219,4 +219,41 @@ public sealed class FrameRateConsistencyTests
             yield return SceneManager.UnloadSceneAsync(fixture);
         }
     }
+
+#if UNITY_EDITOR
+    [UnityTest]
+    public IEnumerator AuthoredAttackAnimationEmitsProjectilesOnTheSameTicksAcrossFrameRates()
+    {
+        int[] expectedBirthTicks = null;
+        foreach (int rate in new[] { 30, 60, 120 })
+        {
+            fixture = SceneManager.CreateScene("Fixed-attacks-" + Guid.NewGuid().ToString("N"));
+            SceneManager.SetActiveScene(fixture);
+            Time.captureDeltaTime = 1f / rate;
+            var player = new GameObject("Clock observer").AddComponent<Player>();
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefab/AlienC.prefab");
+            var alien = UnityEngine.Object.Instantiate(prefab).GetComponent<AlienC>();
+            alien.transform.position = Vector2.one * 100;
+            Assert.That(alien.GetComponent<Animator>().updateMode, Is.EqualTo(AnimatorUpdateMode.Fixed));
+            var birthTicks = new System.Collections.Generic.List<int>();
+            bool observed = false;
+            player.TickCommands = new TickCommands { Observe = tick =>
+            {
+                var projectiles = UnityEngine.Object.FindObjectsByType<SawProjectile>(FindObjectsSortMode.None);
+                while (birthTicks.Count < projectiles.Length) birthTicks.Add(tick);
+                foreach (var projectile in projectiles)
+                    Assert.That(projectile.GetComponent<Rigidbody2D>().linearVelocity.magnitude, Is.EqualTo(10).Within(.001f));
+                if (tick == 400) observed = true;
+            } };
+            for (int frame = 0; !observed && frame < 1500; frame++) yield return null;
+            Assert.That(observed, Is.True);
+            Assert.That(birthTicks.Count, Is.GreaterThanOrEqualTo(2), "The actual authored animation event must emit projectiles.");
+            if (expectedBirthTicks == null) expectedBirthTicks = birthTicks.ToArray();
+            else Assert.That(birthTicks, Is.EqualTo(expectedBirthTicks), "Projectile birth ticks at " + rate + " FPS.");
+            SceneManager.SetActiveScene(previous);
+            yield return SceneManager.UnloadSceneAsync(fixture);
+        }
+    }
+#endif
 }
