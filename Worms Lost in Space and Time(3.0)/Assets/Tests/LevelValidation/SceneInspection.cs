@@ -23,8 +23,13 @@ namespace Worms.LevelValidation
             var catalog = Resources.Load<LevelCatalog>("Configuration/LevelCatalog");
             var levels = catalog.Levels.Where(item => selection == "all" || item.Id == selection || item.SceneName == selection).ToList();
             bool customScene = selection != null && selection.StartsWith("Assets/", StringComparison.Ordinal) && File.Exists(selection) && selection.EndsWith(".unity", StringComparison.Ordinal);
-            if (customScene) levels = new List<Core.LevelDefinition> { new Core.LevelDefinition {
-                Id = Path.GetFileNameWithoutExtension(selection), SceneName = Path.GetFileNameWithoutExtension(selection), WorldId = "world-1" } };
+            if (customScene)
+            {
+                var published = catalog.Levels.FirstOrDefault(item => EditorBuildSettings.scenes.Any(entry => entry.path == selection
+                    && Path.GetFileNameWithoutExtension(entry.path) == item.SceneName));
+                levels = new List<Core.LevelDefinition> { published ?? new Core.LevelDefinition {
+                    Id = Path.GetFileNameWithoutExtension(selection), SceneName = Path.GetFileNameWithoutExtension(selection), WorldId = "world-1" } };
+            }
             if (levels.Count == 0) throw new ArgumentException("No catalog level matches " + selection);
             var setup = EditorSceneManager.GetSceneManagerSetup();
             var results = new List<LevelManifest>();

@@ -37,15 +37,16 @@ namespace Worms.LevelValidation
             var request = ReadRequest() ?? throw new ArgumentException("Missing " + RequestArgument);
             Directory.CreateDirectory(request.OutputDirectory);
             var bundle = new ManifestBundle();
-            if (request.Level == "certified" && !string.IsNullOrEmpty(request.ReplayDirectory))
+            string recordedDirectory = !string.IsNullOrEmpty(request.ReplayDirectory) ? request.ReplayDirectory : request.ProposalDirectory;
+            if (request.Level == "certified" && !string.IsNullOrEmpty(recordedDirectory))
             {
-                foreach (string path in Directory.GetFiles(request.ReplayDirectory, "*.replay.json").OrderBy(item => item, StringComparer.Ordinal))
+                foreach (string path in Directory.GetFiles(recordedDirectory, "*.replay.json").OrderBy(item => item, StringComparer.Ordinal))
                 {
                     var replay = JsonUtility.FromJson<InputReplay>(File.ReadAllText(path));
                     if (replay == null || !replay.IsWellFormed()) throw new ArgumentException("Malformed replay: " + path);
                     bundle.Levels.AddRange(SceneInspection.Inspect(replay.ScenePath));
                 }
-                if (bundle.Levels.Count == 0) throw new ArgumentException("No replay certificates in " + request.ReplayDirectory);
+                if (bundle.Levels.Count == 0) throw new ArgumentException("No replay certificates in " + recordedDirectory);
                 if (bundle.Levels.Select(item => item.LevelId).Distinct().Count() != bundle.Levels.Count) throw new ArgumentException("Duplicate level certificates.");
             }
             else bundle.Levels = SceneInspection.Inspect(request.Level);

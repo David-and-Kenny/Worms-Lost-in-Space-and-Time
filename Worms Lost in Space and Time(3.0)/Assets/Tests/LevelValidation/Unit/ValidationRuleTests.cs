@@ -141,6 +141,14 @@ namespace Worms.LevelValidation
             Assert.That(replay.IsWellFormed(), Is.False);
         }
         [Test]
+        public void PublishedScenePathAndCatalogIdResolveToTheSameIdentity()
+        {
+            var byId = SceneInspection.Inspect("level-01")[0];
+            var byPath = SceneInspection.Inspect(byId.ScenePath)[0];
+            Assert.That(byPath.LevelId, Is.EqualTo(byId.LevelId));
+            Assert.That(byPath.Fingerprint, Is.EqualTo(byId.Fingerprint));
+        }
+        [Test]
         public void SearchEnumeratesCoarseThenEveryFrameWithoutMergingDifferentPrefixes()
         {
             var options = Request(); options.TrialSeconds = 1;
