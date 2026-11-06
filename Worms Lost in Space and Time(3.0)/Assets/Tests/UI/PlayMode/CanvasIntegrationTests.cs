@@ -214,10 +214,12 @@ public sealed class CanvasIntegrationTests
         wheel.holder.SetParent(wheel.transform);
         player.AttachToWheel(wheel, Vector2.right);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(player.playerAttached, Is.True, "The menu's held finger must not launch the player.");
         player.detatch();
         state.PointerHeld = state.TouchHeld = false;
         yield return null;
+        yield return new WaitForFixedUpdate();
         var nextWheel = new GameObject("Next fixture wheel").AddComponent<Wheel>();
         nextWheel.speed = 0;
         nextWheel.holder = new GameObject("Next fixture holder").transform;
@@ -225,6 +227,7 @@ public sealed class CanvasIntegrationTests
         state.PointerHeld = state.TouchHeld = true;
         player.AttachToWheel(nextWheel, Vector2.right);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(player.playerAttached, Is.False, "The next gameplay touch must launch after an airborne release.");
         Assert.That(Vector2.Distance(body.linearVelocity, (Vector2)player.transform.up * 10), Is.LessThan(0.001f));
     }

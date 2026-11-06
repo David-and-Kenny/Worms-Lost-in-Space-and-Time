@@ -84,15 +84,18 @@ public class GameplayAdapterTests
         var wheel = NewWheel();
         input.Held = true;
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(Vector2.Distance(player.GetComponent<Rigidbody2D>().linearVelocity, Vector2.down * 3f), Is.LessThan(.001f));
         input.Held = false;
         Assert.IsTrue(player.AttachToWheel(wheel, Vector2.right));
         yield return null;
-        Assert.That(Vector3.Distance(player.transform.position, wheel.holder.position), Is.LessThan(.001f));
-        Assert.That(Quaternion.Angle(player.transform.rotation, Quaternion.Euler(0, 0, -90)), Is.LessThan(.001f));
+        yield return new WaitForFixedUpdate();
+        Assert.That(Vector2.Distance(player.GetComponent<Rigidbody2D>().position, wheel.holder.position), Is.LessThan(.001f));
+        Assert.That(Mathf.Abs(Mathf.DeltaAngle(player.GetComponent<Rigidbody2D>().rotation, -90)), Is.LessThan(.001f));
         Assert.AreEqual(-1f, player.transform.localScale.x);
         input.Held = true;
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.IsFalse(player.playerAttached);
         Assert.That(Vector2.Distance(player.GetComponent<Rigidbody2D>().linearVelocity, player.transform.up * 10f), Is.LessThan(.001f));
         Assert.IsFalse(player.AttachToWheel(wheel, Vector2.up));
@@ -110,18 +113,23 @@ public class GameplayAdapterTests
         conveyor.speed = 7.5f;
         conveyor.transform.rotation = Quaternion.Euler(0, 0, 35f);
         yield return null;
+        yield return new WaitForFixedUpdate();
         player.AttachToConveyor(conveyor);
         Assert.That(Vector2.Distance(player.GetComponent<Rigidbody2D>().linearVelocity, conveyor.transform.right * 7.5f), Is.LessThan(.001f));
         var wheel = NewWheel();
         player.AttachToWheel(wheel, Vector2.up);
         yield return null;
+        yield return new WaitForFixedUpdate();
         UnityEngine.Object.Destroy(wheel.holder.gameObject);
         yield return null;
+        yield return new WaitForFixedUpdate();
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.IsFalse(player.playerAttached);
         var velocity = player.GetComponent<Rigidbody2D>().linearVelocity;
         Assert.That(Vector2.Distance(velocity, player.transform.up * 5f), Is.LessThan(.001f));
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(Vector2.Distance(velocity, player.GetComponent<Rigidbody2D>().linearVelocity), Is.LessThan(.001f));
     }
 
@@ -133,6 +141,8 @@ public class GameplayAdapterTests
         var countdown = wheel.gameObject.AddComponent<CountdownExplode>();
         countdown.timer = 10f;
         yield return null;
+        yield return new WaitForFixedUpdate();
+        yield return null;
         player.AttachToWheel(wheel, Vector2.right);
         Assert.AreSame(player, countdown.Occupant);
         Assert.IsTrue(countdown.countdown);
@@ -143,6 +153,8 @@ public class GameplayAdapterTests
         player.AttachToWheel(other, Vector2.up);
         countdown.timer = -1f;
         yield return null;
+        yield return new WaitForFixedUpdate();
+        yield return null;
         Assert.IsTrue(player.playerAttached, "An abandoned wheel must not detach a player from another surface.");
         Assert.IsFalse(wheel);
         var activeCountdown = other.gameObject.AddComponent<CountdownExplode>();
@@ -152,6 +164,8 @@ public class GameplayAdapterTests
         player.detatch();
         player.AttachToWheel(other, Vector2.up);
         activeCountdown.timer = -1f;
+        yield return null;
+        yield return new WaitForFixedUpdate();
         yield return null;
         Assert.IsFalse(player.playerAttached);
         Assert.IsFalse(other);
@@ -193,6 +207,7 @@ public class GameplayAdapterTests
         follow.transform.position = new Vector3(0f, 0f, -10f);
         follow.Configure(target, background, center, true, false);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(follow.transform.position.x, Is.GreaterThan(0f).And.LessThan(10f));
         Assert.That(follow.transform.position.y, Is.GreaterThan(0f).And.LessThan(5f));
         Assert.AreEqual(-10f, follow.transform.position.z);
@@ -201,6 +216,7 @@ public class GameplayAdapterTests
         Assert.AreEqual(13f, background.position.z);
         follow.background = null;
         yield return null;
+        yield return new WaitForFixedUpdate();
     }
 
     private static Explode AddExplosion(Player player)
@@ -228,8 +244,10 @@ public class GameplayAdapterTests
         int changed = 0;
         host.Changed += value => changed++;
         yield return null;
+        yield return new WaitForFixedUpdate();
         if (explosion) { explosion.OnExplode(); explosion.OnExplode(); }
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.AreEqual(SessionState.Dead, host.Session.State);
         Assert.AreEqual(1, changed);
         Assert.AreEqual(0, storage.Writes);
@@ -251,11 +269,17 @@ public class GameplayAdapterTests
         var player = NewPlayer();
         player.gameObject.AddComponent<CircleCollider2D>();
         AddExplosion(player);
+        if (!isTrigger)
+        {
+            player.AttachToWheel(NewWheel(), Vector2.zero);
+            Assert.That(player.GetComponent<Rigidbody2D>().bodyType, Is.EqualTo(RigidbodyType2D.Kinematic));
+        }
         var hazard = new GameObject("renamed lethal obstacle");
         hazard.tag = "Deadly";
         hazard.AddComponent<BoxCollider2D>().isTrigger = isTrigger;
         yield return new WaitForFixedUpdate();
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.AreEqual(SessionState.Dead, host.Session.State);
         Assert.IsFalse(player);
         Assert.AreEqual(0, storage.Writes);
@@ -298,6 +322,7 @@ public class GameplayAdapterTests
 
         yield return new WaitForFixedUpdate();
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.IsTrue(player.playerAttached);
         Assert.AreSame(wheel, player.wheel);
         Assert.IsFalse(bystander.playerAttached, "A Wheel component can rotate a hazard without making it attachable.");
@@ -314,18 +339,22 @@ public class GameplayAdapterTests
         var oxygen = new GameObject("paused oxygen").AddComponent<Oxygen>();
         typeof(Oxygen).GetField("player", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(oxygen, player);
         yield return null;
+        yield return new WaitForFixedUpdate();
         host.SendMessage("OnApplicationPause", true);
         float time = host.Session.ElapsedSeconds;
         float air = oxygen.air;
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.AreEqual(time, host.Session.ElapsedSeconds);
         Assert.AreEqual(air, oxygen.air);
         host.SendMessage("OnApplicationPause", false);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.Greater(host.Session.ElapsedSeconds, time);
         host.Session.TryDie();
         UnityEngine.Object.Destroy(host.gameObject);
         yield return null;
+        yield return new WaitForFixedUpdate();
         host = LevelSessionHost.GetOrCreate();
         Assert.AreEqual(SessionState.Playing, host.Session.State);
         Assert.AreEqual(0f, host.Session.ElapsedSeconds);
@@ -362,10 +391,12 @@ public class GameplayAdapterTests
         var collider = player.gameObject.AddComponent<CircleCollider2D>();
         AddExplosion(player);
         yield return null;
+        yield return new WaitForFixedUpdate();
         alien.Attack();
         alien.SendMessage("OnTriggerStay2D", collider);
         alien.SendMessage("OnTriggerStay2D", collider);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.AreEqual(SessionState.Dead, host.Session.State);
         Assert.IsFalse(player);
         Assert.AreEqual(0, storage.Writes);
@@ -387,10 +418,14 @@ public class GameplayAdapterTests
         player.AddComponent<Rigidbody2D>().gravityScale = 0f;
         player.AddComponent<CircleCollider2D>().radius = .1f;
         player.AddComponent<BoxCollider2D>().size = Vector2.one * .1f;
+        var attachedPlayer = player.AddComponent<Player>();
+        attachedPlayer.AttachToWheel(NewWheel(), Vector2.zero);
+        Assert.That(player.GetComponent<Rigidbody2D>().bodyType, Is.EqualTo(RigidbodyType2D.Kinematic));
         int changes = 0;
         host.Changed += value => changes++;
         yield return new WaitForFixedUpdate();
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.IsFalse(player);
         Assert.AreEqual(SessionState.Completed, host.Session.State);
         Assert.AreEqual(1, changes);

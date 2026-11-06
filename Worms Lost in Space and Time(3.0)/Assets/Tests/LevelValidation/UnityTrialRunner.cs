@@ -86,15 +86,14 @@ namespace Worms.LevelValidation
     {
         private readonly LevelManifest manifest;
         private readonly Dictionary<GameObject, string> identities = new Dictionary<GameObject, string>();
-        private readonly int startFrame;
+        private readonly GameSimulation simulation;
         private readonly Player player;
         private readonly Rigidbody2D body;
         private readonly Oxygen oxygen;
         private readonly LevelSessionHost host;
         private int checkpointOrdinal;
         public TrialResult Result { get; } = new TrialResult();
-        public ValidationPhysicsClock Clock { get; set; }
-        public int Frame => Clock ? Clock.Frame : Time.frameCount - startFrame;
+        public int Frame => simulation.Tick;
         public int AttachmentFrame { get; private set; } = -1;
         public int AttachmentOrdinal { get; private set; }
         public string SurfaceId { get; private set; }
@@ -108,7 +107,7 @@ namespace Worms.LevelValidation
             body = player.GetComponent<Rigidbody2D>();
             oxygen = UnityEngine.Object.FindFirstObjectByType<Oxygen>();
             host = LevelSessionHost.GetOrCreate();
-            startFrame = Time.frameCount;
+            simulation = player.Simulation;
             var roots = player.gameObject.scene.GetRootGameObjects();
             foreach (var identity in manifest.Objects)
             {
@@ -122,7 +121,9 @@ namespace Worms.LevelValidation
             }
             player.TraversalChanged += OnTraversal;
             if (host) host.Changed += OnTerminal;
+            simulation.Stepped += OnStepped;
         }
+        private void OnStepped(int tick) { if (!TerminalCaptured) Capture(true); }
         private void OnTerminal(LevelSession session)
         {
             if (session.State == SessionState.Playing) return;
@@ -150,12 +151,12 @@ namespace Worms.LevelValidation
         public TraversalSample Sample(string kind, string surface = null)
         {
             return new TraversalSample { Frame = Frame, Kind = kind, SurfaceId = surface ?? SurfaceId,
-                AttachmentOrdinal = AttachmentOrdinal, Time = Time.timeSinceLevelLoad,
-                X = player ? player.transform.position.x : Result.X, Y = player ? player.transform.position.y : Result.Y,
-                Angle = player ? player.transform.eulerAngles.z : 0, VelocityX = body ? body.linearVelocity.x : 0,
+                AttachmentOrdinal = AttachmentOrdinal, Time = simulation.ElapsedSeconds,
+                X = body ? body.position.x : Result.X, Y = body ? body.position.y : Result.Y,
+                Angle = body ? body.rotation : 0, VelocityX = body ? body.linearVelocity.x : 0,
                 VelocityY = body ? body.linearVelocity.y : 0, Oxygen = oxygen ? oxygen.air : -1 };
         }
-        public void Capture(bool postUpdate = true)
+        public void Capture(bool simulationStep)
         {
             var sample = Sample("Position");
             Result.LastFrame = sample.Frame; Result.Elapsed = sample.Time;
@@ -163,54 +164,53 @@ namespace Worms.LevelValidation
             Result.Angle = sample.Angle;
             Result.SafeWaitSeconds = oxygen && oxygen.airBurnRate > 0 ? Math.Max(0, oxygen.air / oxygen.airBurnRate) : -1;
             Result.SurfaceId = SurfaceId; Result.AttachmentOrdinal = AttachmentOrdinal; Result.AttachmentFrame = AttachmentFrame;
-            if (postUpdate && Attached && checkpointOrdinal != AttachmentOrdinal && Frame >= AttachmentFrame + 2)
+            if (simulationStep && Attached && checkpointOrdinal != AttachmentOrdinal && Frame >= AttachmentFrame + 2)
             {
                 Result.Events.Add(Sample("AttachmentCheckpoint"));
                 checkpointOrdinal = AttachmentOrdinal;
             }
-            if (Frame % 3 == 0) Result.Trace.Add(sample);
+            if (simulationStep && Frame % 3 == 0) Result.Trace.Add(sample);
         }
         public void Dispose()
         {
             if (player) player.TraversalChanged -= OnTraversal;
             if (host) host.Changed -= OnTerminal;
+            if (simulation) simulation.Stepped -= OnStepped;
         }
     }
 
-    /// <summary>One input sample per frame, through the exact boundary used by human input.</summary>
-    public sealed class ReplayInput : IPlayerInput
+    /// <summary>Supplies observed jump commands on fixed simulation ticks, before player movement.</summary>
+    public sealed class ReplayInput : IPlayerTickCommands
     {
         private readonly TrialObservation observation;
         private readonly TrialPlan plan;
-        private readonly int rate;
         private int next;
         private int sampledFrame = -1;
         private bool held;
         public string Divergence { get; private set; }
-        public ReplayInput(TrialObservation observation, TrialPlan plan, int rate)
-        { this.observation = observation; this.plan = plan; this.rate = rate; }
-        public bool JumpHeld
+        public ReplayInput(TrialObservation observation, TrialPlan plan)
+        { this.observation = observation; this.plan = plan; }
+        public List<JumpCommand> Delivered { get; } = new List<JumpCommand>();
+        public bool JumpRequested(int frame)
         {
-            get
-            {
-                int frame = observation.Frame;
-                if (frame == sampledFrame) return held;
-                sampledFrame = frame;
-                held = false;
-                if (next >= plan.Jumps.Count || Divergence != null) return false;
-                var jump = plan.Jumps[next];
-                int target = plan.RelativeTiming
-                    ? observation.AttachmentFrame + (int)Math.Round(jump.DelaySeconds * rate)
-                    : jump.Frame;
-                if (plan.RelativeTiming && observation.AttachmentOrdinal < jump.AttachmentOrdinal) return false;
-                if (frame < target) return false;
-                if (frame > target || !observation.Attached || observation.SurfaceId != jump.SurfaceId
-                    || observation.AttachmentOrdinal != jump.AttachmentOrdinal)
-                { Divergence = "Jump " + next + " did not reach its expected attachment/time."; return false; }
-                held = true;
-                next++;
-                return true;
-            }
+            if (frame == sampledFrame) return held;
+            sampledFrame = frame;
+            held = false;
+            if (next >= plan.Jumps.Count || Divergence != null) return false;
+            var jump = plan.Jumps[next];
+            int target = plan.RelativeTiming
+                ? observation.AttachmentFrame + Math.Max(1, (int)Math.Round(jump.DelaySeconds * GameSimulation.TicksPerSecond))
+                : jump.Frame;
+            if (plan.RelativeTiming && observation.AttachmentOrdinal < jump.AttachmentOrdinal) return false;
+            if (frame < target) return false;
+            if (frame > target || !observation.Attached || observation.SurfaceId != jump.SurfaceId
+                || observation.AttachmentOrdinal != jump.AttachmentOrdinal)
+            { Divergence = "Jump " + next + " did not reach its expected attachment/time."; return false; }
+            held = true;
+            Delivered.Add(new JumpCommand { Frame = frame, SurfaceId = jump.SurfaceId, AttachmentOrdinal = jump.AttachmentOrdinal,
+                DelaySeconds = (frame - observation.AttachmentFrame) * GameSimulation.StepSeconds });
+            next++;
+            return true;
         }
         public bool AllDelivered => next == plan.Jumps.Count;
     }
@@ -220,9 +220,8 @@ namespace Worms.LevelValidation
         private readonly LevelValidationRequest request;
         private readonly Func<bool> cancelled;
         private readonly Func<LevelManifest, IEnumerator> load;
-        private readonly bool controlledPhysics;
-        public UnityTrialRunner(LevelValidationRequest request, Func<bool> cancelled = null, Func<LevelManifest, IEnumerator> load = null, bool controlledPhysics = true)
-        { this.request = request; this.cancelled = cancelled ?? (() => false); this.load = load ?? LoadScene; this.controlledPhysics = controlledPhysics; }
+        public UnityTrialRunner(LevelValidationRequest request, Func<bool> cancelled = null, Func<LevelManifest, IEnumerator> load = null)
+        { this.request = request; this.cancelled = cancelled ?? (() => false); this.load = load ?? LoadScene; }
         private static IEnumerator LoadScene(LevelManifest manifest)
         {
 #if UNITY_EDITOR
@@ -239,7 +238,7 @@ namespace Worms.LevelValidation
             ReplayInput input = null;
             string loadError = null;
             Time.captureDeltaTime = 1f / framesPerSecond;
-            Physics2D.simulationMode = controlledPhysics ? SimulationMode2D.Script : SimulationMode2D.FixedUpdate;
+            Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
             // Empty warmup removes the previous world's timers and normalizes the render/physics cadence.
             var progress = new DisposableProgress();
             GameServices.ConfigureForTests(new TrialCatalog(manifest), progress);
@@ -254,15 +253,8 @@ namespace Worms.LevelValidation
                     var players = UnityEngine.Object.FindObjectsByType<Player>(FindObjectsSortMode.None);
                     if (players.Length != 1) throw new InvalidOperationException("Expected exactly one active Player.");
                     observation = new TrialObservation(manifest, players[0]);
-                    input = new ReplayInput(observation, plan, framesPerSecond);
-                    players[0].InputSource = input;
-                    if (controlledPhysics)
-                    {
-                        observation.Clock = new GameObject("Validation physics clock").AddComponent<ValidationPhysicsClock>();
-                        observation.Clock.FramesPerSecond = framesPerSecond;
-                        foreach (var hazard in UnityEngine.Object.FindObjectsByType<MovingSpikes>(FindObjectsSortMode.None))
-                            hazard.ElapsedTimeSource = () => observation.Frame / (float)framesPerSecond;
-                    }
+                    input = new ReplayInput(observation, plan);
+                    players[0].TickCommands = input;
                     if (request.Visual) players[0].gameObject.AddComponent<TraversalPreview>();
                 }
                 catch (Exception error) { loadError = error.ToString(); }
@@ -282,7 +274,7 @@ namespace Worms.LevelValidation
                 var host = LevelSessionHost.GetOrCreate();
                 while (true)
                 {
-                    if (!observation.TerminalCaptured) observation.Capture();
+                    if (!observation.TerminalCaptured) observation.Capture(false);
                     var result = observation.Result;
                     if (runtimeError != null)
                     { result.Outcome = TrialOutcome.ExecutionError; result.Reason = runtimeError; break; }
@@ -294,17 +286,18 @@ namespace Worms.LevelValidation
                     { result.Outcome = TrialOutcome.Diverged; result.Reason = input.Divergence; break; }
                     if (cancelled())
                     { result.Outcome = TrialOutcome.Cancelled; result.Reason = "Wall-clock budget exhausted or cancelled."; break; }
-                    if (result.LastFrame >= request.TrialSeconds * framesPerSecond)
+                    if (result.LastFrame >= request.TrialSeconds * GameSimulation.TicksPerSecond)
                     { result.Outcome = TrialOutcome.TimedOut; result.Reason = "Trial simulation limit reached."; break; }
                     if (plan.StopAtFrontier && input.AllDelivered && observation.Attached
                         && observation.AttachmentFrame > plan.ObserveAfterFrame
-                        && observation.Frame >= observation.AttachmentFrame)
+                        && observation.Frame >= observation.AttachmentFrame + plan.MinimumAttachmentTicks)
                     { result.Outcome = TrialOutcome.Frontier; result.Reason = "Reached an attachment through gameplay."; break; }
                     if (!observation.Player)
                     { result.Outcome = TrialOutcome.Diverged; result.Reason = "Player disappeared without a session terminal state."; break; }
                     yield return null;
                 }
                 observation.Result.SaveWrites = progress.Writes;
+                observation.Result.DeliveredJumps = input.Delivered;
                 completed(observation.Result);
             }
             finally

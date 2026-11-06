@@ -55,8 +55,7 @@ namespace Worms.LevelValidation
                         }
                         LevelValidator validator = null;
                         var runner = new UnityTrialRunner(request, () => validator.BudgetExpired);
-                        var automatic = new UnityTrialRunner(request, () => validator.BudgetExpired, controlledPhysics: false);
-                        validator = new LevelValidator(runner, request, automatic);
+                        validator = new LevelValidator(runner, request);
                         LevelValidationReport report = null;
                         Exception failure = null;
                         yield return Guard(validator.Evaluate(manifest, saved, value => report = value), error => failure = error);

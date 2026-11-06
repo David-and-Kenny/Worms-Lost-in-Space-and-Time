@@ -92,6 +92,30 @@ namespace Worms.LevelValidation
             Assert.That(runner.Calls, Is.Zero);
         }
         [Test]
+        public void LegacyRenderFrameCertificateRequiresFreshCertification()
+        {
+            var request = Request(); request.Operation = "replay";
+            var replay = new InputReplay { Version = 1, LevelId = "fixture", ScenePath = "Assets/fixture.unity",
+                Fingerprint = "abc", UnityVersion = Application.unityVersion };
+            replay.Expected.Add(new TraversalSample { Kind = "Completed" });
+            var runner = new FakeRunner(); LevelValidationReport report = null;
+            Drain(new LevelValidator(runner, request).Evaluate(Manifest(), replay, value => report = value));
+            Assert.That(replay.IsWellFormed(), Is.True, "Legacy inputs remain readable as proposals.");
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.Stale));
+            Assert.That(runner.Calls, Is.Zero);
+        }
+        [Test]
+        public void CollisionAttachmentCanFirstLaunchOnTheFollowingTick()
+        {
+            var search = new RouteSearch(Request(), Manifest());
+            search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier,
+                LastFrame = 2, AttachmentFrame = 2, AttachmentOrdinal = 1, SurfaceId = "wheel" });
+            Assert.That(search.Next().Jumps, Is.Empty);
+            var firstJump = search.Next().Jumps.Single();
+            Assert.That(firstJump.Frame, Is.EqualTo(3));
+            Assert.That(firstJump.DelaySeconds, Is.EqualTo(.02f).Within(.000001f));
+        }
+        [Test]
         public void NonrepeatableCalibrationWithholdsVerdict()
         {
             LevelValidationReport report = null;
@@ -178,7 +202,7 @@ namespace Worms.LevelValidation
             var frames = new List<int>(); TrialPlan next;
             while ((next = search.Next()) != null) if (next.Jumps.Count > 0) frames.Add(next.Jumps[0].Frame);
             Assert.That(frames.Take(3), Is.EqualTo(new[] { 2, 5, 8 }));
-            Assert.That(frames.OrderBy(value => value), Is.EqualTo(Enumerable.Range(2, 59)));
+            Assert.That(frames.OrderBy(value => value), Is.EqualTo(Enumerable.Range(2, 49)));
         }
         [Test]
         public void ReplayComparisonDetectsTimingVelocityAndOxygenDrift()
@@ -205,7 +229,7 @@ namespace Worms.LevelValidation
             Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
         }
         [Test]
-        public void SearchDoesNotApplyProposalFramesFromADifferentRate()
+        public void FixedTickProposalCanBeReusedAcrossRenderingRates()
         {
             var request = Request(); request.FramesPerSecond = 30;
             var saved = new InputReplay { LevelId = "fixture", ScenePath = "Assets/fixture.unity", Fingerprint = "old", UnityVersion = Application.unityVersion, FramesPerSecond = 60 };
@@ -213,7 +237,7 @@ namespace Worms.LevelValidation
             saved.Jumps.Add(new JumpCommand { Frame = 7, SurfaceId = "wheel", AttachmentOrdinal = 1, DelaySeconds = .1f });
             var runner = new FakeRunner(); LevelValidationReport report = null;
             Drain(new LevelValidator(runner, request).Evaluate(Manifest(), saved, value => report = value));
-            Assert.That(runner.CommandCounts.Take(10).All(count => count == 0), Is.True);
+            Assert.That(runner.CommandCounts.Take(10).All(count => count == 1), Is.True);
             Assert.That(report.Replay.FramesPerSecond, Is.EqualTo(30));
         }
         [Test]
@@ -227,8 +251,8 @@ namespace Worms.LevelValidation
             Assert.That(search.Next().Jumps, Is.Empty, "Passive continuation remains an option.");
             var frames = new List<int>(); TrialPlan plan;
             while ((plan = search.Next()) != null) frames.Add(plan.Jumps[0].Frame);
-            Assert.That(frames.Take(2), Does.Contain(60));
-            Assert.That(frames.OrderBy(frame => frame), Is.EqualTo(Enumerable.Range(0, 121)));
+            Assert.That(frames.Take(5), Does.Contain(50));
+            Assert.That(frames.OrderBy(frame => frame), Is.EqualTo(Enumerable.Range(1, 100)));
         }
         [TestCase(0)] [TestCase(-1)] [TestCase(1000)]
         public void InvalidTimingProfilesAreRejected(int rate)

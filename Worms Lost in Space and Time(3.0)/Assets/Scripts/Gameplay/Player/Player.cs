@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     public Transform back;
     private PlayerMotor motor;
     private readonly PlayerAttachment attachment = new PlayerAttachment();
+    private readonly JumpInputBuffer jumpInput = new JumpInputBuffer();
+    private GameSimulation simulation;
+    public IPlayerTickCommands TickCommands { get; set; }
+    public GameSimulation Simulation => simulation;
     public IPlayerInput InputSource { get; set; }
     public PlayerAttachment Attachment => attachment;
     public event System.Action<Player, PlayerTraversalKind, Component> TraversalChanged;
@@ -21,15 +25,32 @@ public class Player : MonoBehaviour
         motor = new PlayerMotor(GetComponent<Rigidbody2D>());
         InputSource = new PlayerInput();
     }
-    private void Start() { motor.StartFalling(); }
+    private void OnEnable()
+    {
+        simulation = GameSimulation.For(this);
+        simulation.Register(this);
+    }
+    private void OnDisable()
+    {
+        if (simulation) simulation.Unregister(this);
+        jumpInput.Clear();
+    }
+    private void Start() { if (!playerAttached) motor.StartFalling(); }
     private void Update()
     {
         // Sample even while falling so a released menu touch is observed before the next attachment.
         bool jumpHeld = InputSource != null && InputSource.JumpHeld;
+        var host = Worms.LevelSessionHost.Current;
+        if (Time.timeScale == 0 || (host && host.IsPaused)) jumpInput.Clear();
+        else jumpInput.Sample(jumpHeld);
+    }
+    public void Advance(int tick)
+    {
+        bool jump = TickCommands != null ? TickCommands.JumpRequested(tick) : jumpInput.Consume(playerAttached);
         if (!playerAttached) return;
         if (!attachment.HasSurface) { detatch(); return; }
-        attachment.Follow(transform);
-        if (jumpHeld) Detach(false);
+        attachment.Follow(motor);
+        if (jump) Detach(false);
     }
     private void OnCollisionEnter2D(Collision2D target)
     {
@@ -52,17 +73,20 @@ public class Player : MonoBehaviour
         holdSlot = surface.holder;
         transform.localScale = new Vector3(surface.direction == -1f ? -1f : 1f, 1f, 1f);
         playerAttached = true;
+        motor.AttachToWheel();
+        motor.FollowWheel(holdSlot);
         TraversalChanged?.Invoke(this, PlayerTraversalKind.Attached, surface);
         return true;
     }
     public void AttachToConveyor(Conveyor surface)
     {
         if (!surface) return;
+        motor.RestoreFlight();
         attachment.Attach(surface);
         holdSlot = null;
         wheelTransform = null;
         wheel = null;
-        transform.rotation = surface.transform.rotation;
+        motor.FaceConveyor(surface.transform);
         motor.RideConveyor(surface.transform, surface.speed);
         playerAttached = true;
         TraversalChanged?.Invoke(this, PlayerTraversalKind.Attached, surface);
@@ -82,9 +106,11 @@ public class Player : MonoBehaviour
         attachment.Leave();
         playerAttached = false;
         holdSlot = null;
-        motor.Launch(transform, forced);
+        motor.Launch(forced);
         TraversalChanged?.Invoke(this, forced ? PlayerTraversalKind.ForcedDetach : PlayerTraversalKind.Launched, source);
     }
     public void detatch() { Detach(true); }
+    private void OnApplicationPause(bool paused) { if (paused) jumpInput.Clear(); }
+    private void OnApplicationFocus(bool focused) { if (!focused) jumpInput.Clear(); }
     private void OnDestroy() { attachment.Leave(); }
 }

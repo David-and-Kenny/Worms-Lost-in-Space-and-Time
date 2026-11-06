@@ -89,7 +89,7 @@ namespace Worms.LevelValidation
     [Serializable]
     public sealed class InputReplay
     {
-        public int Version = 1;
+        public int Version = 2;
         public string LevelId;
         public string ScenePath;
         public string Fingerprint;
@@ -100,7 +100,7 @@ namespace Worms.LevelValidation
         public List<TraversalSample> Expected = new List<TraversalSample>();
         public bool IsWellFormed()
         {
-            if (Version != 1 || string.IsNullOrEmpty(LevelId) || string.IsNullOrEmpty(Fingerprint)
+            if ((Version != 1 && Version != 2) || string.IsNullOrEmpty(LevelId) || string.IsNullOrEmpty(Fingerprint)
                 || string.IsNullOrEmpty(UnityVersion) || string.IsNullOrEmpty(ScenePath) || !ScenePath.StartsWith("Assets/", StringComparison.Ordinal)
                 || !ScenePath.EndsWith(".unity", StringComparison.Ordinal) || ScenePath.Contains("..")
                 || FramesPerSecond < 10 || FramesPerSecond > 240 || Seed < 0 || Jumps == null || Jumps.Count > 64
@@ -121,6 +121,7 @@ namespace Worms.LevelValidation
     [Serializable]
     public sealed class TrialResult
     {
+        public List<JumpCommand> DeliveredJumps = new List<JumpCommand>();
         public TrialOutcome Outcome;
         public string Reason;
         public int SaveWrites;

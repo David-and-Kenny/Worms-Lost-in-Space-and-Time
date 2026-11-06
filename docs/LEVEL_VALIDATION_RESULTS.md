@@ -1,5 +1,10 @@
 # Level validation evidence — November 6, 2026
 
+Historical evidence for the initial utility before the fixed-tick gameplay change.
+Current revalidation and version 2 certificates are documented in
+[FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md). Counts/profiles below describe
+their recorded source revisions, not a new run of the current game.
+
 The utility executes locally without an AI service. Five existing levels have
 maintained certificates at the 60 Hz reference profile: **1, 3, 4, 8 and 10**.
 They are reviewed files in [`ValidationRoutes/`](../ValidationRoutes).

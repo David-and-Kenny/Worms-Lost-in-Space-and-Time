@@ -86,3 +86,21 @@ a catalog search: the command entry point only dispatches a search/replay when a
 request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
 those requests. Search outcomes and saved-route regressions supplement the existing
 24-scene smoke test; they do not duplicate it or replace device/feel acceptance.
+
+## Fixed-tick movement acceptance
+
+`JumpInputBufferTests` covers brief observed taps, held input, airborne expiry and
+pause/reset clearing without duplicating the pointer-gate rule matrix.
+`FrameRateConsistencyTests` runs the actual coordinator with ordinary Unity physics
+at 30/60/120 rendered FPS and an uneven render schedule. It compares the launch
+tick/velocity, subsequent flight position, moving-hazard pose, oxygen consumption
+and forced-detach tick, and checks the rendered-input-to-physics buffer adapter.
+`ValidationIntegrationTests` additionally replays a real collision/finish route at
+30/60/120 FPS and compares tick-aligned traversal evidence with one completion save.
+
+Existing gameplay adapter tests wait for the responsible fixed step; body-pose
+assertions use Rigidbody2D rather than the deliberately interpolated Transform.
+This preserves the force, held-input, pointer, same-wheel suppression, countdown,
+death, save and camera expectations while allowing the intentional scheduling
+change. Physical tap latency, perceived feel and suspend/resume remain device
+acceptance cases in `PLAYTEST_SCRIPT.md`. See `FIXED_TICK_GAMEPLAY.md` for results.

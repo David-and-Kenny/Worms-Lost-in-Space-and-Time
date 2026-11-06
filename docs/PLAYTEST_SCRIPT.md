@@ -88,3 +88,26 @@ application upgrades must preserve JSON progress.
 **E2E-10:** launch the actual Windows and Android builds, inspect logs/logcat,
 and repeat the main route/death/progression checks. iOS requires macOS/Xcode,
 signing and an actual device; record BLOCKED when unavailable.
+## Fixed-tick movement acceptance
+
+For the timing follow-up, record editor/build revision, device, native display
+refresh and actual rendered FPS separately. Use currently certified levels from
+`ValidationRoutes/` for natural play; replay automation does not replace touch
+acceptance. The numerical force/speed baseline remains 3/10/5.
+
+1. Try deliberate short taps and held jumps on rotating wheels and conveyors.
+   Check prompt response, one launch per observed tap, correct launch direction,
+   same-wheel suppression and held-jump behavior on the next platform.
+2. Compare movement at 30/60/120 FPS where the device supports those rendering
+   rates. Record perceived response and smoothness; lower-rate input sampling can
+   still add latency. Do not infer FPS from the phone's display specification.
+3. While attached, cross static hazards and finish triggers. Check death/completion
+   once, correct save/UI, and no drift or physics push away from the attachment.
+4. Check breakable-wheel forced launches, oxygen, moving spikes and animated
+   projectile attacks, including after a jump away from a countdown wheel.
+5. Pause/background/resume while a finger is down, release it, and retry. Check
+   clocks pause, no stale buffered jump fires, and menu/control touches still do
+   not launch the player.
+6. Compare camera tracking and attached/airborne player smoothness against the
+   pre-change build. Record any feel regression for tuning rather than silently
+   changing forces or level geometry.

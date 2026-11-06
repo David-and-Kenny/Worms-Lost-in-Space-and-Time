@@ -46,7 +46,7 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
-| BL-022 | P1 | Proposed | Gameplay | Make precision jumps consistent across render rates | Measured fixed-simulation/input/attachment design; physical-device verification |
+| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Fixed-tick code/tests implemented; level revalidation and physical-device acceptance |
 
 ## Acceptance criteria
 
@@ -210,6 +210,10 @@ fixed simulation owner, buffered input and attached-body collision behavior, the
 choose a measured mobile rendering policy. Preserve force/contact baselines and
 recertify routes after the change; measure actual FPS and display refresh separately
 on devices. This gameplay refactor is separate from the level-validation utility.
+The implementation and measured evidence are in
+[FIXED_TICK_GAMEPLAY.md](docs/FIXED_TICK_GAMEPLAY.md). Physical input still has
+render-sampling latency; the fix makes simulation outcomes consistent for observed
+tick commands without claiming that every phone feels identical.
 
 ## Completed foundation
 
