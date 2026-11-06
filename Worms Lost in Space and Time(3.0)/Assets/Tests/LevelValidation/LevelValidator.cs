@@ -53,7 +53,8 @@ namespace Worms.LevelValidation
                     yield break;
                 }
                 var calibrationPlan = new TrialPlan();
-                if (saved != null && saved.IsWellFormed() && saved.LevelId == manifest.LevelId)
+                if (saved != null && saved.IsWellFormed() && saved.LevelId == manifest.LevelId
+                    && (request.Operation == "replay" || saved.FramesPerSecond == request.FramesPerSecond))
                 {
                     calibrationPlan.Jumps = saved.Jumps;
                     if (request.Operation != "replay") report.Diagnostics.Add("Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required.");
@@ -92,48 +93,66 @@ namespace Worms.LevelValidation
 
                 TrialResult solution = baseline.Outcome == TrialOutcome.Completed ? baseline : null;
                 var solutionPlan = RouteSearch.Copy(calibrationPlan);
-                if (solution == null)
+                RouteSearch search = null;
+                var rejected = new HashSet<string>();
+                while (!BudgetExpired)
                 {
-                    var search = new RouteSearch(request, manifest);
-                    var initial = new TrialPlan { StopAtFrontier = true };
-                    TrialResult first = null;
-                    yield return Trial(manifest, initial, request.FramesPerSecond, value => first = value);
-                    if (first.Outcome == TrialOutcome.Completed) solution = first;
-                    else search.Add(initial, first);
-                    while (solution == null && !BudgetExpired)
+                    if (solution == null)
                     {
-                        var candidate = search.Next();
-                        if (candidate == null) break;
-                        TrialResult result = null;
-                        yield return Trial(manifest, candidate, request.FramesPerSecond, value => result = value);
-                        if (result.Outcome == TrialOutcome.Completed) { solution = result; solutionPlan = candidate; }
-                        else search.Add(candidate, result);
+                        if (search == null)
+                        {
+                            search = new RouteSearch(request, manifest);
+                            var initial = new TrialPlan { StopAtFrontier = true };
+                            TrialResult first = null;
+                            yield return Trial(manifest, initial, request.FramesPerSecond, value => first = value);
+                            if (first.Outcome == TrialOutcome.Completed && !rejected.Contains(""))
+                            { solution = first; solutionPlan = new TrialPlan(); }
+                            else search.Add(initial, first);
+                        }
+                        while (solution == null && !BudgetExpired)
+                        {
+                            var candidate = search.Next();
+                            if (candidate == null) break;
+                            TrialResult result = null;
+                            yield return Trial(manifest, candidate, request.FramesPerSecond, value => result = value);
+                            if (result.Outcome == TrialOutcome.Completed) { solution = result; solutionPlan = candidate; }
+                            else search.Add(candidate, result);
+                        }
                     }
-                }
-                if (solution == null) { Inconclusive("No route found within the configured search frontier/budget. This is not proof of impossibility."); yield break; }
-                solutionPlan.StopAtFrontier = false;
-                solutionPlan.ObserveAfterFrame = -1;
-                for (int repeat = 0; repeat < 3; repeat++)
-                {
-                    if (BudgetExpired) { Inconclusive("Found a candidate but budget expired before certification."); yield break; }
-                    TrialResult next = null;
-                    yield return Trial(manifest, solutionPlan, request.FramesPerSecond, value => next = value);
-                    if (next.Outcome != TrialOutcome.Completed || !ReplayComparison.Equivalent(solution, next, out string difference))
+                    if (solution == null) break;
+                    string key = string.Join(",", solutionPlan.Jumps.Select(jump => jump.Frame));
+                    if (rejected.Contains(key)) { solution = null; continue; }
+                    solutionPlan.StopAtFrontier = false;
+                    solutionPlan.ObserveAfterFrame = -1;
+                    for (int repeat = 0; repeat < 3; repeat++)
                     {
-                        report.Outcome = ValidationOutcome.RunnerUnstable;
-                        report.Reason = "Candidate did not survive fresh certification: " + next.Reason;
-                        report.Diagnostics.Add(JsonUtility.ToJson(solution));
-                        report.Diagnostics.Add(JsonUtility.ToJson(next));
-                        yield break;
+                        if (BudgetExpired) { Inconclusive("Found a candidate but budget expired before certification."); yield break; }
+                        TrialResult next = null;
+                        yield return Trial(manifest, solutionPlan, request.FramesPerSecond, value => next = value);
+                        if (next.Outcome != TrialOutcome.Completed || !ReplayComparison.Equivalent(solution, next, out _))
+                        {
+                            report.Outcome = ValidationOutcome.RunnerUnstable;
+                            report.Reason = "Candidate did not survive fresh certification: " + next.Reason;
+                            report.Diagnostics.Add(JsonUtility.ToJson(solution)); report.Diagnostics.Add(JsonUtility.ToJson(next));
+                            yield break;
+                        }
                     }
+                    report.Replay = new InputReplay { LevelId = manifest.LevelId, ScenePath = manifest.ScenePath, Fingerprint = manifest.Fingerprint,
+                        UnityVersion = Application.unityVersion, FramesPerSecond = request.FramesPerSecond, Seed = request.Seed,
+                        Jumps = solutionPlan.Jumps, Expected = solution.Events };
+                    if (!report.Replay.IsWellFormed()) throw new InvalidOperationException("Candidate produced malformed or nonfinite replay evidence.");
+                    Verified(solution);
+                    yield return VerifyAutomatic(manifest, solutionPlan);
+                    if (report.Outcome == ValidationOutcome.VerifiedReachable)
+                    { yield return Analyze(manifest, solutionPlan); yield break; }
+                    report.Diagnostics.Add("Rejected candidate: " + report.Reason);
+                    rejected.Add(key);
+                    solution = null;
+                    report.Replay = null;
+                    report.CompletionSeconds = 0;
+                    report.Trajectory.Clear();
                 }
-                report.Replay = new InputReplay { LevelId = manifest.LevelId, ScenePath = manifest.ScenePath, Fingerprint = manifest.Fingerprint,
-                    UnityVersion = Application.unityVersion, FramesPerSecond = request.FramesPerSecond, Seed = request.Seed,
-                    Jumps = solutionPlan.Jumps, Expected = solution.Events };
-                Verified(solution);
-                yield return VerifyAutomatic(manifest, solutionPlan);
-                if (report.Outcome != ValidationOutcome.VerifiedReachable) yield break;
-                yield return Analyze(manifest, solutionPlan);
+                Inconclusive("No route found within the configured search frontier/budget. This is not proof of impossibility.");
             }
             finally
             {

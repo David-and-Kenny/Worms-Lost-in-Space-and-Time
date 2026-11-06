@@ -138,8 +138,12 @@ namespace Worms.LevelValidation
                     var left = expected.Events[index]; var right = actual.Events[index];
                     float angle = Math.Abs(left.Angle - right.Angle) % 360f;
                     angle = Math.Min(angle, 360f - angle);
-                    if (left.Frame != right.Frame || left.Kind != right.Kind || left.SurfaceId != right.SurfaceId || left.AttachmentOrdinal != right.AttachmentOrdinal
-                        || Math.Abs(left.X - right.X) > .001f || Math.Abs(left.Y - right.Y) > .001f
+                    if (left.Frame != right.Frame || left.Kind != right.Kind || left.SurfaceId != right.SurfaceId || left.AttachmentOrdinal != right.AttachmentOrdinal)
+                    { reason = "Traversal transition changed at event " + index + "."; break; }
+                    // Collision callbacks expose a transient solver pose, retained for diagnostics.
+                    // Stable attachment poses are checked separately after following has run.
+                    if (left.Kind == "Attached") continue;
+                    if (Math.Abs(left.X - right.X) > .001f || Math.Abs(left.Y - right.Y) > .001f
                         || Math.Abs(left.VelocityX - right.VelocityX) > .001f || Math.Abs(left.VelocityY - right.VelocityY) > .001f
                         || Math.Abs(left.Oxygen - right.Oxygen) > .01f || angle > .1f)
                     { reason = "Traversal diverged at event " + index + "."; break; }

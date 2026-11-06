@@ -15,12 +15,15 @@ namespace Worms.LevelValidation
             public int Completions;
             public bool Sealed;
             public bool Unstable;
+            public int[] WinningFrames = { 7 };
+            public List<int> CommandCounts = new List<int>();
             public IEnumerator Run(LevelManifest manifest, TrialPlan plan, int rate, Action<TrialResult> receive)
             {
                 Calls++;
+                CommandCounts.Add(plan.Jumps.Count);
                 var result = new TrialResult { Outcome = TrialOutcome.Dead, LastFrame = 30 };
                 if (Unstable && Calls % 2 == 0) result.Outcome = TrialOutcome.TimedOut;
-                else if (!Sealed && plan.Jumps.Count == 1 && plan.Jumps[0].Frame == 7)
+                else if (!Sealed && plan.Jumps.Count == 1 && WinningFrames.Contains(plan.Jumps[0].Frame))
                 { result.Outcome = TrialOutcome.Completed; result.SaveWrites = 1; result.Events.Add(new TraversalSample { Frame = 30, Kind = "Completed" }); Completions++; }
                 else if (plan.StopAtFrontier && plan.Jumps.Count == 0 && plan.ObserveAfterFrame < 0)
                 { result.Outcome = TrialOutcome.Frontier; result.LastFrame = 2; result.SurfaceId = "wheel"; result.AttachmentOrdinal = 1; result.AttachmentFrame = 0; }
@@ -99,7 +102,7 @@ namespace Worms.LevelValidation
         {
             LevelValidationReport report = null;
             Drain(new LevelValidator(new FakeRunner(), Request(), new FakeRunner { Sealed = true }).Evaluate(Manifest(), null, value => report = value));
-            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.ReplayFailed));
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.Inconclusive));
             Assert.That(report.Replay, Is.Null);
         }
         [Test]
@@ -110,6 +113,17 @@ namespace Worms.LevelValidation
             Drain(new LevelValidator(runner, request).Evaluate(Manifest(), null, value => report = value));
             Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.Inconclusive));
             Assert.That(runner.Calls, Is.EqualTo(12));
+        }
+        [Test]
+        public void SearchContinuesAfterAnAutomaticPhysicsCandidateFails()
+        {
+            LevelValidationReport report = null;
+            var controlled = new FakeRunner { WinningFrames = new[] { 5, 8 } };
+            var automatic = new FakeRunner { WinningFrames = new[] { 8 } };
+            Drain(new LevelValidator(controlled, Request(), automatic).Evaluate(Manifest(), null, value => report = value));
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable));
+            Assert.That(report.Replay.Jumps[0].Frame, Is.EqualTo(8));
+            Assert.That(report.Diagnostics.Exists(item => item.StartsWith("Rejected candidate:")), Is.True);
         }
         [Test]
         public void MalformedCertificatesCannotEnterReplay()
@@ -149,6 +163,29 @@ namespace Worms.LevelValidation
             Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
             second.Events[0].Oxygen = 0; second.Events[0].Frame = 1;
             Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+        }
+        [Test]
+        public void ContactDiagnosticsAreSeparateFromAuthoritativeAttachmentCheckpoints()
+        {
+            var first = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Attached", Frame = 1 }, new TraversalSample { Kind = "AttachmentCheckpoint", Frame = 3 } } };
+            var second = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Attached", Frame = 1, X = .003f }, new TraversalSample { Kind = "AttachmentCheckpoint", Frame = 3 } } };
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.True);
+            second.Events[1].X = .003f;
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+        }
+        [Test]
+        public void SearchDoesNotApplyProposalFramesFromADifferentRate()
+        {
+            var request = Request(); request.FramesPerSecond = 30;
+            var saved = new InputReplay { LevelId = "fixture", ScenePath = "Assets/fixture.unity", Fingerprint = "old", UnityVersion = Application.unityVersion, FramesPerSecond = 60 };
+            saved.Expected.Add(new TraversalSample { Kind = "Completed" });
+            saved.Jumps.Add(new JumpCommand { Frame = 7, SurfaceId = "wheel", AttachmentOrdinal = 1, DelaySeconds = .1f });
+            var runner = new FakeRunner(); LevelValidationReport report = null;
+            Drain(new LevelValidator(runner, request).Evaluate(Manifest(), saved, value => report = value));
+            Assert.That(runner.CommandCounts.Take(10).All(count => count == 0), Is.True);
+            Assert.That(report.Replay.FramesPerSecond, Is.EqualTo(30));
         }
         [Test]
         public void AimHintsPrioritizePromisingAnglesWithoutRemovingOtherFrames()

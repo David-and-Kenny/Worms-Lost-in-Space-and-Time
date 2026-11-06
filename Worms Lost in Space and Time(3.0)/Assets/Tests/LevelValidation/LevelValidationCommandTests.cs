@@ -23,6 +23,7 @@ namespace Worms.LevelValidation
             var batch = new ValidationBatchReport();
             var bundle = JsonUtility.FromJson<ManifestBundle>(File.ReadAllText(Path.Combine(request.OutputDirectory, "manifest.json")));
             batch.RequestedLevels = bundle.Levels.Count;
+            int requestedSeed = request.Seed, requestedRate = request.FramesPerSecond;
             if (!string.IsNullOrEmpty(request.ReplayDirectory)) request.Operation = "replay";
             using (new ValidationEnvironment(request.Visual))
             {
@@ -41,13 +42,16 @@ namespace Worms.LevelValidation
                     {
                         Debug.Log("Level validation starting: " + manifest.LevelId);
                         engineError = null;
+                        request.Seed = requestedSeed;
+                        request.FramesPerSecond = requestedRate;
                         InputReplay saved = null;
                         if (request.Operation == "replay" || !string.IsNullOrEmpty(request.ReplayFile) || !string.IsNullOrEmpty(request.ProposalDirectory))
                         {
                             string directory = request.Operation == "replay" ? request.ReplayDirectory : request.ProposalDirectory;
                             string path = string.IsNullOrEmpty(directory) ? request.ReplayFile : ValidationCommands.ReplayPath(directory, manifest.LevelId);
                             if (!string.IsNullOrEmpty(path) && File.Exists(path)) saved = JsonUtility.FromJson<InputReplay>(File.ReadAllText(path));
-                            if (saved != null && saved.IsWellFormed()) { request.Seed = saved.Seed; request.FramesPerSecond = saved.FramesPerSecond; }
+                            if (request.Operation == "replay" && saved != null && saved.IsWellFormed())
+                            { request.Seed = saved.Seed; request.FramesPerSecond = saved.FramesPerSecond; }
                         }
                         LevelValidator validator = null;
                         var runner = new UnityTrialRunner(request, () => validator.BudgetExpired);

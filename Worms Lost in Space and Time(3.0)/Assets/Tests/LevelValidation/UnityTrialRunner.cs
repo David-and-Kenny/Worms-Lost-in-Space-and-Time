@@ -91,6 +91,7 @@ namespace Worms.LevelValidation
         private readonly Rigidbody2D body;
         private readonly Oxygen oxygen;
         private readonly LevelSessionHost host;
+        private int checkpointOrdinal;
         public TrialResult Result { get; } = new TrialResult();
         public ValidationPhysicsClock Clock { get; set; }
         public int Frame => Clock ? Clock.Frame : Time.frameCount - startFrame;
@@ -125,7 +126,7 @@ namespace Worms.LevelValidation
         private void OnTerminal(LevelSession session)
         {
             if (session.State == SessionState.Playing) return;
-            Capture();
+            Capture(false);
             Result.Elapsed = session.ElapsedSeconds;
             Result.Outcome = session.State == SessionState.Completed ? TrialOutcome.Completed : TrialOutcome.Dead;
             Result.Reason = session.State.ToString();
@@ -134,6 +135,7 @@ namespace Worms.LevelValidation
         }
         private void OnTraversal(Player source, PlayerTraversalKind kind, Component surface)
         {
+            if (TerminalCaptured) return;
             string id = null;
             if (surface && !identities.TryGetValue(surface.gameObject, out id))
                 throw new InvalidOperationException("Encountered an uninspected traversal surface: " + surface.name);
@@ -153,7 +155,7 @@ namespace Worms.LevelValidation
                 Angle = player ? player.transform.eulerAngles.z : 0, VelocityX = body ? body.linearVelocity.x : 0,
                 VelocityY = body ? body.linearVelocity.y : 0, Oxygen = oxygen ? oxygen.air : -1 };
         }
-        public void Capture()
+        public void Capture(bool postUpdate = true)
         {
             var sample = Sample("Position");
             Result.LastFrame = sample.Frame; Result.Elapsed = sample.Time;
@@ -161,6 +163,11 @@ namespace Worms.LevelValidation
             Result.Angle = sample.Angle;
             Result.SafeWaitSeconds = oxygen && oxygen.airBurnRate > 0 ? Math.Max(0, oxygen.air / oxygen.airBurnRate) : -1;
             Result.SurfaceId = SurfaceId; Result.AttachmentOrdinal = AttachmentOrdinal; Result.AttachmentFrame = AttachmentFrame;
+            if (postUpdate && Attached && checkpointOrdinal != AttachmentOrdinal && Frame >= AttachmentFrame + 2)
+            {
+                Result.Events.Add(Sample("AttachmentCheckpoint"));
+                checkpointOrdinal = AttachmentOrdinal;
+            }
             if (Frame % 3 == 0) Result.Trace.Add(sample);
         }
         public void Dispose()
