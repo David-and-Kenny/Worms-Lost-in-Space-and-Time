@@ -12,6 +12,17 @@ and the Windows player runs. See
 [migration notes](docs/MIGRATION.md) for verification details and remaining mobile
 and gameplay validation. Use the exact version in `ProjectSettings/ProjectVersion.txt`.
 
+The architecture refactor separates progression/session rules from Unity adapters,
+uses versioned JSON saves and an editable level catalog, and replaces fixed-size
+rotated menus with Canvas prefabs. Read [architecture](docs/ARCHITECTURE.md),
+[test commands and coverage](docs/TESTING.md), and the
+[built-player/device script](docs/PLAYTEST_SCRIPT.md) before extending the game.
+The catalog audit identifies an existing content gap: **Level 20 has no authored
+finish trigger**. Its startup test passes, but natural completion is blocked until
+that level is finished by a designer.
+See [refactor validation](docs/REFACTOR_VALIDATION.md) for baseline/after results
+and the remaining manual acceptance checks.
+
 ## Get started
 
 1. Install [Git](https://git-scm.com/downloads), [Git LFS](https://git-lfs.com/),
@@ -39,9 +50,9 @@ and gameplay validation. Use the exact version in `ProjectSettings/ProjectVersio
 7. Open `Assets/Scenes/World1/Splash.unity` for the entry flow, or
    `Assets/Scenes/World1/Level1.unity` for a direct gameplay check. Press Play.
    **Space** jumps away from an attached wheel; touch does the same on mobile.
-   Click/tap advances splash/story screens. The original UI draws rotated controls;
-   check both portrait and landscape Game view sizes. A **720 × 1280** portrait
-   view gives the legacy fixed-size menus enough space; narrow windows can clip them.
+   Click/tap advances splash/story screens. Canvas controls support portrait and
+   landscape layouts; check both Game view sizes and safe areas. Start with a
+   **720 × 1280** portrait view for mobile development.
 
 Close Unity before switching branches or running batch checks against the same
 project. Never reopen migrated assets with an older editor.
@@ -55,6 +66,7 @@ node scripts/validate-repository.mjs
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 ./scripts/setup-git.ps1 -UnityEditor $editor
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check Scenes
+./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check PlayMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check BuildWindows
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check BuildAndroid
@@ -63,9 +75,10 @@ $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 The repository check requires no Unity license. It verifies `.meta` pairing,
 unique GUIDs, merge markers, build-scene paths, text serialization, and exclusion
 of generated output. GitHub runs it on pull requests and pushes to `master`.
-The Unity scene check loads every enabled build scene and prefab and checks for
-missing scripts. Play Mode checks start every enabled scene for one second and
-fail on unexpected errors; results are saved under `TestResults/`.
+The Unity scene check loads every enabled build scene and prefab and checks script,
+UnityEvent and animation callback bindings. EditMode tests exercise rules, storage
+and authored data. PlayMode tests exercise physics, session/UI wiring and all-scene
+startup; XML results are saved under `TestResults/`.
 The Windows command builds `Worms Lost in Space and Time(3.0)/Builds/Windows/Worms.exe`.
 The Android command selects IL2CPP/ARM64 and builds a development APK at
 `Worms Lost in Space and Time(3.0)/Builds/Android/Worms.apk` using debug signing.
@@ -76,8 +89,19 @@ Launch the desktop player at a useful portrait size:
 ```
 
 Logs go to the ignored root `Logs` folder. These checks do not replace playing
-the game or testing on a phone. Licensed Unity CI can be added after migration;
-the current GitHub check does not compile or build Unity.
+the game or testing on a phone. The required GitHub repository check does not
+compile or build Unity.
+
+`-Check All` runs the complete local validation sequence. The manual Unity CI
+workflow requires a trusted licensed self-hosted runner; see `docs/TESTING.md`.
+
+## Save compatibility
+
+Progress now uses `progress-v1.json` under Unity's persistent data directory.
+The old binary `playerInfo.dat` remains untouched and is **not imported**; existing
+players start fresh JSON progression and receive a notice. Future-version and
+unreadable saves are preserved, with recovery/status and retry handling. Tests use
+temporary or in-memory storage, never a developer's saved game.
 
 For macOS/Linux, use the equivalent editor executable and command-line options:
 

@@ -1,0 +1,6 @@
+{
+  "name": "Worms.Core.EditModeTests",
+  "references": ["Worms.Core", "Worms.Runtime"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

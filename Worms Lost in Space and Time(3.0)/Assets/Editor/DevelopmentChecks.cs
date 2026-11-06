@@ -20,28 +20,18 @@ public static class DevelopmentChecks
             {
                 var scene = EditorSceneManager.OpenScene(entry.path, OpenSceneMode.Single);
                 foreach (var root in scene.GetRootGameObjects())
-                foreach (var child in root.GetComponentsInChildren<Transform>(true))
                 {
-                    int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(child.gameObject);
-                    if (count == 0) continue;
-                    missing += count;
-                    Debug.LogError(entry.path + ": missing script on " + child.name);
+                    missing += SerializedBindingValidator.Validate(root, entry.path);
                 }
             }
             foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" }))
             {
                 string prefabPath = AssetDatabase.GUIDToAssetPath(guid);
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                foreach (var child in prefab.GetComponentsInChildren<Transform>(true))
-                {
-                    int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(child.gameObject);
-                    if (count == 0) continue;
-                    missing += count;
-                    Debug.LogError(prefabPath + ": missing script on " + child.name);
-                }
+                missing += SerializedBindingValidator.Validate(prefab, prefabPath);
             }
-            if (missing > 0) throw new Exception("Missing scripts in build scenes: " + missing);
-            Debug.Log("All enabled build scenes and prefabs loaded without missing scripts.");
+            if (missing > 0) throw new Exception("Invalid script or serialized callback bindings: " + missing);
+            Debug.Log("All enabled build scenes and prefabs loaded with valid script and callback bindings.");
         }
         finally
         {

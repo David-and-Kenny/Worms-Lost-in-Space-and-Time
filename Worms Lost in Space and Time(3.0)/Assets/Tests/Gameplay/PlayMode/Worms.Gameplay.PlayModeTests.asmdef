@@ -1,0 +1,5 @@
+{
+  "name": "Worms.Gameplay.PlayModeTests",
+  "references": ["Worms.Core", "Worms.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

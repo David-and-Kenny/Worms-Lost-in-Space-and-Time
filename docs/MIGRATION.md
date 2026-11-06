@@ -27,9 +27,9 @@ scene-facing MonoBehaviour keeps its original GUID as an inactive placeholder.
 No ads are requested during development. Modern SDK integration remains separate.
 
 Deprecated scene-loading calls were changed to `SceneManager`. Unity's API updater
-also converted 2D rigidbody velocity access for Unity 6. The existing save system
-still uses legacy BinaryFormatter data in `Application.persistentDataPath`;
-modernizing save storage and validating old-save compatibility is future work.
+also converted 2D rigidbody velocity access for Unity 6. At the upgrade checkpoint,
+the save system still used legacy BinaryFormatter data; the subsequent architecture
+refactor replaces it with JSON as described below.
 The broken `FinishZone` prefab script reference was restored to the existing
 `FinishZone.cs` (matching its `endPos` and `speed` fields). Runtime checks found
 missing collectible/lock objects in per-world menus and an unassigned optional
@@ -84,8 +84,27 @@ GitHub settings applied and verified:
 
 The repository check runs on PRs and `master` pushes with read-only permissions.
 Official Actions are pinned by commit and Dependabot checks them monthly.
-This is a structural check, not licensed Unity CI. A future Unity build workflow
-needs a suitable license/runner and should be introduced after migration succeeds.
+This is a structural check, not licensed Unity CI. The subsequent refactor adds a
+manual Unity workflow requiring a trusted licensed self-hosted runner; that runner
+has not been provisioned by this work.
+
+## Subsequent architecture refactor
+
+The follow-up separates ordinary C# progression/session models from Unity adapters,
+adds versioned recoverable JSON saves and a stable-ID level catalog, centralizes
+navigation, and migrates menus/HUD to editable Canvas prefabs. Original script GUIDs
+and serialized event entry points are retained during folder moves. The old
+`playerInfo.dat` is preserved without deserialization; players begin fresh JSON
+progression and receive a notice. This intentionally changes save compatibility.
+
+The catalog corrects inherited Level 11–19 identities and routes. Level 20 has no
+authored finish, so natural completion remains a content task. Existing zero star
+thresholds remain disabled challenges rather than invented timing targets.
+
+See [architecture](ARCHITECTURE.md), [test strategy](TESTING.md), and
+[refactor validation](REFACTOR_VALIDATION.md) for current behavior and evidence.
+The source-file totals above describe the upgrade checkpoint, before these new
+models, UI assets, tests and documentation were added.
 
 ## Remaining release work
 
@@ -94,8 +113,8 @@ needs a suitable license/runner and should be introduced after migration succeed
 - Test Android on a physical device, configure current Player settings/signing,
   and validate an ARM64 build. Test iOS separately on macOS/Xcode.
 - Replace the archived ad SDK with a maintained integration and consent flow.
-- Review legacy saves, the prototype's hard-coded level limits, and unfinished
-  menu/scene destinations before preparing a release.
+- Decide whether a separately reviewed legacy-save importer is needed, author
+  Level 20's exit, and play through all catalog routes before preparing a release.
 - Confirm licensing/ownership of imported art, fonts, and legacy SDK materials.
 
 No release build is uploaded or published by this setup task.

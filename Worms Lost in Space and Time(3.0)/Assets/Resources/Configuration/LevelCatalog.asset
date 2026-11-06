@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e3b26b4ef174642b9d306b79e58785, type: 3}
+  m_Name: LevelCatalog
+  m_EditorClassIdentifier: Worms.Runtime::Worms.Configuration.LevelCatalog
+  levels:
+  - Id: level-01
+    WorldId: world-1
+    SceneName: Level1
+    DisplayName: Level 1
+    LegacyIndex: 1
+    StarTimeSeconds: 10
+  - Id: level-02
+    WorldId: world-1
+    SceneName: Level2
+    DisplayName: Level 2
+    LegacyIndex: 2
+    StarTimeSeconds: 15
+  - Id: level-03
+    WorldId: world-1
+    SceneName: Level3
+    DisplayName: Level 3
+    LegacyIndex: 3
+    StarTimeSeconds: 0
+  - Id: level-04
+    WorldId: world-1
+    SceneName: Level4
+    DisplayName: Level 4
+    LegacyIndex: 4
+    StarTimeSeconds: 0
+  - Id: level-05
+    WorldId: world-1
+    SceneName: Level5
+    DisplayName: Level 5
+    LegacyIndex: 5
+    StarTimeSeconds: 0
+  - Id: level-06
+    WorldId: world-1
+    SceneName: Level6
+    DisplayName: Level 6
+    LegacyIndex: 6
+    StarTimeSeconds: 0
+  - Id: level-07
+    WorldId: world-1
+    SceneName: Level7
+    DisplayName: Level 7
+    LegacyIndex: 7
+    StarTimeSeconds: 0
+  - Id: level-08
+    WorldId: world-1
+    SceneName: Level8
+    DisplayName: Level 8
+    LegacyIndex: 8
+    StarTimeSeconds: 0
+  - Id: level-09
+    WorldId: world-1
+    SceneName: Level9
+    DisplayName: Level 9
+    LegacyIndex: 9
+    StarTimeSeconds: 0
+  - Id: level-10
+    WorldId: world-1
+    SceneName: Level10
+    DisplayName: Level 10
+    LegacyIndex: 10
+    StarTimeSeconds: 0
+  - Id: level-11
+    WorldId: world-2
+    SceneName: Level11
+    DisplayName: Level 11
+    LegacyIndex: 11
+    StarTimeSeconds: 0
+  - Id: level-12
+    WorldId: world-2
+    SceneName: Level12
+    DisplayName: Level 12
+    LegacyIndex: 12
+    StarTimeSeconds: 0
+  - Id: level-13
+    WorldId: world-2
+    SceneName: Level13
+    DisplayName: Level 13
+    LegacyIndex: 13
+    StarTimeSeconds: 0
+  - Id: level-14
+    WorldId: world-2
+    SceneName: Level14
+    DisplayName: Level 14
+    LegacyIndex: 14
+    StarTimeSeconds: 0
+  - Id: level-15
+    WorldId: world-2
+    SceneName: Level15
+    DisplayName: Level 15
+    LegacyIndex: 15
+    StarTimeSeconds: 0
+  - Id: level-16
+    WorldId: world-2
+    SceneName: Level16
+    DisplayName: Level 16
+    LegacyIndex: 16
+    StarTimeSeconds: 0
+  - Id: level-17
+    WorldId: world-2
+    SceneName: Level17
+    DisplayName: Level 17
+    LegacyIndex: 17
+    StarTimeSeconds: 0
+  - Id: level-18
+    WorldId: world-2
+    SceneName: Level18
+    DisplayName: Level 18
+    LegacyIndex: 18
+    StarTimeSeconds: 0
+  - Id: level-19
+    WorldId: world-2
+    SceneName: Level19
+    DisplayName: Level 19
+    LegacyIndex: 19
+    StarTimeSeconds: 0
+  - Id: level-20
+    WorldId: world-2
+    SceneName: Level20
+    DisplayName: Level 20
+    LegacyIndex: 20
+    StarTimeSeconds: 0

@@ -1,0 +1,21 @@
+name: Unity validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: unity-validation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  unity:
+    name: Unity scenes, tests and development builds
+    runs-on: [self-hosted, Windows, unity-6000.6.8f1]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          lfs: true
+          persist-credentials: false
+      - name: Validate with the pinned licensed editor
+        shell: pwsh
+        run: ./scripts/check-unity.ps1 -UnityEditor 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com' -Check All
