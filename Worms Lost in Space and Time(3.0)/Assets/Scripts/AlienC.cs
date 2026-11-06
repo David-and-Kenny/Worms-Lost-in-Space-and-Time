@@ -33,7 +33,7 @@ public class AlienC : MonoBehaviour {
 		if (projectile) {
 
 			Transform clone = Instantiate (projectile, transform.position, Quaternion.identity) as Transform;
-			clone.GetComponent<Rigidbody2D>().velocity= transform.up*-10;
+			clone.GetComponent<Rigidbody2D>().linearVelocity= transform.up*-10;
 			/*if(lighted){
 				lighted.transform.parent=projectile;
 			}*/

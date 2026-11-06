@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
@@ -37,11 +37,11 @@ public class CameraFollow : MonoBehaviour {
 					float yPos=Mathf.SmoothDamp(thisTransform.position.y, centerFloat.position.y, ref velocity.y, smoothTime);
 					float newPosition= Mathf.SmoothDamp(thisTransform.position.x, target.position.x, ref velocity.x, smoothTime);
 					thisTransform.position= new Vector3(newPosition, yPos, thisTransform.position.z);
-					background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+					if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 				}else{
 			float newPosition= Mathf.SmoothDamp(thisTransform.position.x, target.position.x, ref velocity.x, smoothTime);
 			thisTransform.position= new Vector3(newPosition, thisTransform.position.y, thisTransform.position.z);
-			background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+			if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 				}}
 			if(followingY){
 
@@ -49,11 +49,11 @@ public class CameraFollow : MonoBehaviour {
 					float xPos=Mathf.SmoothDamp(thisTransform.position.x, centerFloat.position.x, ref velocity.x, smoothTime);
 					float newPosition= Mathf.SmoothDamp(thisTransform.position.y, target.position.y, ref velocity.y, smoothTime);
 					thisTransform.position= new Vector3(xPos /*thisTransform.position.x*/, newPosition, thisTransform.position.z);
-					background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+					if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 				}else{
 				float newPosition= Mathf.SmoothDamp(thisTransform.position.y, target.position.y, ref velocity.y, smoothTime);
 				thisTransform.position= new Vector3(thisTransform.position.x, newPosition, thisTransform.position.z);
-				background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+				if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 				}}
 			/*if(followingX){
 				if(centerFloat){
@@ -61,7 +61,7 @@ public class CameraFollow : MonoBehaviour {
 				}
 			float newPosition= Mathf.SmoothDamp(thisTransform.position.x, target.position.x, ref velocity.x, smoothTime);
 			thisTransform.position= new Vector3(newPosition, thisTransform.position.y, thisTransform.position.z);
-			background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+			if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 			}
 			if(followingY){
 				if(centerFloat){
@@ -69,7 +69,7 @@ public class CameraFollow : MonoBehaviour {
 				}
 				float newPosition= Mathf.SmoothDamp(thisTransform.position.y, target.position.y, ref velocity.y, smoothTime);
 				thisTransform.position= new Vector3(thisTransform.position.x, newPosition, thisTransform.position.z);
-				background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
+				if (background != null) background.position= new Vector3(thisTransform.position.x, thisTransform.position.y, background.position.z);
 			}*/
 		}
 		

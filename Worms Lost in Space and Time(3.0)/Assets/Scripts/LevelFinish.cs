@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelFinish : MonoBehaviour {
@@ -36,13 +37,13 @@ public class LevelFinish : MonoBehaviour {
 	{
 		
 
-		Application.LoadLevel(nextLevel);
+		SceneManager.LoadScene(nextLevel);
 		
 		
 	}
 		if (GUI.Button(new Rect(10,guiHeight/2,guiWidth-adjustment,guiHeight/4-2.5f),"<size=45>Back</size>"))
 	{
-		Application.LoadLevel("World1");
+		SceneManager.LoadScene("World1");
 	}
 	
 	

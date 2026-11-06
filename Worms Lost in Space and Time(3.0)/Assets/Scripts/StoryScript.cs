@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class StoryScript : MonoBehaviour {
@@ -66,7 +67,7 @@ public class StoryScript : MonoBehaviour {
 	{
 		if (((Input.touchCount >= 1 || Input.GetMouseButtonDown (0))) && firstTouch && frameWait==0) {
 
-			Application.LoadLevel (nextLevel);
+			SceneManager.LoadScene (nextLevel);
 		}
 		if (((Input.touchCount >=1 ||Input.GetMouseButtonDown (0))) && !firstTouch){
 			typewriterText=wholeText;

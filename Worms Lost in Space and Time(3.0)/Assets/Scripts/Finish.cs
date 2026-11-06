@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Finish : MonoBehaviour {
@@ -7,7 +8,7 @@ public class Finish : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentLevel = Application.loadedLevelName;
+		currentLevel = SceneManager.GetActiveScene().name;
 	}
 	
 	// Update is called once per frame
@@ -21,7 +22,7 @@ public class Finish : MonoBehaviour {
 			LevelFinish script = go.AddComponent<LevelFinish> ();
 			script.nextLevel = nextLevel;
 
-			//Application.loadedLevelName;
+			//SceneManager.GetActiveScene().name;
 			//go.AddComponent<DisplayRestartText> ();
 		}
 
