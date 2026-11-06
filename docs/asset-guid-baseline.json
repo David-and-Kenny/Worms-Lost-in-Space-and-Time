@@ -1,0 +1,970 @@
+[
+  {
+    "path": "Animations\\alien A_16.controller.meta",
+    "guid": "b58eaaa894cd31243b9c08d3d2cd627c"
+  },
+  {
+    "path": "Animations\\alien-b-sprites_0.controller.meta",
+    "guid": "00af40008218b4fe0b1b2303127a9be2"
+  },
+  {
+    "path": "Animations\\alien-b-sprites_11.controller.meta",
+    "guid": "78661d13da83845f0bf2e4609af91663"
+  },
+  {
+    "path": "Animations\\alien-c-sprites_0.controller.meta",
+    "guid": "44084efe176e94be2bc302c474ffe1be"
+  },
+  {
+    "path": "Animations\\alienAattack.anim.meta",
+    "guid": "65a113a3caa3b084cb278e43ea2d5d1e"
+  },
+  {
+    "path": "Animations\\alienAidle.anim.meta",
+    "guid": "08cf67b67278fe54886902c9e15527ac"
+  },
+  {
+    "path": "Animations\\AlienBAttackAnimation.anim.meta",
+    "guid": "b7ca749bdf76c40eaab6b493d0714672"
+  },
+  {
+    "path": "Animations\\AlienBIdleAnimation.anim.meta",
+    "guid": "5538a49f99df74961b361c2b3279519d"
+  },
+  {
+    "path": "Animations\\AlienCAttackAnimation.anim.meta",
+    "guid": "45f78276582c943f5b42f7fb368894cb"
+  },
+  {
+    "path": "Animations\\AlienCIdleAnimation.anim.meta",
+    "guid": "9a9f6dd13ac8f48adbf528ba1996bad3"
+  },
+  {
+    "path": "Animations\\Background.controller.meta",
+    "guid": "78dce64e5fccebe4d8c12b7b7ce8173e"
+  },
+  {
+    "path": "Animations\\New Animator Controller.controller.meta",
+    "guid": "a57f01c35f2d7b64c8a940244b4ba9f1"
+  },
+  {
+    "path": "Animations\\smoke_1_40_128_corrected-300x300_0.controller.meta",
+    "guid": "af5262162055a504a8e19529716607dd"
+  },
+  {
+    "path": "Animations\\smoke_1_40_128_corrected-300x300_1.controller.meta",
+    "guid": "1b957a39ed4fc8e4b9abd6873199b4a3"
+  },
+  {
+    "path": "Animations\\smoke_1_40_128_corrected_0.controller.meta",
+    "guid": "173cbd6a34efa5344b49970be2d5a304"
+  },
+  {
+    "path": "Animations\\steam.anim.meta",
+    "guid": "242b9c93eef50ac4b8ac70bf1aca3bd6"
+  },
+  {
+    "path": "Animations.meta",
+    "guid": "358fa4a99c5685640be1bb7e62b09015"
+  },
+  {
+    "path": "Artwork\\background_green.png.meta",
+    "guid": "6adb696702958274288ca02380d1af15"
+  },
+  {
+    "path": "Artwork\\background_orange.png.meta",
+    "guid": "694ef29e779832c4dbae5c43c9eeeed1"
+  },
+  {
+    "path": "Artwork\\background_red.png.meta",
+    "guid": "3f2fad1dbc618b04ea3c3d0e82af6b35"
+  },
+  {
+    "path": "Artwork\\Begin.jpg.meta",
+    "guid": "eb706cf40f670994f8754b61beb063aa"
+  },
+  {
+    "path": "Artwork\\bg_red.jpg.meta",
+    "guid": "44a828be6b8bf1147aff6224f8212748"
+  },
+  {
+    "path": "Artwork\\external_1500.jpg.meta",
+    "guid": "4744ae4f7315aa24f8d3c77c665c0000"
+  },
+  {
+    "path": "Artwork\\gameLock.png.meta",
+    "guid": "7c33da93ce1fde74d800887ed87141a8"
+  },
+  {
+    "path": "Artwork\\LevelLocked.png.meta",
+    "guid": "085f3ec5cea509f4db839b27745dad8a"
+  },
+  {
+    "path": "Artwork\\level_background.jpg.meta",
+    "guid": "49d9fee143aad464ebaf198868b08777"
+  },
+  {
+    "path": "Artwork\\magicalconch.png.meta",
+    "guid": "3379472e33929b3459a7deeaa078793f"
+  },
+  {
+    "path": "Artwork\\o2.png.meta",
+    "guid": "7e4bde0f40059d24d8c6d7f96e40d70d"
+  },
+  {
+    "path": "Artwork\\o2tank.png.meta",
+    "guid": "b2599601c894ef14bba9959c373c30da"
+  },
+  {
+    "path": "Artwork\\pipes.png.meta",
+    "guid": "d9806a564e23c3c4392d1697e42b54d8"
+  },
+  {
+    "path": "Artwork\\shiny-space-art.jpg.meta",
+    "guid": "3d31119ffaafc154b8572907ac051bb0"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\3waypipe-medium.png.meta",
+    "guid": "df9442d4bff0ae748a04bc9713b5815c"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\3waypipe-small.png.meta",
+    "guid": "9deea55d89b98a44abec3340a0a04c25"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\alien A.png.meta",
+    "guid": "ad470eb648f6e6c409c3e1a2cf188c1e"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\alien-b-sprites.png.meta",
+    "guid": "14fb2f8813c374966b321afe320c2982"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\alien-c-sprites.png.meta",
+    "guid": "8a7bb4042316a4a9aa5f07611830f264"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\astronaut.png.meta",
+    "guid": "bbe301cb66538b8469f91aea7ecfd911"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\astronaut_player.png.meta",
+    "guid": "a362d72c7b3449a4fac0b8ef49ef5ee1"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\background.png.meta",
+    "guid": "3eee8bbbd86359043ace6a9a8422629f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\black-square.jpg.meta",
+    "guid": "e676e117b1d87b04d85e680b99fe2d5d"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\body-part-sprites.png.meta",
+    "guid": "55ae4294ae3af4b67b882d2520a005ed"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\bronze cog.png.meta",
+    "guid": "e2093f17450c9d841a9a5d4a0aa34df9"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\ceiling_spikes.png.meta",
+    "guid": "d861d2ecd83cd8949b2423d48070d98a"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\ceiling_spikes_medium.png.meta",
+    "guid": "7fe6c5752bb161642b387d19a15a23b2"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\ceiling_spikes_small.png.meta",
+    "guid": "4e199287fa7c1b34eb3015097c71268a"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\ceiling_spikes_sm_med.png.meta",
+    "guid": "6539dc3278fa29341b545ad567c5f559"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog1.png.meta",
+    "guid": "c3f4a7c412472bb4ca56f3fa8cf9b7ec"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog12.png.meta",
+    "guid": "62ed84fc55faa3c44a23a572aee5606f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog2.png.meta",
+    "guid": "06d7af386118d0644b6f6470f5117b0f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog3.png.meta",
+    "guid": "236bef4c56884e84a8d7e3eecd7e037e"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog4.png.meta",
+    "guid": "38eff826670dd6e4d969d2393e24d474"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog5.png.meta",
+    "guid": "a8c7c6f30db4ce449af5ee84a210075f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog6.png.meta",
+    "guid": "3454b10b81b2df54b8557ded84fba40b"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog7.png.meta",
+    "guid": "fa491290cd84f9042a879364821fe158"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog8.png.meta",
+    "guid": "39f330eb85c8d6142a364cbdc3cce04f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\cog8broken.png.meta",
+    "guid": "a34fce2be1e475641bcccac7b44a62ea"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\conveyor.png.meta",
+    "guid": "e8c447f4635ffd940bedf6f982d0d58f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\crystal-sprites.png.meta",
+    "guid": "27d12911359c14efbb8643746777c815"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\door-sprites.png.meta",
+    "guid": "6e7634e65fbf240fa86f3dd5843a286f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\exit-sign-sprites.png.meta",
+    "guid": "3f6bf6d3a270643e1bf747132186a4d4"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\gold cog.png.meta",
+    "guid": "8a0512234da76984888ef1e069527a3c"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\medium redo.prefab.meta",
+    "guid": "f5e66e97618ce544d8ace819bf65c5d1"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-large3.png.meta",
+    "guid": "417d6a2965602a7409f0c43899b3a26f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-med-2.png.meta",
+    "guid": "b69512bd8222b934eb58a64eb3fb551f"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-med.png.meta",
+    "guid": "5487c6f189a65414bb4226f0008fc9d0"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-medium3.png.meta",
+    "guid": "0c6af490f71fa5a4586534a52d13b38a"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-small-2.png.meta",
+    "guid": "c92b086680d6b6d41b02713e678d14b9"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-small.png.meta",
+    "guid": "a7476d08123484a40ab6cb94b408580b"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe-small3.png.meta",
+    "guid": "1bd86007b87049a4aa6b9fac164099c7"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe.png.meta",
+    "guid": "f466a8e5762da894390e4438d532aaa5"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe_med.png.meta",
+    "guid": "0e98808d5454e02499a5eb3c3065b649"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\pipe_small.png.meta",
+    "guid": "9883b8b1491b3314585929d2e75bf656"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\player-player.png.meta",
+    "guid": "0fcdeb751b827594ab83000a59d72c5a"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\player-sprites.png.meta",
+    "guid": "800fd299716884aff81051cb99299101"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\player.png.meta",
+    "guid": "e3ce8b7b7c740a44380e8102a47ddd68"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\silver cog.png.meta",
+    "guid": "e7a8ecfe90232b74c919f6422309aac6"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\smoke_1_40_128_corrected.png.meta",
+    "guid": "bffc36755b2653845b0636ff2cf6ddb5"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\spacewall2.png.meta",
+    "guid": "8616ee0c6b6bd534c8fe30bf0da7d308"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\spike-sprites.png.meta",
+    "guid": "6c504a41a46ff4588ba0d8cca8c73545"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\spikes.png.meta",
+    "guid": "e42ebae88b213a741a2dde2afeb32f87"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\spikes_alt.png.meta",
+    "guid": "0280077a941c7b945b56dae7b3383873"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\spikes_ambient.png.meta",
+    "guid": "bfe32fd479da5834d8e9630a2874c332"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\switch-sprites.png.meta",
+    "guid": "cb94d1ec1ea9444898135ab52a3a8a60"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\triple spikes.png.meta",
+    "guid": "8e5176c815852da4aaf06c7c3b21ad08"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\two_sided_spikes.png.meta",
+    "guid": "4ae3173f58e934a4ba8386bda9334b97"
+  },
+  {
+    "path": "Artwork\\sprite-sheets\\wood_saw_blade-512.png.meta",
+    "guid": "1bffab1b9b7097e4f9e23de679d97de8"
+  },
+  {
+    "path": "Artwork\\sprite-sheets.meta",
+    "guid": "892ef8faf81e4425f833e6c696729818"
+  },
+  {
+    "path": "Artwork\\tankPickup.png.meta",
+    "guid": "34835c9d4f1b89941b7ad7dab708de6a"
+  },
+  {
+    "path": "Artwork\\text.png.meta",
+    "guid": "0c43b2e40b2f92f4ca8ab138a589bf8a"
+  },
+  {
+    "path": "Artwork\\title page.png.meta",
+    "guid": "a7b9897b96568c64a867c42d9a4f6f92"
+  },
+  {
+    "path": "Artwork\\ui\\meter-air.png.meta",
+    "guid": "ee032f9290b694661a0cdada84b37506"
+  },
+  {
+    "path": "Artwork\\ui\\meter-background.png.meta",
+    "guid": "49c33f0c829d34e6f98040c16f900d4a"
+  },
+  {
+    "path": "Artwork\\ui\\press_anywhere_to_try_again.png.meta",
+    "guid": "43051b631306dfa40a2cb64a3445e558"
+  },
+  {
+    "path": "Artwork\\ui\\restart-text.png.meta",
+    "guid": "97cf224c4a36a4973b7a50ce303a82ae"
+  },
+  {
+    "path": "Artwork\\ui.meta",
+    "guid": "d9c1971dfeeb24f159207c1267e801f9"
+  },
+  {
+    "path": "Artwork.meta",
+    "guid": "4788cb775c25847719f5bf0179d69723"
+  },
+  {
+    "path": "Editor\\DevelopmentChecks.cs.meta",
+    "guid": "d1949e2c45214ea0a6e443c6d22be552"
+  },
+  {
+    "path": "Editor.meta",
+    "guid": "5d769eeb2b794eaeafa2b0e5fa2454e2"
+  },
+  {
+    "path": "Materials\\ForegroundMaterial.mat.meta",
+    "guid": "04abcd833f3379c449dffb4ffbd7059c"
+  },
+  {
+    "path": "Materials.meta",
+    "guid": "cbcd5327772a0c24a8e2d0340189c8c9"
+  },
+  {
+    "path": "Prefab\\3waypipe-medium.prefab.meta",
+    "guid": "04976b3bb7df1824e92031edb10740e0"
+  },
+  {
+    "path": "Prefab\\3waypipe-small.prefab.meta",
+    "guid": "b02e66d9ec8c9794492d9c2e4f3c41c4"
+  },
+  {
+    "path": "Prefab\\AlienB.prefab.meta",
+    "guid": "c4699b399ac8c4ba4b7d2311978807f3"
+  },
+  {
+    "path": "Prefab\\AlienC.prefab.meta",
+    "guid": "128851997f8754583ac25cf3ea4a9f31"
+  },
+  {
+    "path": "Prefab\\astronaut_arm.prefab.meta",
+    "guid": "bae963800d751e7499754427102e52d2"
+  },
+  {
+    "path": "Prefab\\astronaut_head.prefab.meta",
+    "guid": "33b24470917fe0a479735a42f939ebef"
+  },
+  {
+    "path": "Prefab\\astronaut_jetpack.prefab.meta",
+    "guid": "c5a852b801e281946a72ed372fda2799"
+  },
+  {
+    "path": "Prefab\\astronaut_legs.prefab.meta",
+    "guid": "c7938a4ac84287241b57a97d827c741e"
+  },
+  {
+    "path": "Prefab\\astronaut_torso.prefab.meta",
+    "guid": "0606714e97ca46a4a8e83f834fae89d4"
+  },
+  {
+    "path": "Prefab\\Background.prefab.meta",
+    "guid": "1012f3026799dcb4ba0fb43a5264307a"
+  },
+  {
+    "path": "Prefab\\bg_red.prefab.meta",
+    "guid": "9993a265e2e365745978a405f42ca70a"
+  },
+  {
+    "path": "Prefab\\CameraChange.prefab.meta",
+    "guid": "fc2704905d12fdc4daa52bfb1b19d434"
+  },
+  {
+    "path": "Prefab\\cog1.prefab.meta",
+    "guid": "2efd65b00cb763f44915858d29b13f1f"
+  },
+  {
+    "path": "Prefab\\cog2.prefab.meta",
+    "guid": "84b789059a94c994498c3dde9b991c51"
+  },
+  {
+    "path": "Prefab\\cog3.prefab.meta",
+    "guid": "1d747fd3bf1339f468bf5f96ca027e43"
+  },
+  {
+    "path": "Prefab\\cog4.prefab.meta",
+    "guid": "c2861d7129a349d4aa55dddf66e72a07"
+  },
+  {
+    "path": "Prefab\\cog5.prefab.meta",
+    "guid": "019b2a5cd44cca44e9c4858aae945161"
+  },
+  {
+    "path": "Prefab\\cog6.prefab.meta",
+    "guid": "860019e0c9184f044a9eb40418fa6757"
+  },
+  {
+    "path": "Prefab\\cog7.prefab.meta",
+    "guid": "2d81f9697e5ed5e40be4f71414bbde39"
+  },
+  {
+    "path": "Prefab\\cog8.prefab.meta",
+    "guid": "258705721ad01dd4dbe9f1b1c9960c6a"
+  },
+  {
+    "path": "Prefab\\cog8broken.prefab.meta",
+    "guid": "627d6f81e7ddbd04e99e238a21c04886"
+  },
+  {
+    "path": "Prefab\\conveyor.prefab.meta",
+    "guid": "b8ddbca4e03d1b648a76ddedfd6074c7"
+  },
+  {
+    "path": "Prefab\\destructable.prefab.meta",
+    "guid": "5826be95df73c804c97d6c583f66e900"
+  },
+  {
+    "path": "Prefab\\Finish.prefab.meta",
+    "guid": "6b83106ed029bec449ef658f9ff1a604"
+  },
+  {
+    "path": "Prefab\\FinishZone.prefab.meta",
+    "guid": "ceccc74fd535583408cb8950e19e9ecf"
+  },
+  {
+    "path": "Prefab\\Goo.prefab.meta",
+    "guid": "4c1b693cf3df8d04a8f24c94639b6f50"
+  },
+  {
+    "path": "Prefab\\GooLight.prefab.meta",
+    "guid": "18ae8ea41e39d4a4da4211a56097a40c"
+  },
+  {
+    "path": "Prefab\\LargeSpike.prefab.meta",
+    "guid": "e68ae4bc53469ec4dbc31e7d360a4f9c"
+  },
+  {
+    "path": "Prefab\\Main Camera.prefab.meta",
+    "guid": "e4cf31d41308cd442b4324c6e2688a01"
+  },
+  {
+    "path": "Prefab\\Medium.prefab.meta",
+    "guid": "a1c515f308ffb5546af9240ccd7df893"
+  },
+  {
+    "path": "Prefab\\Meter.prefab.meta",
+    "guid": "ca8c36c7813dd624dab5058950265d4c"
+  },
+  {
+    "path": "Prefab\\MovingMedium.prefab.meta",
+    "guid": "e2d72bf82bb2f5c4a945ebe1f29fa99e"
+  },
+  {
+    "path": "Prefab\\pipe-med-2.prefab.meta",
+    "guid": "cbc58d6d8d2fd5947bffa4fe4144c593"
+  },
+  {
+    "path": "Prefab\\pipe-med.prefab.meta",
+    "guid": "eb6e390e40c3bc44d981b4c32f29808b"
+  },
+  {
+    "path": "Prefab\\pipe-medium3.prefab.meta",
+    "guid": "334d81fb8756fe74ea03556336932f6e"
+  },
+  {
+    "path": "Prefab\\pipe-small-2.prefab.meta",
+    "guid": "b3e5deb0d8db1ca408271a9dee88f289"
+  },
+  {
+    "path": "Prefab\\pipe-small.prefab.meta",
+    "guid": "e8f7d43519f4baf4fb3ad7ecfabd4fbb"
+  },
+  {
+    "path": "Prefab\\pipe-small3.prefab.meta",
+    "guid": "0011299c80a87184baa7d9ee334e148e"
+  },
+  {
+    "path": "Prefab\\pipe_med.prefab.meta",
+    "guid": "6f3365abf8c34524eaaf72680ab8f2bc"
+  },
+  {
+    "path": "Prefab\\Player 1.prefab.meta",
+    "guid": "f135acf53c6cfe14f8ff6f41896e18f7"
+  },
+  {
+    "path": "Prefab\\PlayerLight.prefab.meta",
+    "guid": "52fe07807ce3ff940871789b0bc47fa3"
+  },
+  {
+    "path": "Prefab\\SawProjectile.prefab.meta",
+    "guid": "bd1ab3c4f8e9c054eb881a8dad489f9b"
+  },
+  {
+    "path": "Prefab\\SpinnySaw.prefab.meta",
+    "guid": "0e0b1ae9810675142a8990cb63d96b5f"
+  },
+  {
+    "path": "Prefab\\TestPlatform.prefab.meta",
+    "guid": "1204e62fce9de4312a04ae589919ff04"
+  },
+  {
+    "path": "Prefab\\Wheel.prefab.meta",
+    "guid": "f3aa5f20bab38ec4e973a821d61d83af"
+  },
+  {
+    "path": "Prefab.meta",
+    "guid": "72759c07f684f4269bdb4f706ba70c80"
+  },
+  {
+    "path": "Resources\\astronaut_arm.png.meta",
+    "guid": "1287405b8dd1594498b6f208d60d2e6e"
+  },
+  {
+    "path": "Resources\\astronaut_head.png.meta",
+    "guid": "32cbc7cbeb3230e48a73132b77770e7d"
+  },
+  {
+    "path": "Resources\\astronaut_jetpack.png.meta",
+    "guid": "e7dc9a2e3618f3c40ad71253760f1986"
+  },
+  {
+    "path": "Resources\\astronaut_legs.png.meta",
+    "guid": "dc9ecb97427bb9c4e8b01bf3d984849c"
+  },
+  {
+    "path": "Resources\\astronaut_torso.png.meta",
+    "guid": "1c5bb2ad647b54d478d3750c5e0f3f3b"
+  },
+  {
+    "path": "Resources\\press_anywhere_to_try_again.png.meta",
+    "guid": "c9331bc1ce1b1904aa56c310967623fb"
+  },
+  {
+    "path": "Resources\\restart-text.png.meta",
+    "guid": "574d5cea0b16cfa49aa0e27698568591"
+  },
+  {
+    "path": "Resources.meta",
+    "guid": "a030806ecb734e74aa7b11b3827dd997"
+  },
+  {
+    "path": "Scenes\\sdfgsdfg.unity.meta",
+    "guid": "6e3f0dbf7845a574ebeee2ed6a208af5"
+  },
+  {
+    "path": "Scenes\\sdfgsdfgSettings.lighting.meta",
+    "guid": "43558d597f9940a42a3fd0b1eb35a463"
+  },
+  {
+    "path": "Scenes\\testGui\\testGUI.unity.meta",
+    "guid": "1aa0dd7fb79dc7748a137a74ac470dbb"
+  },
+  {
+    "path": "Scenes\\testGui\\testGUISettings.lighting.meta",
+    "guid": "7017202ac9d448241ad0d0968dade881"
+  },
+  {
+    "path": "Scenes\\testGui.meta",
+    "guid": "3e9f3dc5609179944a16a523d4e7081c"
+  },
+  {
+    "path": "Scenes\\World1\\Level0.unity.meta",
+    "guid": "5106f2b6be3f4c44e9920a297c6f1e2c"
+  },
+  {
+    "path": "Scenes\\World1\\Level0Settings.lighting.meta",
+    "guid": "d4d03f10da5e755449f565d80dffce26"
+  },
+  {
+    "path": "Scenes\\World1\\Level1.unity.meta",
+    "guid": "3b52abb8238794a45b36fba0e89df03e"
+  },
+  {
+    "path": "Scenes\\World1\\Level10.unity.meta",
+    "guid": "ad04178a8fde17c439064852c9fb88b5"
+  },
+  {
+    "path": "Scenes\\World1\\Level10Settings.lighting.meta",
+    "guid": "94604a2914f017d49908fdf7804a3d97"
+  },
+  {
+    "path": "Scenes\\World1\\Level1Settings.lighting.meta",
+    "guid": "75c19fb8f2997f147abd347f3458d5ae"
+  },
+  {
+    "path": "Scenes\\World1\\Level2.unity.meta",
+    "guid": "0e12354dcfcf7c844a3ce520fb3f1d46"
+  },
+  {
+    "path": "Scenes\\World1\\Level2Settings.lighting.meta",
+    "guid": "803e8310168870c4fbdeff0c8a99e1e3"
+  },
+  {
+    "path": "Scenes\\World1\\Level3.unity.meta",
+    "guid": "d48223fa98d8cb24fb834176bda4591f"
+  },
+  {
+    "path": "Scenes\\World1\\Level3Settings.lighting.meta",
+    "guid": "d177d784ae46f164593e94ec585f2b9c"
+  },
+  {
+    "path": "Scenes\\World1\\Level4.unity.meta",
+    "guid": "12e36b1e73341af4cb0b3d5263f839d4"
+  },
+  {
+    "path": "Scenes\\World1\\Level4Settings.lighting.meta",
+    "guid": "1018ea8202f959d439aa182157fefd05"
+  },
+  {
+    "path": "Scenes\\World1\\Level5.unity.meta",
+    "guid": "3ec34ffa4e8b8334ab1e4534ad6a0876"
+  },
+  {
+    "path": "Scenes\\World1\\Level5Settings.lighting.meta",
+    "guid": "08a844ba8eb36464ab4de372bde70815"
+  },
+  {
+    "path": "Scenes\\World1\\Level6.unity.meta",
+    "guid": "9d6d4772a6d75b54a970d02a64176ebe"
+  },
+  {
+    "path": "Scenes\\World1\\Level6Settings.lighting.meta",
+    "guid": "51debe620cab63a418f84df7762409f6"
+  },
+  {
+    "path": "Scenes\\World1\\Level7.unity.meta",
+    "guid": "0729b9f3515854549bac33035bc64391"
+  },
+  {
+    "path": "Scenes\\World1\\Level7Settings.lighting.meta",
+    "guid": "74f49bc55071a2a41a0158b01a076b58"
+  },
+  {
+    "path": "Scenes\\World1\\Level8.unity.meta",
+    "guid": "33c42ea5f328479439bf33d84ba6c0ed"
+  },
+  {
+    "path": "Scenes\\World1\\Level8Settings.lighting.meta",
+    "guid": "cc4dd7cf2b154c349b835227b6db04ac"
+  },
+  {
+    "path": "Scenes\\World1\\Level9.unity.meta",
+    "guid": "ec5d805a361f14547b98faf4e4f53ec7"
+  },
+  {
+    "path": "Scenes\\World1\\Level9Settings.lighting.meta",
+    "guid": "dc7249a650d45a24c8a51f2ac308365a"
+  },
+  {
+    "path": "Scenes\\World1\\Splash.unity.meta",
+    "guid": "0f0d35d41002227429cbb6d9c6189442"
+  },
+  {
+    "path": "Scenes\\World1\\SplashSettings.lighting.meta",
+    "guid": "b46dced9b34266244bd419d9c8ab4be7"
+  },
+  {
+    "path": "Scenes\\World1\\StorySelect.unity.meta",
+    "guid": "41151678fd25c0244924582ebb8444b4"
+  },
+  {
+    "path": "Scenes\\World1\\StorySelectSettings.lighting.meta",
+    "guid": "fdaa3998762dfac40a45b9c1ddbd0b77"
+  },
+  {
+    "path": "Scenes\\World1\\World1.unity.meta",
+    "guid": "fef330babfaaa324d9fca1c9d88c36b5"
+  },
+  {
+    "path": "Scenes\\World1\\World1Settings.lighting.meta",
+    "guid": "325726dcd7d5bb84a86ee95e5a5e341d"
+  },
+  {
+    "path": "Scenes\\World1.meta",
+    "guid": "0cda37821d232c94796a85644e0cd4bd"
+  },
+  {
+    "path": "Scenes\\World2\\Level11.unity.meta",
+    "guid": "938dd91943519c040b7cee9d54f894c4"
+  },
+  {
+    "path": "Scenes\\World2\\Level11Settings.lighting.meta",
+    "guid": "cd0e611534d9ce248b43d77ee01fb9b1"
+  },
+  {
+    "path": "Scenes\\World2\\Level12.unity.meta",
+    "guid": "bf96d7f190433ec4187ef9d17bda3670"
+  },
+  {
+    "path": "Scenes\\World2\\Level12Settings.lighting.meta",
+    "guid": "f4b7d8100225f624991cda8e37c0c9d0"
+  },
+  {
+    "path": "Scenes\\World2\\Level13.unity.meta",
+    "guid": "9dbc13b257356de42b5cf38df2a0aec0"
+  },
+  {
+    "path": "Scenes\\World2\\Level13Settings.lighting.meta",
+    "guid": "0134949fc0ab2bf4cbe96de89f0427d2"
+  },
+  {
+    "path": "Scenes\\World2\\Level14.unity.meta",
+    "guid": "c59b0ed7d9ed78a41b702e937e2210ce"
+  },
+  {
+    "path": "Scenes\\World2\\Level14Settings.lighting.meta",
+    "guid": "b550194bda3351445b3fbe12b298e1b8"
+  },
+  {
+    "path": "Scenes\\World2\\Level15.unity.meta",
+    "guid": "4bde1973462d3bd43b5db2072a28850b"
+  },
+  {
+    "path": "Scenes\\World2\\Level15Settings.lighting.meta",
+    "guid": "46f997bd140ffec4691282f51f65528e"
+  },
+  {
+    "path": "Scenes\\World2\\Level16.unity.meta",
+    "guid": "e9b37052d3f0851418474b196235f149"
+  },
+  {
+    "path": "Scenes\\World2\\Level16Settings.lighting.meta",
+    "guid": "9b605c30deec64d47a8a0140b4d31a39"
+  },
+  {
+    "path": "Scenes\\World2\\Level17.unity.meta",
+    "guid": "90e3cc85085ae044684b7b31c2e0a0f5"
+  },
+  {
+    "path": "Scenes\\World2\\Level17Settings.lighting.meta",
+    "guid": "33af0dad919815641840597f97335ad6"
+  },
+  {
+    "path": "Scenes\\World2\\Level18.unity.meta",
+    "guid": "1f5729062a59e524cb1187a002611968"
+  },
+  {
+    "path": "Scenes\\World2\\Level18Settings.lighting.meta",
+    "guid": "970ccc8069847a741947be144a69bc38"
+  },
+  {
+    "path": "Scenes\\World2\\Level19.unity.meta",
+    "guid": "56e69e8ec5b037a449d9ec32b1b3f3ad"
+  },
+  {
+    "path": "Scenes\\World2\\Level19Settings.lighting.meta",
+    "guid": "e5ef29b86c7936c4fa3053a36ab9ea9f"
+  },
+  {
+    "path": "Scenes\\World2\\Level20.unity.meta",
+    "guid": "fae6601161f2ed448926431df7ec6517"
+  },
+  {
+    "path": "Scenes\\World2\\Level20Settings.lighting.meta",
+    "guid": "bd62575101e685b4db5e9a2096619df5"
+  },
+  {
+    "path": "Scenes\\World2\\World2.unity.meta",
+    "guid": "aefba0c5e342c5344979be34262995ab"
+  },
+  {
+    "path": "Scenes\\World2\\World2Settings.lighting.meta",
+    "guid": "583bd9a3d304daf498d53ca070065b1e"
+  },
+  {
+    "path": "Scenes\\World2.meta",
+    "guid": "bb72e0fa11eda8346b914de07c26c5b0"
+  },
+  {
+    "path": "Scenes.meta",
+    "guid": "a85e2e1d72b004d1097f5ebb12081b30"
+  },
+  {
+    "path": "Scripts\\AlienA.cs.meta",
+    "guid": "728f5a018c83d1a43bbafe0cf863f187"
+  },
+  {
+    "path": "Scripts\\AlienB.cs.meta",
+    "guid": "a522aaee9a6464bcea2fc647e7864074"
+  },
+  {
+    "path": "Scripts\\AlienC.cs.meta",
+    "guid": "d334abdc595d44dd7b9f7950b3926172"
+  },
+  {
+    "path": "Scripts\\Bodyparts.cs.meta",
+    "guid": "fffa6d869c32e9b4d9f193a0ef834f12"
+  },
+  {
+    "path": "Scripts\\CameraFollow.cs.meta",
+    "guid": "44467fbf2d4076b478bc08488d42b220"
+  },
+  {
+    "path": "Scripts\\ClickToContinue.cs.meta",
+    "guid": "8cfa9572616ad4a43879f2e26fe6b94f"
+  },
+  {
+    "path": "Scripts\\Conveyor.cs.meta",
+    "guid": "9ab33712fc15caf409f7d688080b224c"
+  },
+  {
+    "path": "Scripts\\CountdownExplode.cs.meta",
+    "guid": "bfed6931ce3790b4d8c9c18f42293e27"
+  },
+  {
+    "path": "Scripts\\DisplayRestartText.cs.meta",
+    "guid": "90f67ba7e2eb79544addf5d5e65f8503"
+  },
+  {
+    "path": "Scripts\\Explode.cs.meta",
+    "guid": "b231987d72f8a6142a4c6033311ffdf2"
+  },
+  {
+    "path": "Scripts\\Finish.cs.meta",
+    "guid": "100fc201f33536f4db34183f5a966866"
+  },
+  {
+    "path": "Scripts\\FinishZone.cs.meta",
+    "guid": "a3d4bed3afdea9444940db2c5e8db258"
+  },
+  {
+    "path": "Scripts\\GameController.cs.meta",
+    "guid": "39ffcd1aaa3aa50489f9bc81fb3595ae"
+  },
+  {
+    "path": "Scripts\\GoogleMobileAdsDemoScript.cs.meta",
+    "guid": "f6ee52dd6370f5b4392ad0fcc2b485cb"
+  },
+  {
+    "path": "Scripts\\LevelFinish.cs.meta",
+    "guid": "4eb26f76bed79e84998f8e4b37087904"
+  },
+  {
+    "path": "Scripts\\LevelSelect.cs.meta",
+    "guid": "ce942cdc081783745ba7a98106877240"
+  },
+  {
+    "path": "Scripts\\LevelSelectScript.cs.meta",
+    "guid": "59ed2926b6ea09d4a91cf86df652f056"
+  },
+  {
+    "path": "Scripts\\MovingSpikes.cs.meta",
+    "guid": "a34cc14e34b9abd488393e916870ef5a"
+  },
+  {
+    "path": "Scripts\\Oxygen.cs.meta",
+    "guid": "84658f24db30a4d4890655ff2bd281cb"
+  },
+  {
+    "path": "Scripts\\Player.cs.meta",
+    "guid": "d81c24732e4574207b1380c57f4f530f"
+  },
+  {
+    "path": "Scripts\\SaveGame.cs.meta",
+    "guid": "6911d80f6b9a90743afe3b5e5878464b"
+  },
+  {
+    "path": "Scripts\\SawProjectile.cs.meta",
+    "guid": "715f81fb5d5d5644c88fc7fe165b424a"
+  },
+  {
+    "path": "Scripts\\StoryScript.cs.meta",
+    "guid": "6a17162503ac01a4c8b7889414a78326"
+  },
+  {
+    "path": "Scripts\\StorySelect.cs.meta",
+    "guid": "31c101e342c1e0b419e51cefe7369f3a"
+  },
+  {
+    "path": "Scripts\\Wheel.cs.meta",
+    "guid": "4f7127f5251162f4aa656a6eeca212c4"
+  },
+  {
+    "path": "Scripts.meta",
+    "guid": "334e538fe9b2948aa9b2fe46f32cd3ae"
+  },
+  {
+    "path": "Tests\\PlayMode\\SceneSmokeTests.cs.meta",
+    "guid": "b783cda533a642e8a435485604a41ec2"
+  },
+  {
+    "path": "Tests\\PlayMode\\Worms.PlayModeTests.asmdef.meta",
+    "guid": "5dd2ce8da7d243478d9b3d12d2f774ac"
+  },
+  {
+    "path": "Tests\\PlayMode.meta",
+    "guid": "fbde98f0413e4b8ba5f308fe26b78b02"
+  },
+  {
+    "path": "Tests.meta",
+    "guid": "246a7907d39242f384a1c5b91011edf8"
+  }
+]

@@ -4,11 +4,22 @@ using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Worms;
+using Worms.Configuration;
+using Worms.Core;
 
 public class GameplayBaselineTests
 {
     private readonly System.Collections.Generic.List<GameObject> objects = new System.Collections.Generic.List<GameObject>();
     private readonly System.Collections.Generic.List<Texture2D> textures = new System.Collections.Generic.List<Texture2D>();
+
+    [SetUp]
+    public void UseDisposableProgress()
+    {
+        var catalog = Resources.Load<LevelCatalog>("Configuration/LevelCatalog");
+        Assert.IsNotNull(catalog);
+        GameServices.ConfigureForTests(catalog, new MemoryStorage());
+    }
 
     [TearDown]
     public void TearDown()
@@ -19,6 +30,7 @@ public class GameplayBaselineTests
         foreach (var texture in textures)
             if (texture) UnityEngine.Object.DestroyImmediate(texture);
         textures.Clear();
+        GameServices.ResetForTests();
     }
 
     [Test]
@@ -97,6 +109,9 @@ public class GameplayBaselineTests
         var zone = NewObject("CameraChange");
         var center = NewObject("Center");
         center.transform.SetParent(zone.transform);
+        var regionType = FindType("CameraRegion");
+        var region = zone.AddComponent(regionType);
+        regionType.GetField("center").SetValue(region, center.transform);
         var collider = zone.AddComponent<BoxCollider2D>();
         collider.isTrigger = true;
         InvokePrivate(playerType, player, "OnTriggerEnter2D", collider);
@@ -175,13 +190,9 @@ public class GameplayBaselineTests
 
     private static Type FindType(string name)
     {
-        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            var type = assembly.GetType(name, false);
-            if (type != null) return type;
-        }
-        Assert.Fail("Could not find gameplay type " + name + " in loaded assemblies.");
-        return null;
+        var type = typeof(Player).Assembly.GetType(name, false);
+        Assert.IsNotNull(type, "Could not find gameplay type " + name + " in the runtime assembly.");
+        return type;
     }
 
     private static void InvokePrivate(Type type, object instance, string method, object argument)
@@ -213,5 +224,11 @@ public class GameplayBaselineTests
             }
         }
         return count;
+    }
+
+    private sealed class MemoryStorage : ISaveStorage
+    {
+        public SaveData Load() => new SaveData();
+        public void Save(SaveData data) { }
     }
 }

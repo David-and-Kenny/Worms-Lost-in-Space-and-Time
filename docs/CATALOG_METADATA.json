@@ -1,0 +1,358 @@
+{
+    "Scenes": [
+        {
+            "ScenePath": "Assets/Scenes/World1/Level1.unity",
+            "Id": "level-01",
+            "WorldId": "world-1",
+            "LegacyIndex": 1,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                1
+            ],
+            "StarTimes": [
+                10.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level2.unity",
+            "Id": "level-02",
+            "WorldId": "world-1",
+            "LegacyIndex": 2,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                2
+            ],
+            "StarTimes": [
+                15.0
+            ],
+            "NextLevels": [
+                "Level3"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level3.unity",
+            "Id": "level-03",
+            "WorldId": "world-1",
+            "LegacyIndex": 3,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                3
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level4"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level4.unity",
+            "Id": "level-04",
+            "WorldId": "world-1",
+            "LegacyIndex": 4,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                4
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level5"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level5.unity",
+            "Id": "level-05",
+            "WorldId": "world-1",
+            "LegacyIndex": 5,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                5
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level6"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level6.unity",
+            "Id": "level-06",
+            "WorldId": "world-1",
+            "LegacyIndex": 6,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                6
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level7"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level7.unity",
+            "Id": "level-07",
+            "WorldId": "world-1",
+            "LegacyIndex": 7,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                7
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level8"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level8.unity",
+            "Id": "level-08",
+            "WorldId": "world-1",
+            "LegacyIndex": 8,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                8
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level9"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level9.unity",
+            "Id": "level-09",
+            "WorldId": "world-1",
+            "LegacyIndex": 9,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                9
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level10"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World1/Level10.unity",
+            "Id": "level-10",
+            "WorldId": "world-1",
+            "LegacyIndex": 10,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                10
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level11"
+            ],
+            "Finding": "Authored exit metadata retained."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level11.unity",
+            "Id": "level-11",
+            "WorldId": "world-2",
+            "LegacyIndex": 11,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level12.unity",
+            "Id": "level-12",
+            "WorldId": "world-2",
+            "LegacyIndex": 12,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level13.unity",
+            "Id": "level-13",
+            "WorldId": "world-2",
+            "LegacyIndex": 13,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level14.unity",
+            "Id": "level-14",
+            "WorldId": "world-2",
+            "LegacyIndex": 14,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level15.unity",
+            "Id": "level-15",
+            "WorldId": "world-2",
+            "LegacyIndex": 15,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level16.unity",
+            "Id": "level-16",
+            "WorldId": "world-2",
+            "LegacyIndex": 16,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level17.unity",
+            "Id": "level-17",
+            "WorldId": "world-2",
+            "LegacyIndex": 17,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level18.unity",
+            "Id": "level-18",
+            "WorldId": "world-2",
+            "LegacyIndex": 18,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level19.unity",
+            "Id": "level-19",
+            "WorldId": "world-2",
+            "LegacyIndex": 19,
+            "FinishCount": 1,
+            "SaveGameCount": 1,
+            "EffectiveCurrentLevels": [
+                0
+            ],
+            "StarTimes": [
+                0.0
+            ],
+            "NextLevels": [
+                "Level2"
+            ],
+            "Finding": "Catalog intentionally corrects inherited legacy identity/route."
+        },
+        {
+            "ScenePath": "Assets/Scenes/World2/Level20.unity",
+            "Id": "level-20",
+            "WorldId": "world-2",
+            "LegacyIndex": 20,
+            "FinishCount": 0,
+            "SaveGameCount": 0,
+            "EffectiveCurrentLevels": [],
+            "StarTimes": [],
+            "NextLevels": [],
+            "Finding": "CONTENT GAP: no authored Finish; natural completion blocked. No geometry added."
+        }
+    ]
+}
