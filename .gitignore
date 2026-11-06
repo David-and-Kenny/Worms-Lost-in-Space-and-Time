@@ -49,3 +49,5 @@ TestResults/
 *.ulf
 *.alf
 MigrationBridge/
+**/Assets/InitTestScene*.unity
+**/Assets/InitTestScene*.unity.meta

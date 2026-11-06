@@ -1,0 +1,42 @@
+{
+    "LevelId": "MovingHazard",
+    "SceneName": "MovingHazard",
+    "ScenePath": "Assets/Tests/LevelValidation/Fixtures/MovingHazard.unity",
+    "Fingerprint": "1df1aefb49741e4c8205ad973b753a29973eef354d78f7de999012ae0a6c5b3d",
+    "Objects": [
+        {
+            "Id": "GlobalObjectId_V1-2-29baac977fcc668449c23c9c2239f300-2130023087-0",
+            "Hierarchy": "0",
+            "Name": "Player",
+            "Role": "spawn",
+            "X": 0.0,
+            "Y": 3.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-29baac977fcc668449c23c9c2239f300-791984112-0",
+            "Hierarchy": "2",
+            "Name": "Wheel",
+            "Role": "wheel",
+            "X": 0.0,
+            "Y": 0.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-29baac977fcc668449c23c9c2239f300-121025610-0",
+            "Hierarchy": "3",
+            "Name": "Finish",
+            "Role": "finish",
+            "X": 4.0,
+            "Y": 0.0
+        },
+        {
+            "Id": "GlobalObjectId_V1-2-29baac977fcc668449c23c9c2239f300-1400944574-0",
+            "Hierarchy": "4",
+            "Name": "Hazard",
+            "Role": "hazard",
+            "X": 0.0,
+            "Y": 0.0
+        }
+    ],
+    "Errors": [],
+    "Warnings": []
+}

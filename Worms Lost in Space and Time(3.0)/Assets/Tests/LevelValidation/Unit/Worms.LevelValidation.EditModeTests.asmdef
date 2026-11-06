@@ -1,0 +1,6 @@
+{
+  "name": "Worms.LevelValidation.EditModeTests",
+  "references": ["Worms.LevelValidation"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

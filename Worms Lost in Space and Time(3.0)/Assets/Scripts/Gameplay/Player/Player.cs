@@ -1,5 +1,6 @@
 using UnityEngine;
 using Worms.Gameplay;
+public enum PlayerTraversalKind { Attached, Launched, ForcedDetach }
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private readonly PlayerAttachment attachment = new PlayerAttachment();
     public IPlayerInput InputSource { get; set; }
     public PlayerAttachment Attachment => attachment;
+    public event System.Action<Player, PlayerTraversalKind, Component> TraversalChanged;
     private void Awake()
     {
         motor = new PlayerMotor(GetComponent<Rigidbody2D>());
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
         holdSlot = surface.holder;
         transform.localScale = new Vector3(surface.direction == -1f ? -1f : 1f, 1f, 1f);
         playerAttached = true;
+        TraversalChanged?.Invoke(this, PlayerTraversalKind.Attached, surface);
         return true;
     }
     public void AttachToConveyor(Conveyor surface)
@@ -62,6 +65,7 @@ public class Player : MonoBehaviour
         transform.rotation = surface.transform.rotation;
         motor.RideConveyor(surface.transform, surface.speed);
         playerAttached = true;
+        TraversalChanged?.Invoke(this, PlayerTraversalKind.Attached, surface);
     }
     private void OnTriggerEnter2D(Collider2D target)
     {
@@ -74,10 +78,12 @@ public class Player : MonoBehaviour
     }
     private void Detach(bool forced)
     {
+        Component source = attachment.Wheel ? (Component)attachment.Wheel : attachment.Conveyor;
         attachment.Leave();
         playerAttached = false;
         holdSlot = null;
         motor.Launch(transform, forced);
+        TraversalChanged?.Invoke(this, forced ? PlayerTraversalKind.ForcedDetach : PlayerTraversalKind.Launched, source);
     }
     public void detatch() { Detach(true); }
     private void OnDestroy() { attachment.Leave(); }

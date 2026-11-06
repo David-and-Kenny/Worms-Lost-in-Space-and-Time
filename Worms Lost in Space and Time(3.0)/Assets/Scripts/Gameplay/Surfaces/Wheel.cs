@@ -1,4 +1,6 @@
 using UnityEngine;
+// Rotation must precede attachment-following; Unity does not order default-priority Updates.
+[DefaultExecutionOrder(-100)]
 public class Wheel : MonoBehaviour
 {
     public float speed = 50f;

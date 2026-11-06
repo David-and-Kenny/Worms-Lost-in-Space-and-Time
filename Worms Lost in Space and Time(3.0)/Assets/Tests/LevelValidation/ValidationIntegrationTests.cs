@@ -1,0 +1,155 @@
+#if UNITY_EDITOR
+using System.Collections;
+using System.IO;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
+
+namespace Worms.LevelValidation
+{
+    public sealed class ValidationIntegrationTests
+    {
+        private ValidationEnvironment environment;
+        [SetUp]
+        public void SetUp() { environment = new ValidationEnvironment(); }
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return SceneManager.LoadSceneAsync("Splash");
+            yield return null;
+            environment.Dispose();
+        }
+        private static LevelManifest Fixture(string name) => JsonUtility.FromJson<LevelManifest>(File.ReadAllText(FixtureAuthoring.Folder + name + ".json"));
+        private static LevelValidationRequest Options() => new LevelValidationRequest { OutputDirectory = "unused", SearchSeconds = 30, TrialSeconds = 8, MaximumTrials = 1000 };
+        private sealed class NoJump : Worms.Gameplay.IPlayerInput { public bool JumpHeld => false; }
+
+        [UnityTest]
+        public IEnumerator RotatingWheelAndPlayerStayPhaseLocked()
+        {
+            var player = new GameObject("Phase player").AddComponent<Player>();
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            player.InputSource = new NoJump();
+            var wheel = new GameObject("Phase wheel").AddComponent<Wheel>();
+            wheel.speed = 80;
+            wheel.holder = new GameObject("Holder").transform;
+            wheel.holder.SetParent(wheel.transform);
+            yield return null;
+            player.AttachToWheel(wheel, Vector2.right);
+            for (int frame = 0; frame < 30; frame++)
+            {
+                yield return null;
+                Assert.That(Quaternion.Angle(player.transform.rotation, wheel.holder.rotation * Quaternion.Euler(0, 0, -90)), Is.LessThan(.05f));
+                Assert.That(Vector3.Distance(player.transform.position, wheel.holder.position), Is.LessThan(.001f));
+            }
+            Object.Destroy(player.gameObject); Object.Destroy(wheel.gameObject);
+        }
+
+        [Test]
+        public void EnvironmentRestoresClockPhysicsAndRandomState()
+        {
+            float capture = Time.captureDeltaTime, scale = Time.timeScale, step = Time.fixedDeltaTime;
+            var mode = Physics2D.simulationMode;
+            int rate = Application.targetFrameRate, vSync = QualitySettings.vSyncCount;
+            var random = UnityEngine.Random.state;
+            float expected = UnityEngine.Random.value;
+            UnityEngine.Random.state = random;
+            using (new ValidationEnvironment())
+            {
+                Time.captureDeltaTime = .1f; Physics2D.simulationMode = SimulationMode2D.Script;
+                UnityEngine.Random.InitState(999);
+            }
+            Assert.That(Time.captureDeltaTime, Is.EqualTo(capture));
+            Assert.That(Time.timeScale, Is.EqualTo(scale));
+            Assert.That(Time.fixedDeltaTime, Is.EqualTo(step));
+            Assert.That(Physics2D.simulationMode, Is.EqualTo(mode));
+            Assert.That(Application.targetFrameRate, Is.EqualTo(rate));
+            Assert.That(QualitySettings.vSyncCount, Is.EqualTo(vSync));
+            Assert.That(UnityEngine.Random.value, Is.EqualTo(expected));
+            UnityEngine.Random.state = random;
+        }
+
+        [UnityTest]
+        public IEnumerator PhysicalSearchCertifiesARealFinishAndNormalPhysicsReplay()
+        {
+            var options = Options(); LevelValidator validator = null;
+            var runner = new UnityTrialRunner(options, () => validator.BudgetExpired);
+            var automatic = new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false);
+            validator = new LevelValidator(runner, options, automatic);
+            LevelValidationReport report = null;
+            yield return validator.Evaluate(Fixture("StaticRoute"), null, value => report = value);
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);
+            Assert.That(report.Replay.Jumps.Count, Is.GreaterThan(0));
+            Assert.That(report.AnalysisComplete, Is.True);
+            Assert.That(report.TimingWindows, Is.Not.Empty);
+            Assert.That(report.Profiles.Count, Is.EqualTo(3));
+            options.Operation = "replay";
+            LevelValidationReport repeated = null;
+            yield return validator.Evaluate(Fixture("StaticRoute"), report.Replay, value => repeated = value);
+            Assert.That(repeated.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), repeated.Reason);
+        }
+        [UnityTest]
+        public IEnumerator SealedPhysicalExitReturnsInconclusiveWithinTrialBudget()
+        {
+            var options = Options(); options.MaximumTrials = 20;
+            LevelValidator validator = null;
+            validator = new LevelValidator(new UnityTrialRunner(options, () => validator.BudgetExpired), options);
+            LevelValidationReport report = null;
+            yield return validator.Evaluate(Fixture("SealedExit"), null, value => report = value);
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.Inconclusive), report.Reason);
+            Assert.That(report.Replay, Is.Null);
+        }
+        [UnityTest]
+        public IEnumerator OxygenDeathAndBreakableDetachUseRealComponentsAndNeverSave()
+        {
+            var options = Options(); var runner = new UnityTrialRunner(options);
+            TrialResult result = null;
+            yield return runner.Run(Fixture("BreakableWheel"), new TrialPlan(), 60, value => result = value);
+            Assert.That(result.Outcome, Is.EqualTo(TrialOutcome.Dead));
+            Assert.That(result.Events.Exists(item => item.Kind == "ForcedDetach"), Is.True);
+            Assert.That(result.SaveWrites, Is.Zero);
+        }
+        [UnityTest]
+        public IEnumerator CancellationTerminatesWithoutAReachabilityClaim()
+        {
+            var runner = new UnityTrialRunner(Options(), () => true);
+            TrialResult result = null;
+            yield return runner.Run(Fixture("StaticRoute"), new TrialPlan(), 60, value => result = value);
+            Assert.That(result.Outcome, Is.EqualTo(TrialOutcome.Cancelled));
+            Assert.That(result.SaveWrites, Is.Zero);
+        }
+        [UnityTest]
+        public IEnumerator MovingHazardCalibrationAndNarrowTimingAreSupported()
+        {
+            var options = Options(); var runner = new UnityTrialRunner(options);
+            TrialResult first = null;
+            for (int repeat = 0; repeat < 10; repeat++)
+            {
+                TrialResult next = null;
+                yield return runner.Run(Fixture("MovingHazard"), new TrialPlan(), 60, value => next = value);
+                if (first == null) first = next;
+                else Assert.That(ReplayComparison.Equivalent(first, next, out string reason), Is.True, reason);
+            }
+            LevelValidator validator = null;
+            validator = new LevelValidator(new UnityTrialRunner(options, () => validator.BudgetExpired), options,
+                new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false));
+            LevelValidationReport report = null;
+            yield return validator.Evaluate(Fixture("NarrowExit"), null, value => report = value);
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);
+            Assert.That(report.TimingWindows, Is.Not.Empty);
+            Assert.That(report.PerturbationSuccesses, Is.LessThan(report.PerturbationTrials));
+        }
+        [UnityTest]
+        public IEnumerator DirectFinishNeedsNoArtificialJumpOrPlatformRequirement()
+        {
+            var options = Options(); LevelValidator validator = null;
+            validator = new LevelValidator(new UnityTrialRunner(options, () => validator.BudgetExpired), options,
+                new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false));
+            LevelValidationReport report = null;
+            yield return validator.Evaluate(Fixture("DirectExit"), null, value => report = value);
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);
+            Assert.That(report.Replay.Jumps, Is.Empty);
+        }
+    }
+}
+#endif

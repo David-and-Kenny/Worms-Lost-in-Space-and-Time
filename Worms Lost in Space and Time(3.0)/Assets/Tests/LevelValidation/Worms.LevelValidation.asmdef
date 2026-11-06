@@ -1,0 +1,5 @@
+{
+  "name": "Worms.LevelValidation",
+  "references": ["Worms.Core", "Worms.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}
