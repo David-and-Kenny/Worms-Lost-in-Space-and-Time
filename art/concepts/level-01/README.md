@@ -3,6 +3,27 @@
 Status: approved by the owner for use in Level 1. The main character remains
 unchanged. Artwork was generated through built-in Imagegen.
 
+## Integration with current gameplay
+
+This art pass is integrated with the fixed-tick gameplay and monetization work
+already on `master`. It retains that runtime, its version 2 tick-based replay
+format, and its four maintained certificates (levels 1, 3, 4, and 10). Level 8's
+old frame-based certificate is not restored. The earlier five-route and
+30/120 FPS failure observations below describe pre-integration validation;
+current runtime behavior and limits are documented in
+[`FIXED_TICK_GAMEPLAY.md`](../../../docs/FIXED_TICK_GAMEPLAY.md).
+
+Merge validation: repository checks passed (387 assets/folders and GUIDs, 24
+enabled scenes), all scenes/prefabs validated, 122 EditMode and 45 PlayMode tests
+passed with zero failures/skips, and the graphics-enabled art capture passed.
+The six report-tool tests and eight runner-harness cases passed. Fresh version 2
+certificates for levels 1, 3, 4, and 10 completed at 7.96s, 9.32s, 9.86s, and
+2.60s, with successful 30/60/120 FPS profiles. All four then passed strict replay
+(13 trials each). Evidence is under `TestResults/Art/MergeRecertification`,
+`MergeStrictReplay`, and `MergeCapture.xml`. The refreshed camera capture was
+visually inspected. This merge does not change gameplay source or packages from
+the integrated master revision. New player builds/device checks were not run.
+
 ## Inventory and scope
 
 Before the art pass, the instantiated scene used five cog objects across three unique designs:
@@ -41,7 +62,7 @@ textures remain active. The old plain UI surfaces were serialized Image settings
 not separate image files; their shared source prefabs remain unchanged. The
 main character, unrelated artwork, and versioned concept iterations are retained.
 
-Legacy-retention verification: Git detects all five images and their metadata as
+Pre-integration legacy-retention verification: Git detects all five images and their metadata as
 100% unchanged renames. The art importer still runs successfully using the legacy
 paths, with identical hashes for the approved Level 1 scene and all six active
 textures plus their metadata. Repository and all-scene/prefab checks passed, as
@@ -82,7 +103,7 @@ natural completion. Re-execute the recorded Level 1 inputs with the no-AI level
 validator for traversal evidence. Device input, feel, and readability remain
 manual checks.
 
-## Executed validation
+## Original art-branch validation (before fixed-tick integration)
 
 - Repository check: 357 assets/folders and GUIDs, 24 enabled build scenes.
 - Scene/prefab binding validation: passed.

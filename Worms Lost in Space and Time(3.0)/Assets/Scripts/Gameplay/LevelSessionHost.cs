@@ -68,7 +68,8 @@ namespace Worms
         }
 
         private void ForwardChanged(LevelSession session) { Changed?.Invoke(session); }
-        private void Update() { if (!paused && Session != null) Session.Tick(Time.deltaTime); }
+        private void OnEnable() { Gameplay.GameSimulation.For(this); }
+        public void Advance(float seconds) { if (!paused && Session != null) Session.Tick(seconds); }
         private void OnApplicationPause(bool value) { paused = value; }
         private void OnDestroy()
         {

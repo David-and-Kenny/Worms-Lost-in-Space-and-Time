@@ -11,6 +11,7 @@ Run from the repository root, with Unity closed:
 ```powershell
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 node scripts/validate-repository.mjs
+node --test scripts/report-level-validation.test.mjs
 ./scripts/test-check-unity.ps1
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check PlayMode
@@ -76,6 +77,27 @@ Git LFS, Node 24, the pinned editor, and Android tools on that runner first.
 For a behavior PR, include the executed suite counts/results and relevant scenario
 IDs, not a claim of total coverage. Attach XML/logs or summarize their failures.
 Device cases remain unverified until someone records an actual device run.
+The six Node report tests cover difficulty bands, incomplete evidence, disconnected
+timing windows, aggregation/source guards and the actual Markdown/CSV CLI. They
+run in repository CI without Unity or an AI service.
+
+## Monetization scenarios
+
+| ID | Scenario and primary layer |
+| --- | --- |
+| ADS-01 | EditMode: 25 distinct failed runs or 3 completions; duplicate death/retry does not increment twice; both counters reset only on opened ads |
+| ADS-02 | EditMode: five-minute opening grace, three-minute shared cooldown, consent/ownership gating, missing ads and failed presentation |
+| ADS-03 | EditMode: repeated taps/SDK events navigate once; cancelled/stale callbacks cannot navigate a new screen |
+| ADS-04 | EditMode: committed defaults request no ads or purchases; developer preview uses only sample IDs |
+| IAP-01 | EditMode: idempotent grants, durable ownership, failed writes, cached offline ownership, authoritative revocation, isolated purchase storage |
+| UI-ADS-01 | PlayMode: editable settings panel opens/closes, bindings and unavailable-store behavior; existing safe-area fixture includes its controls |
+| DEVICE-ADS-01 | Device: test ads at natural completion/retry transitions, foreground timing, audio/focus restoration, suspend/resume and no closing-touch leakage |
+| DEVICE-IAP-01 | Device: store purchase/cancel/defer/restore/reinstall/offline ownership and purchase-confirmation retry |
+| RELEASE-ADS-01 | Editor: production build guard rejects incomplete/sample configuration; SDK app IDs must match; child/privacy declarations require external review |
+
+See `MONETIZATION.md` for account configuration and `PLAYTEST_SCRIPT.md` for
+device steps. Automated navigation/session fixtures prove wiring, not natural
+traversability. Use the existing no-AI level-validation tooling for traversal.
 
 ## Level 1 artwork review (ART-01)
 
@@ -113,3 +135,21 @@ a catalog search: the command entry point only dispatches a search/replay when a
 request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
 those requests. Search outcomes and saved-route regressions supplement the existing
 24-scene smoke test; they do not duplicate it or replace device/feel acceptance.
+
+## Fixed-tick movement acceptance
+
+`JumpInputBufferTests` covers brief observed taps, held input, airborne expiry and
+pause/reset clearing without duplicating the pointer-gate rule matrix.
+`FrameRateConsistencyTests` runs the actual coordinator with ordinary Unity physics
+at 30/60/120 rendered FPS and an uneven render schedule. It compares the launch
+tick/velocity, subsequent flight position, moving-hazard pose, oxygen consumption
+and forced-detach tick, and checks the rendered-input-to-physics buffer adapter.
+`ValidationIntegrationTests` additionally replays a real collision/finish route at
+30/60/120 FPS and compares tick-aligned traversal evidence with one completion save.
+
+Existing gameplay adapter tests wait for the responsible fixed step; body-pose
+assertions use Rigidbody2D rather than the deliberately interpolated Transform.
+This preserves the force, held-input, pointer, same-wheel suppression, countdown,
+death, save and camera expectations while allowing the intentional scheduling
+change. Physical tap latency, perceived feel and suspend/resume remain device
+acceptance cases in `PLAYTEST_SCRIPT.md`. See `FIXED_TICK_GAMEPLAY.md` for results.

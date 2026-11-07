@@ -1,4 +1,5 @@
 using UnityEngine;
+using Worms.Gameplay;
 public class CountdownExplode : MonoBehaviour
 {
     public Transform piece1;
@@ -10,10 +11,13 @@ public class CountdownExplode : MonoBehaviour
     public void RegisterPlayer(Player player) { occupant = player; }
     public void playerLeft() { occupant = null; }
     public void count() { countdown = true; }
-    private void Update()
+    private GameSimulation simulation;
+    private void OnEnable() { simulation = GameSimulation.For(this); simulation.Register(this); }
+    private void OnDisable() { if (simulation) simulation.Unregister(this); }
+    public void Advance(float seconds)
     {
         if (!countdown || exploded) return;
-        timer -= Time.deltaTime;
+        timer -= seconds;
         if (timer < 0f) Explode();
     }
     private void Explode()

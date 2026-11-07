@@ -4,6 +4,7 @@ $fixtureRoot = Join-Path ([IO.Path]::GetTempPath()) ('worms-runner-tests-' + [Gu
 $shellPath = (Get-Process -Id $PID).Path
 $cases = @(
     @{ Name = 'Passing report'; ExitCode = 0; Xml = '<test-run result="Passed" total="2" passed="2" failed="0" />'; Pass = $true },
+    @{ Name = 'Android preprocessor target'; Check = 'BuildAndroid'; ExitCode = 0; Xml = $null; Pass = $true },
     @{ Name = 'Editor failure'; ExitCode = 9; Xml = $null; Pass = $false },
     @{ Name = 'Missing editor'; MissingEditor = $true; ExitCode = 0; Xml = $null; Pass = $false },
     @{ Name = 'Missing report'; ExitCode = 0; Xml = $null; Pass = $false },
@@ -20,6 +21,7 @@ try {
     $fakeEditor = Join-Path $fixtureRoot 'fake-editor.ps1'
     @'
 $scenario = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'scenario.json') -Raw | ConvertFrom-Json
+ConvertTo-Json -InputObject @($args) | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'invocation.json')
 $reportIndex = [Array]::IndexOf($args, '-testResults')
 if ($null -ne $scenario.Xml) {
     Set-Content -LiteralPath $args[$reportIndex + 1] -Value $scenario.Xml
@@ -34,13 +36,21 @@ $global:LASTEXITCODE = [int]$scenario.ExitCode
         '<test-run result="Passed" total="1" passed="1" failed="0" />' |
             Set-Content -LiteralPath (Join-Path $fixtureResults 'EditMode.xml')
         $editorForCase = if ($case.MissingEditor) { Join-Path $fixtureRoot 'missing-editor.ps1' } else { $fakeEditor }
-        $output = & $shellPath -NoProfile -File $runner -UnityEditor $editorForCase -Check EditMode 2>&1
+        $check = if ($case.Check) { $case.Check } else { 'EditMode' }
+        $output = & $shellPath -NoProfile -File $runner -UnityEditor $editorForCase -Check $check 2>&1
         $succeeded = $LASTEXITCODE -eq 0
         if ($succeeded -ne $case.Pass) { throw "$($case.Name): unexpected exit. $output" }
         if ($case.Pass) {
             $result = Get-Content -LiteralPath $summary -Raw | ConvertFrom-Json
-            if ($result.Check -ne 'EditMode' -or $result.Tests.Passed -ne 2) {
+            if ($result.Check -ne $check -or ($check -eq 'EditMode' -and $result.Tests.Passed -ne 2)) {
                 throw 'Passing invocation did not publish its own results.'
+            }
+            if ($check -eq 'BuildAndroid') {
+                $invocation = @(Get-Content -LiteralPath (Join-Path $fixtureRoot 'invocation.json') -Raw | ConvertFrom-Json)
+                $targetIndex = [Array]::IndexOf($invocation, '-buildTarget')
+                if ($targetIndex -lt 0 -or $invocation[$targetIndex + 1] -ne 'Android') {
+                    throw 'Android build did not select its editor target before SDK preprocessing.'
+                }
             }
         } elseif (Test-Path -LiteralPath $summary) {
             throw "$($case.Name): stale success summary survived a failed invocation."

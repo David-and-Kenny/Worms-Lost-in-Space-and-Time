@@ -1,8 +1,10 @@
 # Frame-rate investigation
 
 Read-only investigation requested on November 6, 2026 while developing the level
-validator. This document proposes a separate gameplay change; that refactor has
-not been implemented by the validation utility.
+validator. This document records the original finding and proposal. The subsequent
+authorized implementation and evidence are in
+[FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md); the findings below describe the
+pre-fix game unless explicitly stated otherwise.
 
 ## Finding
 

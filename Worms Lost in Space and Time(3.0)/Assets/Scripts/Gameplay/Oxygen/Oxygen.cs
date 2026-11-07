@@ -16,6 +16,9 @@ public class Oxygen : MonoBehaviour
     public OxygenSupply Supply { get; private set; }
     public float Fraction => Supply != null ? Supply.Fraction : (maxAir > 0f ? Mathf.Clamp01(air / maxAir) : 0f);
     public event Action<float> FractionChanged;
+    private GameSimulation simulation;
+    private void OnEnable() { simulation = GameSimulation.For(this); simulation.Register(this); }
+    private void OnDisable() { if (simulation) simulation.Unregister(this); }
     private void Start()
     {
         if (!player) player = FindFirstObjectByType<Player>();
@@ -41,12 +44,12 @@ public class Oxygen : MonoBehaviour
         if (Supply != null) Supply.Refill();
         else FractionChanged?.Invoke(Fraction);
     }
-    private void Update()
+    public void Advance(float seconds)
     {
         if (!player || Supply == null) return;
         var host = LevelSessionHost.Current;
         if (host && (host.IsPaused || host.Session.State != SessionState.Playing)) return;
-        Supply.Tick(Time.deltaTime);
+        Supply.Tick(seconds);
         air = Supply.Current;
     }
     private void OnDestroy()

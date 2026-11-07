@@ -1,21 +1,29 @@
-using System.Collections;
 using UnityEngine;
+using Worms.Gameplay;
 [RequireComponent(typeof(Animator))]
 public class AlienC : MonoBehaviour
 {
     public float attackDelay = 3f;
     public Transform projectile;
     private Animator animator;
-    private void Awake() { animator = GetComponent<Animator>(); }
-    private void Start() { if (attackDelay > 0f) StartCoroutine(OnAttack()); }
-    private void Update() { animator.SetInteger("AnimState", 0); }
-    private IEnumerator OnAttack()
+    private float remaining;
+    private GameSimulation simulation;
+    private void Awake()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(attackDelay);
-            Fire();
-        }
+        animator = GetComponent<Animator>();
+        animator.updateMode = AnimatorUpdateMode.Fixed;
+        remaining = attackDelay;
+    }
+    private void OnEnable() { simulation = GameSimulation.For(this); simulation.Register(this); }
+    private void OnDisable() { if (simulation) simulation.Unregister(this); }
+    public void Advance(float seconds)
+    {
+        animator.SetInteger("AnimState", 0);
+        if (attackDelay <= 0) return;
+        remaining -= seconds;
+        if (remaining > 0) return;
+        remaining += attackDelay;
+        Fire();
     }
     private void Fire() { animator.SetInteger("AnimState", 1); }
     // Animation event entry point.

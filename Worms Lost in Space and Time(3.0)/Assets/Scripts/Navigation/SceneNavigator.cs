@@ -5,6 +5,11 @@ using Worms.Core;
 
 namespace Worms.Navigation
 {
+    public interface ISceneTransitionGate
+    {
+        void BeforeNavigate(string destination, bool restarting, Action navigate);
+    }
+
     public interface ISceneLoader
     {
         string CurrentSceneName { get; }
@@ -21,6 +26,7 @@ namespace Worms.Navigation
         private readonly ILevelCatalog catalog;
         private readonly ProgressionService progression;
         private readonly PointerPressGate pointerGate;
+        private readonly ISceneTransitionGate transitionGate;
         public bool IsLoading { get; private set; }
 
         public static SceneNavigator Instance
@@ -30,18 +36,21 @@ namespace Worms.Navigation
                 if (instance == null)
                 {
                     GameServices.EnsureInitialized();
-                    instance = new SceneNavigator(new UnitySceneLoader(), GameServices.Catalog, GameServices.Progression, GameServices.PointerGate);
+                    instance = new SceneNavigator(new UnitySceneLoader(), GameServices.Catalog, GameServices.Progression,
+                        GameServices.PointerGate, new Monetization.MonetizationTransitionGate());
                 }
                 return instance;
             }
         }
 
-        public SceneNavigator(ISceneLoader loader, ILevelCatalog catalog, ProgressionService progression, PointerPressGate pointerGate = null)
+        public SceneNavigator(ISceneLoader loader, ILevelCatalog catalog, ProgressionService progression,
+            PointerPressGate pointerGate = null, ISceneTransitionGate transitionGate = null)
         {
             this.loader = loader ?? throw new ArgumentNullException(nameof(loader));
             this.catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             this.progression = progression ?? throw new ArgumentNullException(nameof(progression));
             this.pointerGate = pointerGate ?? new PointerPressGate();
+            this.transitionGate = transitionGate;
         }
 
         public bool Continue() => OpenLevel(progression.GetContinueLevelId());
@@ -60,7 +69,7 @@ namespace Worms.Navigation
         public bool Restart()
         {
             var level = catalog.FindByScene(loader.CurrentSceneName);
-            return level != null && Load(level.SceneName);
+            return level != null && Load(level.SceneName, true);
         }
         public bool BackToWorld()
         {
@@ -81,12 +90,26 @@ namespace Worms.Navigation
         {
             return result != null && result.NextLevelId != null && OpenLevel(result.NextLevelId);
         }
-        private bool Load(string scene)
+        private bool Load(string scene, bool restarting = false)
         {
             if (IsLoading || string.IsNullOrEmpty(scene) || !loader.CanLoad(scene)) return false;
             IsLoading = true;
             pointerGate.BlockUntilRelease();
-            try { loader.Load(scene, () => IsLoading = false); }
+            string source = loader.CurrentSceneName;
+            bool invoked = false;
+            Action navigate = () =>
+            {
+                if (invoked) return;
+                invoked = true;
+                if (loader.CurrentSceneName != source) { IsLoading = false; return; }
+                try { loader.Load(scene, () => IsLoading = false); }
+                catch { IsLoading = false; throw; }
+            };
+            try
+            {
+                if (transitionGate == null) navigate();
+                else transitionGate.BeforeNavigate(scene, restarting, navigate);
+            }
             catch { IsLoading = false; throw; }
             return true;
         }

@@ -7,6 +7,34 @@ and screenshots in the ignored `TestResults/` directory, and summarize material
 failures in the PR. Use a disposable OS/test profile for fresh-save tests; do not
 delete a developer's progress to prepare a fixture.
 
+## Monetization acceptance
+
+Use sandbox store accounts and Google sample ad units, never live ad clicks.
+Normal developer builds must show no ads, prompts or ad traffic unless Preview
+Test Ads is explicitly enabled. Record device/OS/build and actual results:
+
+1. **DEVICE-ADS-01:** preview sample ads; complete/replay levels naturally and die/
+   retry 25 distinct attempts. Death plus Retry counts once. Observe the five
+   foreground-minute opening grace and 180-second shared cooldown. No ad opens
+   during death effects. An available ad opens only at a qualifying transition;
+   offline/no-fill/consent failure retries or navigates immediately.
+2. Confirm results/progression are already recorded before the ad. Rapidly tap
+   Retry/Next and close the sample ad: exactly one destination loads, audio and
+   time scale recover, and the closing touch does not jump or retry again.
+   Background/foreground during loading and presentation must not create a late
+   ad on an unrelated screen. Verify no ATT prompt on iOS.
+3. **DEVICE-IAP-01:** configure real products with sandbox purchasing. Buy Remove
+   Ads; cancel; exercise approval/deferred flow where supported. Check local price,
+   successful ownership, no grant on cancellation, restore after reinstall on the
+   same store account, and offline owned play. Test transaction redelivery after
+   interrupted confirmation and failure to persist the ownership cache.
+4. Check Settings/Restore/Privacy Choices/Policy on narrow phones, tablets and
+   safe areas; privacy choices only appear when UMP requires them. Store errors
+   remain recoverable, and absent ownership information never blocks gameplay.
+5. **RELEASE-ADS-01:** confirm both store audience/privacy declarations, developer
+   website/app-ads.txt, account approval, SDK IDs and signed production settings.
+   Do not label production delivery verified from a sample ad or editor test.
+
 ## Start and navigation
 
 1. **E2E-01 — fresh launch:** launch the Windows player or install the Android
@@ -88,3 +116,26 @@ application upgrades must preserve JSON progress.
 **E2E-10:** launch the actual Windows and Android builds, inspect logs/logcat,
 and repeat the main route/death/progression checks. iOS requires macOS/Xcode,
 signing and an actual device; record BLOCKED when unavailable.
+## Fixed-tick movement acceptance
+
+For the timing follow-up, record editor/build revision, device, native display
+refresh and actual rendered FPS separately. Use currently certified levels from
+`ValidationRoutes/` for natural play; replay automation does not replace touch
+acceptance. The movement-speed baseline remains 3/10/5.
+
+1. Try deliberate short taps and held jumps on rotating wheels and conveyors.
+   Check prompt response, one launch per observed tap, correct launch direction,
+   same-wheel suppression and held-jump behavior on the next platform.
+2. Compare movement at 30/60/120 FPS where the device supports those rendering
+   rates. Record perceived response and smoothness; lower-rate input sampling can
+   still add latency. Do not infer FPS from the phone's display specification.
+3. While attached, cross static hazards and finish triggers. Check death/completion
+   once, correct save/UI, and no drift or physics push away from the attachment.
+4. Check breakable-wheel forced launches, oxygen, moving spikes and animated
+   projectile attacks, including after a jump away from a countdown wheel.
+5. Pause/background/resume while a finger is down, release it, and retry. Check
+   clocks pause, no stale buffered jump fires, and menu/control touches still do
+   not launch the player.
+6. Compare camera tracking and attached/airborne player smoothness against the
+   pre-change build. Record any feel regression for tuning rather than silently
+   changing forces or level geometry.

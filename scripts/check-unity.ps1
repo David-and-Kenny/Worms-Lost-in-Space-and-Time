@@ -32,6 +32,9 @@ function Read-TestResult([string]$ResultPath) {
 function Invoke-UnityCheck([string]$Name) {
     $logPath = Join-Path $logFolder "$Name.log"
     $arguments = @('-batchmode', '-nographics', '-accept-apiupdate', '-projectPath', $project, '-logFile', $logPath)
+    # SDK editor preprocessors can be compiled behind UNITY_ANDROID. Select the
+    # platform before import, rather than only passing BuildTarget to BuildPlayer.
+    if ($Name -eq 'BuildAndroid') { $arguments += @('-buildTarget', 'Android') }
     $isTest = $Name -in @('EditMode', 'PlayMode')
     if ($isTest) {
         $resultPath = Join-Path $testFolder "$Name.xml"

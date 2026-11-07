@@ -10,18 +10,18 @@ namespace Worms.LevelValidation
     public sealed class LevelValidator
     {
         private readonly ILevelTrialRunner runner;
-        private readonly ILevelTrialRunner automaticRunner;
+        private readonly ILevelTrialRunner policyRunner;
         private readonly LevelValidationRequest request;
         private readonly Stopwatch budget = new Stopwatch();
         private LevelValidationReport report;
         public bool BudgetExpired => budget.Elapsed.TotalSeconds >= request.SearchSeconds || report.Trials >= request.MaximumTrials;
-        public LevelValidator(ILevelTrialRunner runner, LevelValidationRequest request, ILevelTrialRunner automaticRunner = null)
-        { this.runner = runner; this.request = request; this.automaticRunner = automaticRunner ?? runner; }
+        public LevelValidator(ILevelTrialRunner runner, LevelValidationRequest request, ILevelTrialRunner policyRunner = null)
+        { this.runner = runner; this.request = request; this.policyRunner = policyRunner ?? runner; }
 
-        private IEnumerator Trial(LevelManifest manifest, TrialPlan plan, int rate, Action<TrialResult> receive, bool automatic = false)
+        private IEnumerator Trial(LevelManifest manifest, TrialPlan plan, int rate, Action<TrialResult> receive, bool relativePolicy = false)
         {
             if (BudgetExpired) { receive(new TrialResult { Outcome = TrialOutcome.Cancelled, Reason = "Validation budget exhausted." }); yield break; }
-            yield return (automatic ? automaticRunner : runner).Run(manifest, plan, rate, result =>
+            yield return (relativePolicy ? policyRunner : runner).Run(manifest, plan, rate, result =>
             {
                 if (result.Outcome == TrialOutcome.ExecutionError) throw new InvalidOperationException(result.Reason);
                 if (result.Outcome == TrialOutcome.Completed && result.SaveWrites != 1)
@@ -45,18 +45,21 @@ namespace Worms.LevelValidation
                     report.Reason = string.Join("; ", manifest.Errors);
                     yield break;
                 }
-                if (request.Operation == "replay" && (saved == null || !saved.IsWellFormed()
+                if (request.Operation == "replay" && (saved == null || saved.Version != 2 || !saved.IsWellFormed()
                     || saved.LevelId != manifest.LevelId || saved.Fingerprint != manifest.Fingerprint || saved.UnityVersion != Application.unityVersion))
                 {
                     report.Outcome = ValidationOutcome.Stale;
                     report.Reason = "Replay missing or its version, level, source fingerprint or editor version changed. Search to issue a new certificate.";
                     yield break;
                 }
-                var calibrationPlan = new TrialPlan();
-                if (saved != null && saved.IsWellFormed() && saved.LevelId == manifest.LevelId
-                    && (request.Operation == "replay" || saved.FramesPerSecond == request.FramesPerSecond))
+                // A passive attached player can live indefinitely. Calibrate through its first
+                // authoritative attachment checkpoint, then verify entire candidate routes below.
+                var calibrationPlan = new TrialPlan { StopAtFrontier = true, MinimumAttachmentTicks = 2 };
+                if (saved != null && saved.IsWellFormed() && saved.LevelId == manifest.LevelId)
                 {
                     calibrationPlan.Jumps = saved.Jumps;
+                    calibrationPlan.StopAtFrontier = false;
+                    calibrationPlan.RelativeTiming = request.Operation != "replay";
                     if (request.Operation != "replay") report.Diagnostics.Add("Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required.");
                 }
                 TrialResult baseline = null;
@@ -87,12 +90,17 @@ namespace Worms.LevelValidation
                     }
                     report.Replay = saved;
                     Verified(baseline);
-                    yield return VerifyAutomatic(manifest, calibrationPlan);
+                    yield return VerifyPolicy(manifest, calibrationPlan);
                     yield break;
                 }
 
                 TrialResult solution = baseline.Outcome == TrialOutcome.Completed ? baseline : null;
                 var solutionPlan = RouteSearch.Copy(calibrationPlan);
+                if (solution != null && solution.DeliveredJumps.Count == solutionPlan.Jumps.Count)
+                {
+                    solutionPlan.Jumps = solution.DeliveredJumps;
+                    solutionPlan.RelativeTiming = false;
+                }
                 RouteSearch search = null;
                 var rejected = new HashSet<string>();
                 while (!BudgetExpired)
@@ -142,7 +150,7 @@ namespace Worms.LevelValidation
                         Jumps = solutionPlan.Jumps, Expected = solution.Events };
                     if (!report.Replay.IsWellFormed()) throw new InvalidOperationException("Candidate produced malformed or nonfinite replay evidence.");
                     Verified(solution);
-                    yield return VerifyAutomatic(manifest, solutionPlan);
+                    yield return VerifyPolicy(manifest, solutionPlan);
                     if (report.Outcome == ValidationOutcome.VerifiedReachable)
                     { yield return Analyze(manifest, solutionPlan); yield break; }
                     report.Diagnostics.Add("Rejected candidate: " + report.Reason);
@@ -171,20 +179,20 @@ namespace Worms.LevelValidation
         }
         private void Inconclusive(string reason) { report.Outcome = ValidationOutcome.Inconclusive; report.Reason = reason; }
 
-        private IEnumerator VerifyAutomatic(LevelManifest manifest, TrialPlan solution)
+        private IEnumerator VerifyPolicy(LevelManifest manifest, TrialPlan solution)
         {
             var policy = RouteSearch.Copy(solution);
             policy.RelativeTiming = true;
             for (int repeat = 0; repeat < 3; repeat++)
             {
                 if (BudgetExpired)
-                { Inconclusive("Budget expired before normal-physics verification."); report.Replay = null; yield break; }
+                { Inconclusive("Budget expired before attachment-relative policy verification."); report.Replay = null; yield break; }
                 TrialResult result = null;
                 yield return Trial(manifest, policy, request.FramesPerSecond, value => result = value, true);
                 if (result.Outcome != TrialOutcome.Completed)
                 {
                     report.Outcome = ValidationOutcome.ReplayFailed;
-                    report.Reason = "Controlled route did not reproduce with Unity automatic physics: " + result.Reason;
+                    report.Reason = "Candidate did not reproduce with attachment-relative input: " + result.Reason;
                     report.Replay = null;
                     yield break;
                 }
@@ -202,7 +210,7 @@ namespace Worms.LevelValidation
                 yield return Trial(manifest, policy, rate, value => result = value, true);
                 report.Profiles.Add(new ProfileResult { FramesPerSecond = rate, Completed = result.Outcome == TrialOutcome.Completed, Reason = result.Reason });
             }
-            int radius = (int)Math.Ceiling(.25f * request.FramesPerSecond);
+            int radius = (int)Math.Floor(.25f * Worms.Gameplay.GameSimulation.TicksPerSecond);
             for (int index = 0; index < solution.Jumps.Count; index++)
             {
                 int? start = null;
@@ -211,7 +219,7 @@ namespace Worms.LevelValidation
                     if (BudgetExpired) yield break;
                     var variation = RouteSearch.Copy(solution);
                     variation.RelativeTiming = true;
-                    variation.Jumps[index].DelaySeconds += offset / (float)request.FramesPerSecond;
+                    variation.Jumps[index].DelaySeconds += offset / (float)Worms.Gameplay.GameSimulation.TicksPerSecond;
                     bool success = false;
                     if (variation.Jumps[index].DelaySeconds >= 0)
                     {
@@ -225,8 +233,8 @@ namespace Worms.LevelValidation
                     if (start != null && (!success || offset == radius))
                     {
                         report.TimingWindows.Add(new TimingWindow { JumpIndex = index,
-                            FirstOffsetSeconds = start.Value / (float)request.FramesPerSecond,
-                            LastOffsetSeconds = (success ? offset : offset - 1) / (float)request.FramesPerSecond });
+                            FirstOffsetSeconds = start.Value / (float)Worms.Gameplay.GameSimulation.TicksPerSecond,
+                            LastOffsetSeconds = (success ? offset : offset - 1) / (float)Worms.Gameplay.GameSimulation.TicksPerSecond });
                         start = null;
                     }
                 }

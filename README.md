@@ -8,6 +8,10 @@ avoid hazards, and reach the exit before oxygen runs out.
 See the [product backlog](BACKLOG.md) for planned features, research and open issues.
 Use the [level viability utility](docs/LEVEL_VALIDATION.md) to inspect levels,
 discover jump routes and replay regression certificates without AI token usage.
+Movement now uses a shared 50 Hz gameplay tick, buffered jump input and interpolated
+player presentation; see [the timing change and validation](docs/FIXED_TICK_GAMEPLAY.md).
+The [completion-time and provisional difficulty report](docs/FIXED_TICK_LEVEL_REPORT.md)
+records the currently certified routes and unresolved content.
 
 The project is upgraded from **Unity 5.2.0f3** to **Unity 6000.6.8f1 (Unity 6.6)**,
 the latest supported release verified on November 6, 2026. All 24 enabled scenes
@@ -127,11 +131,11 @@ Keep signing keys and passwords outside Git. Build output belongs in ignored `Bu
 iOS requires the matching iOS module and a Mac with Xcode for final compilation,
 signing, and device testing. Windows alone cannot produce a signed iOS app.
 
-Ads are deliberately inactive during migration. The unsupported 2015 SDK and
-native libraries are removed from the current source tree and remain recoverable
-from Git history; see [legacy integration notes](Legacy/README.md).
-The scene-attached script keeps its GUID. A maintained SDK and consent flow
-must be integrated separately before enabling ads.
+Modern AdMob and Unity IAP integrations are present, with developer ads and
+production monetization disabled by default. The unsupported 2015 SDK remains
+removed and the legacy scene component retains its GUID. See the
+[monetization guide](docs/MONETIZATION.md) for ad timing, Remove Ads purchasing,
+safe testing and the account/ID/device checks required before enabling production.
 
 ## Working together
 

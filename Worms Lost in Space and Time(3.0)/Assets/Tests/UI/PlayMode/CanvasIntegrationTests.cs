@@ -98,7 +98,8 @@ public sealed class CanvasIntegrationTests
         yield return null;
         Assert.That(menu.WorldOne, Is.Not.Null);
         Assert.That(menu.WorldTwo, Is.Not.Null);
-        Assert.That(menu.GetComponentsInChildren<Button>(true).Length, Is.EqualTo(5), "No empty World3 destination.");
+        foreach (var button in menu.GetComponentsInChildren<Button>(true))
+            Assert.That(button.name, Is.Not.EqualTo("World 3"), "No empty World3 destination.");
         menu.Primary.onClick.Invoke();
         menu.WorldTwo.onClick.Invoke();
         Assert.That(loader.Count, Is.EqualTo(1));
@@ -214,10 +215,12 @@ public sealed class CanvasIntegrationTests
         wheel.holder.SetParent(wheel.transform);
         player.AttachToWheel(wheel, Vector2.right);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(player.playerAttached, Is.True, "The menu's held finger must not launch the player.");
         player.detatch();
         state.PointerHeld = state.TouchHeld = false;
         yield return null;
+        yield return new WaitForFixedUpdate();
         var nextWheel = new GameObject("Next fixture wheel").AddComponent<Wheel>();
         nextWheel.speed = 0;
         nextWheel.holder = new GameObject("Next fixture holder").transform;
@@ -225,6 +228,7 @@ public sealed class CanvasIntegrationTests
         state.PointerHeld = state.TouchHeld = true;
         player.AttachToWheel(nextWheel, Vector2.right);
         yield return null;
+        yield return new WaitForFixedUpdate();
         Assert.That(player.playerAttached, Is.False, "The next gameplay touch must launch after an airborne release.");
         Assert.That(Vector2.Distance(body.linearVelocity, (Vector2)player.transform.up * 10), Is.LessThan(0.001f));
     }
@@ -307,6 +311,21 @@ public sealed class CanvasIntegrationTests
         Assert.That(binding.Star.activeSelf, Is.True);
         yield return null;
     }
+    [UnityTest]
+    public IEnumerator MonetizationSettingsOpenCloseAndStayUnavailableWithoutStoreSetup()
+    {
+        var menu = View("MainMenu");
+        yield return null;
+        var settings = menu.GetComponent<MonetizationSettingsView>();
+        Assert.That(settings.Panel.activeSelf, Is.False);
+        settings.Open.onClick.Invoke();
+        Assert.That(settings.Panel.activeSelf, Is.True);
+        Assert.That(settings.Buy.interactable, Is.False);
+        Assert.That(settings.Restore.interactable, Is.False);
+        settings.Close.onClick.Invoke();
+        Assert.That(settings.Panel.activeSelf, Is.False);
+    }
+
     [Test]
     public void EveryEditablePrefabFitsSuppliedSafeRectsInPortraitLandscapeAndTablet()
     {
