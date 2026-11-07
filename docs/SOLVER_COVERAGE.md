@@ -3,8 +3,9 @@
 Baseline: `dea89b3` (merged fixed-tick gameplay); pinned editor 6000.6.8f1.
 The unchanged nine-test validation integration suite passed in the isolated
 checkout before solver edits. Evidence: `TestResults/Solver-Baseline.xml` and
-`Logs/Solver-Baseline.log`. This change is test tooling; gameplay/level geometry
-and the runtime 50 Hz simulation remain unchanged.
+`Logs/Solver-Baseline.log`. The solver work preserves runtime movement and the
+50 Hz simulation. The later follow-up below adds Level 20's missing exit;
+existing platform geometry remains unchanged.
 
 ## Scope and acceptance
 
