@@ -34,6 +34,22 @@ namespace Worms.LevelValidation
         }
 
         [Test]
+        [TestCase(0f, 12)]
+        [TestCase(.25f, 25)]
+        public void ObservedLifetimeBoundsJumpWaitsWithoutRemovingPassiveActions(float remaining, int lastJump)
+        {
+            var search = new RouteSearch(new LevelValidationRequest(), Map());
+            search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier, SurfaceId = "source",
+                LastFrame = 10, AttachmentFrame = 5, SafeWaitSeconds = remaining });
+            var actions = new System.Collections.Generic.List<TrialPlan>();
+            TrialPlan plan;
+            while ((plan = search.Next()) != null) actions.Add(plan);
+            Assert.That(actions.Where(item => item.Jumps.Count > 0).Max(item => item.Jumps.Last().Frame), Is.EqualTo(lastJump));
+            Assert.That(actions.Count(item => item.Jumps.Count == 0), Is.EqualTo(2));
+            Assert.That(actions.Any(item => item.Jumps.Count == 0 && item.FrameLimit == -1), Is.True);
+        }
+
+        [Test]
         public void ProbeLimitDoesNotReplaceTheLongerFallback()
         {
             var options = new LevelValidationRequest { TrialSeconds = 120 };

@@ -137,7 +137,7 @@ namespace Worms.LevelValidation
         public int LastFrame;
         public float Elapsed;
         public float Oxygen;
-        public float SafeWaitSeconds;
+        public float SafeWaitSeconds = -1;
         public float X;
         public float Y;
         public float Angle;

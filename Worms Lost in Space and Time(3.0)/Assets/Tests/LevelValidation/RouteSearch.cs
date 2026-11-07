@@ -53,7 +53,7 @@ namespace Worms.LevelValidation
             }
             if (state.Outcome != TrialOutcome.Frontier || prefix.Jumps.Count >= options.MaximumJumps) return;
             int horizon = (int)Math.Ceiling(options.TrialSeconds * GameSimulation.TicksPerSecond) - state.LastFrame;
-            if (state.SafeWaitSeconds > 0)
+            if (state.SafeWaitSeconds >= 0)
                 horizon = Math.Min(horizon, (int)Math.Ceiling(state.SafeWaitSeconds * GameSimulation.TicksPerSecond) + 2);
             if (horizon < 0) return;
             var surface = manifest.Objects.FirstOrDefault(item => item.Id == state.SurfaceId);

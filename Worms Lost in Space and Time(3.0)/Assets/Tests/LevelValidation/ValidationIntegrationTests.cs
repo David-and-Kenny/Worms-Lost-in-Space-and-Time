@@ -112,6 +112,11 @@ namespace Worms.LevelValidation
         public IEnumerator OxygenDeathAndBreakableDetachUseRealComponentsAndNeverSave()
         {
             var options = Options(); var runner = new UnityTrialRunner(options);
+            TrialResult frontier = null;
+            yield return runner.Run(Fixture("BreakableWheel"), new TrialPlan { StopAtFrontier = true }, 60, value => frontier = value);
+            var countdown = UnityEngine.Object.FindFirstObjectByType<CountdownExplode>();
+            Assert.That(frontier.Outcome, Is.EqualTo(TrialOutcome.Frontier));
+            Assert.That(frontier.SafeWaitSeconds, Is.EqualTo(countdown.timer).Within(.0001f));
             TrialResult result = null;
             yield return runner.Run(Fixture("BreakableWheel"), new TrialPlan(), 60, value => result = value);
             Assert.That(result.Outcome, Is.EqualTo(TrialOutcome.Dead));

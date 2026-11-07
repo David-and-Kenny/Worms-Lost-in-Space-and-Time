@@ -165,6 +165,12 @@ namespace Worms.LevelValidation
             Result.Angle = sample.Angle;
             Result.VelocityX = sample.VelocityX; Result.VelocityY = sample.VelocityY;
             Result.SafeWaitSeconds = oxygen && oxygen.airBurnRate > 0 ? Math.Max(0, oxygen.air / oxygen.airBurnRate) : -1;
+            var countdown = player && player.Attachment.Wheel ? player.Attachment.Wheel.GetComponent<CountdownExplode>() : null;
+            if (countdown && countdown.isActiveAndEnabled && countdown.countdown)
+            {
+                float remaining = Math.Max(0, countdown.timer);
+                Result.SafeWaitSeconds = Result.SafeWaitSeconds < 0 ? remaining : Math.Min(Result.SafeWaitSeconds, remaining);
+            }
             Result.SurfaceId = SurfaceId; Result.AttachmentOrdinal = AttachmentOrdinal; Result.AttachmentFrame = AttachmentFrame;
             if (simulationStep && Attached && checkpointOrdinal != AttachmentOrdinal && Frame >= AttachmentFrame + 2)
             {
