@@ -1,0 +1,206 @@
+{
+    "Version": 2,
+    "LevelId": "level-02",
+    "ScenePath": "Assets/Scenes/World1/Level2.unity",
+    "Fingerprint": "d759906290cf1d96484f2d153ed8e37076d84ecf5198c024a90a928e812f4ae4",
+    "UnityVersion": "6000.6.8f1",
+    "FramesPerSecond": 30,
+    "Seed": 1729,
+    "Jumps": [
+        {
+            "Frame": 76,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-740303734",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.5
+        },
+        {
+            "Frame": 170,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-1219020360",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.2999999523162842
+        },
+        {
+            "Frame": 312,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-638128112",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 2.319999933242798
+        },
+        {
+            "Frame": 397,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.7799999713897705
+        }
+    ],
+    "Expected": [
+        {
+            "Frame": 1,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-740303734",
+            "AttachmentOrdinal": 1,
+            "Time": 0.019999999552965164,
+            "X": -4.753528594970703,
+            "Y": 6.613286018371582,
+            "Angle": 54.985626220703125,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 3,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-740303734",
+            "AttachmentOrdinal": 1,
+            "Time": 0.05999999865889549,
+            "X": -4.666327476501465,
+            "Y": 6.72728157043457,
+            "Angle": 50.185638427734375,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 76,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-740303734",
+            "AttachmentOrdinal": 1,
+            "Time": 1.5199999809265137,
+            "X": -1.9464670419692993,
+            "Y": 4.646718978881836,
+            "Angle": 234.98582458496094,
+            "VelocityX": 8.19010066986084,
+            "VelocityY": -5.737790107727051,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 105,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-1219020360",
+            "AttachmentOrdinal": 2,
+            "Time": 2.0999999046325684,
+            "X": 3.218106746673584,
+            "Y": 1.0641837120056152,
+            "Angle": 59.121402740478516,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 107,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-1219020360",
+            "AttachmentOrdinal": 2,
+            "Time": 2.1399998664855957,
+            "X": 3.2826476097106934,
+            "Y": 1.1640310287475586,
+            "Angle": 55.12139892578125,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 170,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-1219020360",
+            "AttachmentOrdinal": 2,
+            "Time": 3.3999998569488525,
+            "X": 6.289353370666504,
+            "Y": 0.7479518055915833,
+            "Angle": -70.87892150878906,
+            "VelocityX": 9.448284149169922,
+            "VelocityY": 3.2756547927856445,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 196,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-638128112",
+            "AttachmentOrdinal": 3,
+            "Time": 3.919999837875366,
+            "X": 11.200386047363281,
+            "Y": 2.888749361038208,
+            "Angle": 191.60903930664063,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 198,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-638128112",
+            "AttachmentOrdinal": 3,
+            "Time": 3.9599997997283936,
+            "X": 10.968947410583496,
+            "Y": 2.8512275218963623,
+            "Angle": 186.80905151367188,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 312,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-638128112",
+            "AttachmentOrdinal": 3,
+            "Time": 6.239999771118164,
+            "X": 13.432143211364746,
+            "Y": 5.787707328796387,
+            "Angle": -86.79066467285156,
+            "VelocityX": 9.9843168258667,
+            "VelocityY": 0.5598407983779907,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 358,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "Time": 7.159999847412109,
+            "X": 23.04030418395996,
+            "Y": 6.202430248260498,
+            "Angle": 72.96983337402344,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 360,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "Time": 7.199999809265137,
+            "X": 22.940763473510742,
+            "Y": 5.7353339195251465,
+            "Angle": 82.96983337402344,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 397,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "Time": 7.940000057220459,
+            "X": 28.398117065429688,
+            "Y": 5.302942752838135,
+            "Angle": 267.96990966796875,
+            "VelocityX": 9.99372386932373,
+            "VelocityY": -0.3542447090148926,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 427,
+            "Kind": "Completed",
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "Time": 8.539999961853027,
+            "X": 34.75374984741211,
+            "Y": 5.077658176422119,
+            "Angle": 267.96990966796875,
+            "VelocityX": 9.99372386932373,
+            "VelocityY": -0.3542447090148926,
+            "Oxygen": -1.0
+        }
+    ]
+}

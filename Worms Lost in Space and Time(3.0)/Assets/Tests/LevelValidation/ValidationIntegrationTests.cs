@@ -84,6 +84,9 @@ namespace Worms.LevelValidation
             Assert.That(report.TimingWindows, Is.Not.Empty);
             Assert.That(report.Profiles.Count, Is.EqualTo(3));
             Assert.That(report.Profiles.TrueForAll(profile => profile.Completed), Is.True, "The fixed-tick policy must complete at every render profile.");
+            Assert.That(report.HeldInput.Complete && report.HeldInput.Verified, Is.True, report.HeldInput.Reason);
+            Assert.That(report.HeldInput.Profiles.Count, Is.EqualTo(3));
+            Assert.That(report.HeldInput.Groups.Count, Is.EqualTo(1));
             options.Operation = "replay";
             LevelValidationReport repeated = null;
             yield return validator.Evaluate(Fixture("StaticRoute"), report.Replay, value => repeated = value);
@@ -97,6 +100,29 @@ namespace Worms.LevelValidation
                 Assert.That(crossRate.SaveWrites, Is.EqualTo(1));
             }
         }
+        [UnityTest]
+        public IEnumerator OnePreparedHoldTraversesTwoRealAttachmentsAndRejectsAnEarlyExtraLaunch()
+        {
+            var options = Options(); options.SearchSeconds = 60;
+            LevelValidator validator = null;
+            var runner = new UnityTrialRunner(options, () => validator.BudgetExpired);
+            validator = new LevelValidator(runner, options);
+            LevelValidationReport report = null;
+            yield return validator.Evaluate(Fixture("HeldChain"), null, value => report = value);
+            Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);
+            Assert.That(report.Replay.Jumps.Count, Is.EqualTo(2));
+            Assert.That(report.HeldInput.Verified, Is.True, report.HeldInput.Reason);
+            Assert.That(report.HeldInput.Groups.Count, Is.EqualTo(1));
+            Assert.That(report.HeldInput.Groups[0].Preheld, Is.True);
+            var wrong = new TrialPlan { Jumps = RouteSearch.Copy(new TrialPlan { Jumps = report.Replay.Jumps }).Jumps,
+                ButtonHolds = report.HeldInput.Groups };
+            wrong.Jumps[0].Frame += 2;
+            TrialResult failed = null;
+            yield return runner.Run(Fixture("HeldChain"), wrong, 60, value => failed = value);
+            Assert.That(failed.Outcome, Is.EqualTo(TrialOutcome.Diverged));
+            Assert.That(failed.SaveWrites, Is.Zero);
+        }
+
         [UnityTest]
         public IEnumerator SealedPhysicalExitReturnsInconclusiveWithinTrialBudget()
         {
@@ -112,6 +138,11 @@ namespace Worms.LevelValidation
         public IEnumerator OxygenDeathAndBreakableDetachUseRealComponentsAndNeverSave()
         {
             var options = Options(); var runner = new UnityTrialRunner(options);
+            TrialResult frontier = null;
+            yield return runner.Run(Fixture("BreakableWheel"), new TrialPlan { StopAtFrontier = true }, 60, value => frontier = value);
+            var countdown = UnityEngine.Object.FindFirstObjectByType<CountdownExplode>();
+            Assert.That(frontier.Outcome, Is.EqualTo(TrialOutcome.Frontier));
+            Assert.That(frontier.SafeWaitSeconds, Is.EqualTo(countdown.timer).Within(.0001f));
             TrialResult result = null;
             yield return runner.Run(Fixture("BreakableWheel"), new TrialPlan(), 60, value => result = value);
             Assert.That(result.Outcome, Is.EqualTo(TrialOutcome.Dead));

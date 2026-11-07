@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { RouteDifficulty, LevelValidationReport } from './report-level-validation.mjs';
+import { RouteDifficulty, InputEffort, LevelValidationReport } from './report-level-validation.mjs';
 
 function route(overrides = {}) {
   return { LevelId: 'level-01', Fingerprint: 'current', Status: 'VerifiedReachable', HasReplay: true,
@@ -14,13 +14,31 @@ function route(overrides = {}) {
 }
 function summary(...levels) { return { Complete: true, RequestedLevels: levels.length, Levels: levels }; }
 
-test('ratings distinguish precision, broader timing and route length', () => {
+test('verified holds separate prepared presses and continued jumps from timed presses', () => {
+  const report = route({ Replay: { Jumps: Array(6).fill({}) },
+    TimingWindows: Array.from({ length: 6 }, (_, JumpIndex) => ({ JumpIndex, FirstOffsetSeconds: 0, LastOffsetSeconds: 0 })),
+    HeldInput: { Complete: true, Verified: true, Groups: [
+      { FirstJump: 0, LastJump: 2, Preheld: true }, { FirstJump: 3, LastJump: 5, Preheld: false }] } });
+  const effort = new InputEffort(report);
+  assert.equal(effort.presses, 2); assert.equal(effort.preparedPresses, 1);
+  assert.equal(effort.continuedJumps, 4); assert.equal(effort.tightPresses, 1);
+  assert.equal(effort.longestTightChain, 1);
+});
+test('failed or incomplete hold verification does not invent effort counts', () => {
+  for (const HeldInput of [undefined, { Complete: false, Verified: false }, { Complete: true, Verified: false }]) {
+    const effort = new InputEffort(route({ HeldInput }));
+    assert.equal(effort.verified, false); assert.equal(effort.presses, null);
+  }
+});
+
+test('timing demand depends on precision rather than total jump count', () => {
   assert.equal(new RouteDifficulty(route()).rating, 'Low');
   assert.equal(new RouteDifficulty(route({ TimingWindows: [{ JumpIndex: 0, FirstOffsetSeconds: 0, LastOffsetSeconds: .04 }] })).rating, 'Moderate');
   assert.equal(new RouteDifficulty(route({ TimingWindows: [{ JumpIndex: 0, FirstOffsetSeconds: 0, LastOffsetSeconds: .02 }] })).rating, 'High');
   const long = route({ Replay: { Jumps: Array(8).fill({}) },
     TimingWindows: Array.from({ length: 8 }, (_, JumpIndex) => ({ JumpIndex, FirstOffsetSeconds: -.1, LastOffsetSeconds: .1 })) });
-  assert.equal(new RouteDifficulty(long).rating, 'High');
+  assert.equal(new RouteDifficulty(long).rating, 'Low');
+  assert.equal(new RouteDifficulty(route({ PerturbationSuccesses: 1 })).rating, 'Low');
 });
 
 test('incomplete evidence stays unrated and zero-jump analysis is low', () => {
@@ -46,6 +64,16 @@ test('aggregation retains verified evidence and reports content blockers honestl
   assert.match(report.markdown(), /Inconclusive searches do not prove impossibility/);
 });
 
+test('aggregation preserves complete timing evidence and its certificate source', () => {
+  const report = new LevelValidationReport();
+  report.add(summary(route()), 'complete');
+  report.add(summary(route({ AnalysisComplete: false })), 'partial-analysis');
+  const saved = JSON.parse(report.json());
+  assert.equal(saved.Levels[0].AnalysisComplete, true);
+  assert.deepEqual(saved.LevelSources, { 'level-01': 'complete' });
+  assert.deepEqual(saved.Sources, ['complete']);
+});
+
 test('partial runs and mixed-source evidence are rejected', () => {
   const report = new LevelValidationReport();
   assert.throws(() => report.add({ ...summary(route()), Complete: false }, 'partial'), /Incomplete/);
@@ -53,16 +81,38 @@ test('partial runs and mixed-source evidence are rejected', () => {
   assert.throws(() => report.add(summary(route({ Fingerprint: 'old' })), 'old'), /Different source/);
 });
 
-test('CLI writes readable Markdown and CSV without Unity or network access', () => {
+test('CLI writes reports and compact evidence that can regenerate them offline', () => {
   const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'worms-report-'));
   try {
     const input = path.join(folder, 'summary.json');
     const output = path.join(folder, 'report.md');
     const csv = path.join(folder, 'report.csv');
-    fs.writeFileSync(input, JSON.stringify(summary(route())));
+    const json = path.join(folder, 'report.json');
+    const evidence = path.join(folder, 'evidence.json');
+    fs.writeFileSync(input, JSON.stringify(summary(route({ Trajectory: [{ X: 1 }],
+      Replay: { Version: 2, FramesPerSecond: 60, Jumps: [{}], Expected: [{ Kind: 'Completed' }] } }))));
     execFileSync(process.execPath, [path.join(import.meta.dirname, 'report-level-validation.mjs'),
-      '--summary', input, '--output', output, '--csv', csv]);
+      '--summary', input, '--output', output, '--csv', csv, '--json', json, '--evidence', evidence]);
     assert.match(fs.readFileSync(output, 'utf8'), /certified routes: 1/);
     assert.match(fs.readFileSync(csv, 'utf8'), /"level-01","VerifiedReachable","4.20","60","1","Low"/);
+    const saved = JSON.parse(fs.readFileSync(json, 'utf8'));
+    assert.equal(saved.Complete, true);
+    assert.equal(saved.RequestedLevels, 1);
+    assert.equal(saved.LevelSources['level-01'], input);
+    const snapshot = JSON.parse(fs.readFileSync(evidence, 'utf8'));
+    assert.equal(snapshot.Levels[0].Trajectory, undefined);
+    assert.equal(snapshot.Levels[0].Replay.Expected, undefined);
+    assert.deepEqual(snapshot.Levels[0].Replay.Jumps, [{}]);
+    const regenerated = new LevelValidationReport();
+    regenerated.add(snapshot, evidence);
+    assert.match(regenerated.markdown(), /level-01 \| 4\.20/);
   } finally { fs.rmSync(folder, { recursive: true, force: true }); }
+});
+
+test('tight-jump chains are independent of the overall route length', () => {
+  const profile = new RouteDifficulty(route({ Replay: { Jumps: [{}, {}, {}, {}] },
+    TimingWindows: [0, 1, 2, 3].map(JumpIndex => ({ JumpIndex, FirstOffsetSeconds: 0,
+      LastOffsetSeconds: JumpIndex === 2 ? .1 : .02 })) }));
+  assert.equal(profile.tightJumps, 3);
+  assert.equal(profile.longestTightChain, 2);
 });

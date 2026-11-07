@@ -100,6 +100,7 @@ namespace Worms.LevelValidation
         public bool Attached => player && player.playerAttached && player.Attachment.HasSurface;
         public Player Player => player;
         public bool TerminalCaptured { get; private set; }
+        public bool InFreeFlight => player && !Attached && body && body.gravityScale == 0;
         public TrialObservation(LevelManifest manifest, Player player)
         {
             this.manifest = manifest;
@@ -162,7 +163,14 @@ namespace Worms.LevelValidation
             Result.LastFrame = sample.Frame; Result.Elapsed = sample.Time;
             Result.X = sample.X; Result.Y = sample.Y; Result.Oxygen = sample.Oxygen;
             Result.Angle = sample.Angle;
+            Result.VelocityX = sample.VelocityX; Result.VelocityY = sample.VelocityY;
             Result.SafeWaitSeconds = oxygen && oxygen.airBurnRate > 0 ? Math.Max(0, oxygen.air / oxygen.airBurnRate) : -1;
+            var countdown = player && player.Attachment.Wheel ? player.Attachment.Wheel.GetComponent<CountdownExplode>() : null;
+            if (countdown && countdown.isActiveAndEnabled && countdown.countdown)
+            {
+                float remaining = Math.Max(0, countdown.timer);
+                Result.SafeWaitSeconds = Result.SafeWaitSeconds < 0 ? remaining : Math.Min(Result.SafeWaitSeconds, remaining);
+            }
             Result.SurfaceId = SurfaceId; Result.AttachmentOrdinal = AttachmentOrdinal; Result.AttachmentFrame = AttachmentFrame;
             if (simulationStep && Attached && checkpointOrdinal != AttachmentOrdinal && Frame >= AttachmentFrame + 2)
             {
@@ -187,6 +195,7 @@ namespace Worms.LevelValidation
         private int next;
         private int sampledFrame = -1;
         private bool held;
+        private readonly JumpInputBuffer buttonBuffer = new JumpInputBuffer();
         public string Divergence { get; private set; }
         public ReplayInput(TrialObservation observation, TrialPlan plan)
         { this.observation = observation; this.plan = plan; }
@@ -196,6 +205,19 @@ namespace Worms.LevelValidation
             if (frame == sampledFrame) return held;
             sampledFrame = frame;
             held = false;
+            if (plan.ButtonHolds != null)
+            {
+                buttonBuffer.Sample(plan.ButtonHolds.Any(item => frame >= item.StartFrame && frame <= item.EndFrame));
+                bool requested = buttonBuffer.Consume(observation.Attached);
+                if (!requested)
+                {
+                    if (next < plan.Jumps.Count && frame >= plan.Jumps[next].Frame)
+                        Divergence = "Held input missed jump " + next + ".";
+                    return false;
+                }
+                if (next >= plan.Jumps.Count || plan.Jumps[next].Frame != frame)
+                { Divergence = "Held input requested an unrecorded jump."; return false; }
+            }
             if (next >= plan.Jumps.Count || Divergence != null) return false;
             var jump = plan.Jumps[next];
             int target = plan.RelativeTiming
@@ -237,6 +259,7 @@ namespace Worms.LevelValidation
             TrialObservation observation = null;
             ReplayInput input = null;
             string loadError = null;
+            var geometry = new RouteGeometry(manifest);
             Time.captureDeltaTime = 1f / framesPerSecond;
             Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
             // Empty warmup removes the previous world's timers and normalizes the render/physics cadence.
@@ -288,6 +311,10 @@ namespace Worms.LevelValidation
                     { result.Outcome = TrialOutcome.Cancelled; result.Reason = "Wall-clock budget exhausted or cancelled."; break; }
                     if (result.LastFrame >= request.TrialSeconds * GameSimulation.TicksPerSecond)
                     { result.Outcome = TrialOutcome.TimedOut; result.Reason = "Trial simulation limit reached."; break; }
+                    if (plan.StopAtFrontier && plan.FrameLimit > 0 && result.LastFrame >= plan.FrameLimit)
+                    { result.Outcome = TrialOutcome.TimedOut; result.Reason = "Transition probe horizon reached; longer probes remain searchable."; break; }
+                    if (plan.StopAtFrontier && observation.InFreeFlight && geometry.OutsideSearchEnvelope(result))
+                    { result.Outcome = TrialOutcome.TimedOut; result.Reason = "Flight left the search geometry envelope."; break; }
                     if (plan.StopAtFrontier && input.AllDelivered && observation.Attached
                         && observation.AttachmentFrame > plan.ObserveAfterFrame
                         && observation.Frame >= observation.AttachmentFrame + plan.MinimumAttachmentTicks)

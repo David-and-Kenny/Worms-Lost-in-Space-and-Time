@@ -12,7 +12,10 @@ Run from the repository root, with Unity closed:
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 node scripts/validate-repository.mjs
 node --test scripts/report-level-validation.test.mjs
+node --test scripts/check-validation-artifacts.test.mjs
+node scripts/check-validation-artifacts.mjs
 ./scripts/test-check-unity.ps1
+./scripts/test-validate-catalog.ps1
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check PlayMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check Scenes
@@ -77,9 +80,12 @@ Git LFS, Node 24, the pinned editor, and Android tools on that runner first.
 For a behavior PR, include the executed suite counts/results and relevant scenario
 IDs, not a claim of total coverage. Attach XML/logs or summarize their failures.
 Device cases remain unverified until someone records an actual device run.
-The six Node report tests cover difficulty bands, incomplete evidence, disconnected
+The Node report tests cover execution-demand bands, incomplete evidence, disconnected
 timing windows, aggregation/source guards and the actual Markdown/CSV CLI. They
 run in repository CI without Unity or an AI service.
+The catalog portfolio harness additionally checks fallback selection, matching-source
+resume, clean output isolation, certificate selection, strict replay and propagation
+of execution errors using a fake backend. It does not claim to run Unity.
 
 ## Monetization scenarios
 
@@ -155,6 +161,26 @@ a catalog search: the command entry point only dispatches a search/replay when a
 request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
 those requests. Search outcomes and saved-route regressions supplement the existing
 24-scene smoke test; they do not duplicate it or replace device/feel acceptance.
+`HeldInputPolicyTests` covers prepared input, successive earliest-attachment
+jumps, delayed presses and forced-detach boundaries. The `HeldChain` physical
+fixture verifies two real jumps from one prepared button hold at 30/60/120 FPS
+through `JumpInputBuffer`, and rejects an unrecorded early launch. A catalog test
+checks Level 20's active visible exit and final-level policy. Natural completion
+and exactly one disposable save are established by the explicit catalog runs.
+
+The artifact guard runs without Unity, a license or AI. It checks published
+catalog coverage, certificate identity/version/editor, matching fingerprints and
+inputs, finish times, complete timing/rate/held evidence and regenerated Markdown/
+CSV. Tests inject missing, inconsistent and malformed artifacts. This checks
+agreement of committed evidence, not current physical viability: a source change
+still requires fresh Unity certification and strict replay.
+`SearchCoverageTests` covers complete waiting-tick scheduling, passive/extended
+fallbacks, landing diversity, thin obstacles, reachable collider edges and search
+fairness. The catalog harness checks all three profile choices, analysis retries,
+same-source resume, certificate selection and strict replay; partial, stale,
+unstable and execution-failed evidence must fail the command.
+Matching-source completed worker runs can supplement a catalog pass; tests require
+those verified routes to skip redundant search and reject changed-source evidence.
 
 ## Fixed-tick movement acceptance
 

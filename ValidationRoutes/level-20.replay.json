@@ -1,0 +1,116 @@
+{
+    "Version": 2,
+    "LevelId": "level-20",
+    "ScenePath": "Assets/Scenes/World2/Level20.unity",
+    "Fingerprint": "0e4217bd98570966b96a930ed79b4dd56943f474a33784e84ece83b3de5ef7e8",
+    "UnityVersion": "6000.6.8f1",
+    "FramesPerSecond": 30,
+    "Seed": 1729,
+    "Jumps": [
+        {
+            "Frame": 54,
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-113838-2068329303",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8399999737739563
+        },
+        {
+            "Frame": 110,
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.6200000047683716
+        }
+    ],
+    "Expected": [
+        {
+            "Frame": 12,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-113838-2068329303",
+            "AttachmentOrdinal": 1,
+            "Time": 0.23999999463558197,
+            "X": -19.41671371459961,
+            "Y": 1.4046417474746704,
+            "Angle": 13.276412963867188,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 14,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-113838-2068329303",
+            "AttachmentOrdinal": 1,
+            "Time": 0.2800000011920929,
+            "X": -19.30952262878418,
+            "Y": 1.4256260395050049,
+            "Angle": 8.876411437988281,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 54,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-113838-2068329303",
+            "AttachmentOrdinal": 1,
+            "Time": 1.0799999237060547,
+            "X": -17.69289207458496,
+            "Y": 0.2884424030780792,
+            "Angle": -79.1236572265625,
+            "VelocityX": 9.820366859436035,
+            "VelocityY": 1.8869000673294067,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 79,
+            "Kind": "Attached",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "Time": 1.5799999237060547,
+            "X": -12.584738731384277,
+            "Y": 1.642225980758667,
+            "Angle": 163.937744140625,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 81,
+            "Kind": "AttachmentCheckpoint",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "Time": 1.6200000047683716,
+            "X": -12.39504623413086,
+            "Y": 1.5982145071029663,
+            "Angle": 169.937744140625,
+            "VelocityX": 0.0,
+            "VelocityY": 0.0,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 110,
+            "Kind": "Launched",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "Time": 2.200000047683716,
+            "X": -10.257737159729004,
+            "Y": 3.009528160095215,
+            "Angle": 256.9376220703125,
+            "VelocityX": 9.74124526977539,
+            "VelocityY": -2.2601187229156494,
+            "Oxygen": -1.0
+        },
+        {
+            "Frame": 197,
+            "Kind": "Completed",
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "Time": 3.93999981880188,
+            "X": 7.0175251960754395,
+            "Y": -0.9985965490341187,
+            "Angle": 256.9376220703125,
+            "VelocityX": 9.74124526977539,
+            "VelocityY": -2.2601187229156494,
+            "Oxygen": -1.0
+        }
+    ]
+}

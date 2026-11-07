@@ -218,6 +218,24 @@ namespace Worms.LevelValidation
             Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
         }
         [Test]
+        public void FinishContactEnvelopeDoesNotRelaxEarlierDecisionPoses()
+        {
+            var first = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Completed", Frame = 10 } } };
+            var second = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Completed", Frame = 10, Y = .004f } } };
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.True);
+            second.Events[0].Y = .011f;
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+            second.Events[0].Y = .004f;
+            foreach (string kind in new[] { "Launched", "AttachmentCheckpoint" })
+            {
+                first.Events[0].Kind = kind; second.Events[0].Kind = kind;
+                Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+            }
+        }
+
+        [Test]
         public void ContactDiagnosticsAreSeparateFromAuthoritativeAttachmentCheckpoints()
         {
             var first = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
@@ -250,7 +268,7 @@ namespace Worms.LevelValidation
             search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier, SurfaceId = "wheel", X = 1, Angle = -90 });
             Assert.That(search.Next().Jumps, Is.Empty, "Passive continuation remains an option.");
             var frames = new List<int>(); TrialPlan plan;
-            while ((plan = search.Next()) != null) frames.Add(plan.Jumps[0].Frame);
+            while ((plan = search.Next()) != null) if (plan.Jumps.Count > 0) frames.Add(plan.Jumps[0].Frame);
             Assert.That(frames.Take(5), Does.Contain(50));
             Assert.That(frames.OrderBy(frame => frame), Is.EqualTo(Enumerable.Range(1, 100)));
         }

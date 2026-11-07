@@ -26,6 +26,7 @@ namespace Worms.LevelValidation
                 if (result.Outcome == TrialOutcome.ExecutionError) throw new InvalidOperationException(result.Reason);
                 if (result.Outcome == TrialOutcome.Completed && result.SaveWrites != 1)
                     throw new InvalidOperationException("A real finish must persist exactly once in disposable storage.");
+                if (plan.StopAtFrontier && plan.MinimumAttachmentTicks == 0) RecordSearchProbe(plan, result);
                 receive(result);
             });
             report.Trials++;
@@ -131,6 +132,7 @@ namespace Worms.LevelValidation
                     string key = string.Join(",", solutionPlan.Jumps.Select(jump => jump.Frame));
                     if (rejected.Contains(key)) { solution = null; continue; }
                     solutionPlan.StopAtFrontier = false;
+                    solutionPlan.FrameLimit = -1;
                     solutionPlan.ObserveAfterFrame = -1;
                     for (int repeat = 0; repeat < 3; repeat++)
                     {
@@ -160,7 +162,8 @@ namespace Worms.LevelValidation
                     report.CompletionSeconds = 0;
                     report.Trajectory.Clear();
                 }
-                Inconclusive("No route found within the configured search frontier/budget. This is not proof of impossibility.");
+                Inconclusive("No route found within the configured search frontier/budget. Tested " + report.Coverage.ActionsTried
+                    + " transitions across " + report.Coverage.SurfacesReached.Count + " surfaces. This is not proof of impossibility.");
             }
             finally
             {
@@ -176,6 +179,19 @@ namespace Worms.LevelValidation
             report.CompletionSeconds = result.Elapsed;
             report.OxygenRemaining = result.Oxygen;
             report.Trajectory = result.Trace;
+        }
+        private void RecordSearchProbe(TrialPlan plan, TrialResult result)
+        {
+            report.Coverage.ActionsTried++;
+            if (result.Outcome == TrialOutcome.TimedOut) report.Coverage.TimedOutTrials++;
+            if (result.Outcome != TrialOutcome.Frontier) return;
+            report.Coverage.FrontiersReached++;
+            if (!report.Coverage.SurfacesReached.Contains(result.SurfaceId)) report.Coverage.SurfacesReached.Add(result.SurfaceId);
+            if (plan.Jumps.Count >= report.Coverage.MaximumRouteJumps)
+            {
+                report.Coverage.MaximumRouteJumps = plan.Jumps.Count;
+                report.Trajectory = result.Trace;
+            }
         }
         private void Inconclusive(string reason) { report.Outcome = ValidationOutcome.Inconclusive; report.Reason = reason; }
 
@@ -199,6 +215,54 @@ namespace Worms.LevelValidation
             }
         }
 
+        private IEnumerator MeasureTimingWindow(LevelManifest manifest, TrialPlan solution, int index)
+        {
+            int baseWait = Math.Max(1, (int)Math.Round(solution.Jumps[index].DelaySeconds * Worms.Gameplay.GameSimulation.TicksPerSecond));
+            int radius = request.TimingRadiusTicks;
+            int maximumRadius = Math.Max(12, radius);
+            var samples = new SortedDictionary<int, bool>();
+            while (true)
+            {
+                report.TimingRadiusTicks = Math.Max(report.TimingRadiusTicks, radius);
+                for (int offset = -radius; offset <= radius; offset++)
+                {
+                    if (BudgetExpired) yield break;
+                    if (baseWait + offset < 1 || samples.ContainsKey(offset)) continue;
+                    var variation = RouteSearch.Copy(solution);
+                    variation.RelativeTiming = true;
+                    variation.Jumps[index].DelaySeconds = (baseWait + offset) * Worms.Gameplay.GameSimulation.StepSeconds;
+                    TrialResult result = null;
+                    yield return Trial(manifest, variation, request.FramesPerSecond, value => result = value);
+                    bool success = result.Outcome == TrialOutcome.Completed;
+                    samples.Add(offset, success);
+                    report.PerturbationTrials++;
+                    if (success) report.PerturbationSuccesses++;
+                }
+                bool successfulBoundary = (samples.TryGetValue(-radius, out bool left) && left)
+                    || (samples.TryGetValue(radius, out bool right) && right);
+                if (!successfulBoundary || radius == maximumRadius) break;
+                radius = Math.Min(maximumRadius, radius * 2);
+            }
+            int? first = null;
+            int last = 0;
+            foreach (var sample in samples)
+            {
+                if (sample.Value && first == null) first = sample.Key;
+                if (first != null && !sample.Value)
+                {
+                    report.TimingWindows.Add(new TimingWindow { JumpIndex = index,
+                        FirstOffsetSeconds = first.Value * Worms.Gameplay.GameSimulation.StepSeconds,
+                        LastOffsetSeconds = last * Worms.Gameplay.GameSimulation.StepSeconds });
+                    first = null;
+                }
+                last = sample.Key;
+            }
+            if (first != null)
+                report.TimingWindows.Add(new TimingWindow { JumpIndex = index,
+                    FirstOffsetSeconds = first.Value * Worms.Gameplay.GameSimulation.StepSeconds,
+                    LastOffsetSeconds = last * Worms.Gameplay.GameSimulation.StepSeconds });
+        }
+
         private IEnumerator Analyze(LevelManifest manifest, TrialPlan solution)
         {
             foreach (int rate in new[] { 30, 60, 120 })
@@ -210,36 +274,39 @@ namespace Worms.LevelValidation
                 yield return Trial(manifest, policy, rate, value => result = value, true);
                 report.Profiles.Add(new ProfileResult { FramesPerSecond = rate, Completed = result.Outcome == TrialOutcome.Completed, Reason = result.Reason });
             }
-            int radius = (int)Math.Floor(.25f * Worms.Gameplay.GameSimulation.TicksPerSecond);
             for (int index = 0; index < solution.Jumps.Count; index++)
             {
-                int? start = null;
-                for (int offset = -radius; offset <= radius; offset++)
-                {
-                    if (BudgetExpired) yield break;
-                    var variation = RouteSearch.Copy(solution);
-                    variation.RelativeTiming = true;
-                    variation.Jumps[index].DelaySeconds += offset / (float)Worms.Gameplay.GameSimulation.TicksPerSecond;
-                    bool success = false;
-                    if (variation.Jumps[index].DelaySeconds >= 0)
-                    {
-                        TrialResult result = null;
-                        yield return Trial(manifest, variation, request.FramesPerSecond, value => result = value);
-                        success = result.Outcome == TrialOutcome.Completed;
-                        report.PerturbationTrials++;
-                        if (success) report.PerturbationSuccesses++;
-                    }
-                    if (success && start == null) start = offset;
-                    if (start != null && (!success || offset == radius))
-                    {
-                        report.TimingWindows.Add(new TimingWindow { JumpIndex = index,
-                            FirstOffsetSeconds = start.Value / (float)Worms.Gameplay.GameSimulation.TicksPerSecond,
-                            LastOffsetSeconds = (success ? offset : offset - 1) / (float)Worms.Gameplay.GameSimulation.TicksPerSecond });
-                        start = null;
-                    }
-                }
+                yield return MeasureTimingWindow(manifest, solution, index);
+                if (BudgetExpired) yield break;
             }
+            yield return AnalyzeHeldInput(manifest, solution);
+            if (BudgetExpired) yield break;
             report.AnalysisComplete = true;
+        }
+
+        private IEnumerator AnalyzeHeldInput(LevelManifest manifest, TrialPlan solution)
+        {
+            var analysis = report.HeldInput;
+            analysis.Groups = HeldInputPolicy.Build(report.Replay);
+            analysis.Reason = "Budget exhausted before held-input verification completed.";
+            var heldPlan = RouteSearch.Copy(solution);
+            heldPlan.RelativeTiming = false;
+            heldPlan.ButtonHolds = analysis.Groups;
+            var expected = new TrialResult { Outcome = TrialOutcome.Completed, Events = report.Replay.Expected };
+            foreach (int rate in new[] { 30, 60, 120 })
+            {
+                if (BudgetExpired) yield break;
+                TrialResult result = null;
+                yield return Trial(manifest, heldPlan, rate, value => result = value, true);
+                bool matches = result.Outcome == TrialOutcome.Completed
+                    && ReplayComparison.Equivalent(expected, result, out _);
+                analysis.Profiles.Add(new ProfileResult { FramesPerSecond = rate, Completed = matches,
+                    Reason = matches ? "Held input reproduced the recorded route through JumpInputBuffer." : result.Reason });
+            }
+            analysis.Complete = true;
+            analysis.Verified = analysis.Profiles.TrueForAll(item => item.Completed);
+            analysis.Reason = analysis.Verified ? "Observed-tick hold policy verified at 30/60/120 FPS."
+                : "Hold grouping did not reproduce the route at every profile; exact-jump evidence remains valid.";
         }
     }
 }

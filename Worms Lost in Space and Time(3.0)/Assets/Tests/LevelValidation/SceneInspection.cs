@@ -56,7 +56,12 @@ namespace Worms.LevelValidation
                         foreach (var finish in root.GetComponentsInChildren<Finish>(true)) Add(manifest, finish, "finish");
                         foreach (var finish in root.GetComponentsInChildren<SaveGame>(true)) Add(manifest, finish, "finish");
                         foreach (var hazard in root.GetComponentsInChildren<Collider2D>(true))
+                        {
                             if (hazard.CompareTag("Deadly")) Add(manifest, hazard, "hazard");
+                            else if (!hazard.isTrigger && !hazard.GetComponentInParent<Player>()
+                                && !hazard.GetComponentInParent<WheelSurface>() && !hazard.GetComponentInParent<Conveyor>())
+                                Add(manifest, hazard, "obstacle");
+                        }
                         foreach (var hazard in root.GetComponentsInChildren<MovingSpikes>(true))
                             if (!hazard.startPos || !hazard.endPos) manifest.Errors.Add("Moving hazard lacks path endpoints: " + hazard.name);
                         foreach (var component in root.GetComponentsInChildren<Component>(true))
@@ -88,8 +93,15 @@ namespace Worms.LevelValidation
                 if (!colliders.Any(item => item.enabled && !item.isTrigger)) manifest.Errors.Add("Surface requires an enabled collision collider: " + component.name);
             string id = GlobalObjectId.GetGlobalObjectIdSlow(component.gameObject).ToString();
             if (manifest.Objects.Any(item => item.Id == id && item.Role == role)) return;
+            var enabledColliders = colliders.Where(item => item.enabled).ToArray();
+            var bounds = enabledColliders.Length > 0 ? enabledColliders[0].bounds : new Bounds(component.transform.position, Vector3.zero);
+            foreach (var collider in enabledColliders.Skip(1)) bounds.Encapsulate(collider.bounds);
             manifest.Objects.Add(new SceneObjectIdentity { Id = id, Name = component.name, Role = role,
                 Hierarchy = Hierarchy(component.transform), X = component.transform.position.x, Y = component.transform.position.y,
+                CenterX = bounds.center.x, CenterY = bounds.center.y, SizeX = bounds.size.x, SizeY = bounds.size.y,
+                Circle = enabledColliders.Length == 1 && enabledColliders[0] is CircleCollider2D,
+                Moving = component.GetComponentInParent<MovingSpikes>() != null,
+                BreakSeconds = component.GetComponent<CountdownExplode>() ? component.GetComponent<CountdownExplode>().timer : 0,
                 AngularSpeed = component is WheelSurface surface && surface.wheel ? surface.wheel.speed * surface.wheel.direction : 0 });
         }
 

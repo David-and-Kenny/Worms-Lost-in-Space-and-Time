@@ -9,6 +9,30 @@ using Worms.Core;
 public sealed class CatalogTests
 {
     [Test]
+    public void FinalPublishedLevelHasOneVisibleExitAndNoNextLevel()
+    {
+        var previous = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
+        try
+        {
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/World2/Level20.unity");
+            var finish = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Finish>()).Single();
+            var trigger = finish.GetComponent<BoxCollider2D>();
+            Assert.That(trigger.enabled && trigger.isTrigger && finish.gameObject.activeInHierarchy, Is.True);
+            Assert.That(finish.GetComponentsInChildren<TextMesh>().Single().text, Is.EqualTo("EXIT"));
+            float rightmostPlatform = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<WheelSurface>())
+                .Max(wheel => wheel.GetComponent<Collider2D>().bounds.max.x);
+            Assert.That(trigger.bounds.min.x, Is.GreaterThan(rightmostPlatform));
+            Assert.That(Resources.Load<LevelCatalog>("Configuration/LevelCatalog").GetNext("level-20"), Is.Null);
+        }
+        finally
+        {
+            if (previous.Length > 0 && previous.All(item => !string.IsNullOrEmpty(item.path)))
+                UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(previous);
+            else UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene);
+        }
+    }
+
+    [Test]
     public void PublishedCatalogCoversExactlyTwentyEnabledGameplayScenes()
     {
         var catalog = Resources.Load<LevelCatalog>("Configuration/LevelCatalog");

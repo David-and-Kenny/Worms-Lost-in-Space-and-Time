@@ -21,6 +21,9 @@ with `-UnityEditor /path/to/Unity` when needed.
 # Search the full catalog, independently budgeting each level.
 ./scripts/validate-levels.ps1 -Operation batch -Level all
 
+# Full catalog, alternate-profile retries, timing analysis, reports and strict replay.
+./scripts/validate-catalog.ps1 -OutputDirectory TestResults/Catalog/current
+
 # Reproduce a saved route without searching.
 ./scripts/validate-levels.ps1 -Operation replay -ReplayFile '/absolute/path/level-01.replay.json'
 
@@ -34,16 +37,30 @@ with `-UnityEditor /path/to/Unity` when needed.
 ./scripts/validate-levels.ps1 -Operation batch -Level certified -ProposalDirectory ./ValidationRoutes
 ```
 
+The catalog command uses 30 FPS rendering and the same 50 Hz gameplay physics.
+It tries balanced, wide and focused search profiles for unresolved scenes, gives
+incomplete timing analysis a separate budget, then strictly replays the selected
+certificates. See [profile budgets and coverage](SOLVER_COVERAGE.md). It leaves
+maintained repository certificates untouched until a developer reviews the run.
+
 `-Level` accepts a catalog ID, scene name or project-relative `Assets/.../*.unity`
 path. Custom scenes need not be published in Build Settings. `-SearchSeconds`,
 `-MaximumTrials` and `-TrialSeconds` override the default budgets of 300 wall
 seconds, 10,000 trials and 120 simulated seconds. The request additionally caps
-routes at 64 jumps and retains 64 frontier states. Inspect request/report JSON
+routes at 64 jumps and retains 256 frontier states. Inspect request/report JSON
 when comparing budgets; a deeper search is not guaranteed to find a route.
 `-FramesPerSecond`, `-Seed`, `-MaximumJumps` and `-BeamWidth` expose the remaining
 profile options. `-ProposalDirectory` supplies optional recorded-input proposals
 for a catalog search; this never bypasses fresh certification. Strict replay
 uses the certificate's recorded seed/rate and does not perform a new search.
+
+`-TimingRadiusTicks` chooses the initial sensitivity-test radius (default 12).
+Use `-TimingRadiusTicks 2` for an efficient catalog iteration: each jump starts
+with ±40ms at 20ms resolution and expands up to ±240ms if a tested success reaches
+the boundary. Requests for a larger initial radius retain that larger cap.
+The report records the maximum radius actually sampled. Each legal wait tick is
+tested once; negative/duplicate earliest-tick commands are not counted as distinct
+observations. Budget-limited analysis remains explicitly incomplete.
 
 Output goes into a unique ignored `TestResults/LevelValidation/` directory, or an
 explicit `-OutputDirectory`. The command returns **0** for successful inspection
@@ -57,8 +74,10 @@ No summary from an older invocation is accepted as the current result.
 1. The scene has one active player, real finish trigger(s), usable typed surfaces
    and required references. Inspection also records active tagged hazards.
 2. Ten identical fixed-tick input trials reproduce terminal outcomes and traversal
-   checkpoints. Position/velocity tolerance is 0.001 units, angle 0.1 degrees and
-   oxygen 0.01 units; event frames/identities must match exactly.
+   checkpoints. Launch/checkpoint position and all velocity tolerances are 0.001;
+   completed-event X/Y use 0.01, matching the pinned physics contact offset.
+   Angle tolerance is 0.1 degrees and oxygen 0.01; event frames/identities must
+   match exactly. See [the observed finish-contact case](SOLVER_COVERAGE.md).
    Without a proposal, initial calibration stops at the first authoritative
    attachment checkpoint, or a terminal result; a stationary attached player does
    not consume an entire trial horizon. A proposed full route is calibrated in full.
@@ -75,8 +94,9 @@ No summary from an older invocation is accepted as the current result.
    reference rendering rate. All runs use Unity's ordinary automatic physics.
 
 Legitimate shortcuts and zero-jump/direct exits count. No ordered checkpoint list
-is imposed. The known Level 20 missing exit is a structural failure, not a search
-timeout. The validator never writes to a developer's actual save directory.
+is imposed. Missing authored exits are structural failures, not search timeouts.
+Level 20's missing exit has now been authored and naturally completed. The
+validator never writes to a developer's actual save directory.
 
 ## Clock and search design
 
@@ -100,6 +120,29 @@ See [FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md) for the change and evidence
 Search is bounded best-first exploration of input prefixes. At each reached
 attachment it tries passive continuation and wait/jump actions, starting with a
 three-tick grid and then testing every remaining tick in the available horizon.
+
+Collider-size-aware angle hints are shared among possible destinations before
+the fallback grid. Static obstruction costs help rank paths around obstacles;
+moving hazards remain real simulation, not static blockers. The larger beam
+retains different landing phases, radii and clock phases so a crowded platform
+does not monopolize the search. Those cells guide allocation, not state equality.
+Platform-wide effort also increases a frontier's scheduling cost: another arrival
+on an early wheel cannot reset its effort and indefinitely starve later wheels.
+Exit distance remains the main progress hint; obstruction estimates have a small
+weight because a center-to-center line can intersect a hazard that an edge-to-edge
+jump safely avoids.
+
+Search-only transition horizons stop spending the full 120 seconds on every miss;
+extended probes and a full-horizon passive action remain available. An outward
+zero-gravity flight beyond the scene's interaction envelope ends that search
+probe. None of these cutoffs proves a level impossible. Full certification/replay
+uses the full requested horizon and never uses these search cutoffs.
+Jump waits also respect the active breakable wheel's observed remaining timer;
+passive forced-detach continuations stay available. An unknown lifetime is -1,
+while zero remains a real imminent deadline rather than an unlimited wait.
+`Coverage` records attempted transitions, reached surfaces, frontier count,
+deepest observed prefix and timeout count. Unsuccessful reports retain a diagnostic
+trajectory, not a fabricated completion certificate.
 Collision attachment can first launch on the following simulation tick. Actual
 geometry only prioritizes frontiers by distance to an exit; it cannot certify or
 disprove a jump.
@@ -167,21 +210,62 @@ the change and run strict batch replay before committing. See
 [LEVEL_VALIDATION_RESULTS.md](LEVEL_VALIDATION_RESULTS.md) for the initial catalog
 matrix, suite evidence and outstanding content/device checks.
 
-### Completion times and provisional difficulty
+### Completion times and timing demand
 
 Generate a shareable report from completed runs without Unity or AI tokens:
 
 ```powershell
 node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/run/summary.json --output TestResults/level-report.md --csv TestResults/level-report.csv
+
+# Publish compact report data without local trajectories or duplicate checkpoints.
+node scripts/report-level-validation.mjs --summary TestResults/Catalog/current/summary.json --output TestResults/preview.md --csv TestResults/preview.csv --evidence docs/LEVEL_VALIDATION_EVIDENCE.json
+# Regenerate the shared table from the tracked snapshot, without Unity or a model.
+node scripts/report-level-validation.mjs --summary docs/LEVEL_VALIDATION_EVIDENCE.json --output docs/FIXED_TICK_LEVEL_REPORT.md --csv docs/FIXED_TICK_LEVEL_REPORT.csv
 ```
 
 Repeat `--summary` to combine the catalog scan with deeper per-level runs from the
 same source fingerprints. A verified route survives a later inconclusive retry.
 Partial runs and conflicting fingerprints are rejected. The report records replay
-completion time, jump count, sampled timing tolerance and a provisional Low,
-Moderate or High route difficulty. Its explicit rules are printed in the report.
+completion time, jump count, sampled timing tolerance and Low, Moderate or High
+timing demand. Attempts, sampled failure ratios and total jump count do not set
+the band; tight-jump counts and chains are separate. Rules are printed in the report.
 Incomplete timing analysis stays Not rated; these bands are not human playtest
 ratings or proof that an easier route does not exist.
+The tracked snapshot is report data, not a replay certificate; complete expected
+checkpoints remain in `ValidationRoutes/*.replay.json`. The current iteration
+certifies all twenty levels, including Level 20's newly authored exit. See
+[the full validation evidence](SOLVER_COVERAGE.md).
+
+### Verified held-input effort
+
+`HeldInputPolicy` proposes a continuous hold across consecutive earliest-legal
+attachments. Delayed jumps and intervening forced-detach waits split press groups.
+A press may be prepared while falling or after a forced detach when no earlier
+attachment would consume it. These are proposals until actual replays verify them.
+
+The runner samples the proposed observed button state into the production
+`JumpInputBuffer` at the fixed-tick input boundary. All manual launches must still
+match the recorded frame, surface and attachment ordinal; extra or missed launches
+fail the hold policy. Three normal-physics runs at 30/60/120 FPS must reproduce
+the certified route before `HeldInput.Verified` becomes true. A failed hold policy
+does not erase a separately verified exact-jump route.
+
+The report separately counts button-down groups, prepared presses, jumps from
+continued holding and tight non-prepared group starts. The last measure uses the
+first jump's exact-policy timing samples as a diagnostic proxy. It does not
+measure varied hold-release windows, physical touch latency or overall human
+difficulty. Empty/unverified evidence stays unknown instead of becoming zero.
+
+After regenerating and reviewing shared artifacts, run:
+
+```powershell
+node --test scripts/check-validation-artifacts.test.mjs
+node scripts/check-validation-artifacts.mjs
+```
+
+The guard checks that the published catalog, certificates, report snapshot and
+generated tables agree. It cannot establish current source freshness or physical
+viability without Unity; do not treat a coherent old artifact set as a fresh run.
 
 ## Visual replay and development
 

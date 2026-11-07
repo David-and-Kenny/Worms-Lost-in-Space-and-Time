@@ -2,9 +2,9 @@
     "Version": 2,
     "LevelId": "level-04",
     "ScenePath": "Assets/Scenes/World1/Level4.unity",
-    "Fingerprint": "3115b9ac0b65961e6ab5a401e9182032f469c7b1d4920a47d98443bde0ef2cf2",
+    "Fingerprint": "a05e5df78aa26c117c268495f894bf81018e72f6b3ae292b3e79cfe5b56ba701",
     "UnityVersion": "6000.6.8f1",
-    "FramesPerSecond": 60,
+    "FramesPerSecond": 30,
     "Seed": 1729,
     "Jumps": [
         {
