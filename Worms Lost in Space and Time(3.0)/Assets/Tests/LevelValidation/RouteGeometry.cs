@@ -85,7 +85,11 @@ namespace Worms.LevelValidation
             double radius = Math.Max(.25, Math.Max(target.SizeX, target.SizeY) * .5) + playerRadius;
             double distance = Distance(x, y, centerX, centerY);
             double aperture = Math.Asin(Math.Min(1, radius / Math.Max(radius, distance)));
-            double blocked = error < aperture ? Obstructions(x, y, centerX, centerY) * 50 : 0;
+            // A landing stops at the collider's edge. Its center may sit inside a ceiling or wall.
+            double contactFraction = Math.Max(0, distance - radius) / Math.Max(.001, distance);
+            double contactX = x + (centerX - x) * contactFraction;
+            double contactY = y + (centerY - y) * contactFraction;
+            double blocked = error < aperture ? Obstructions(x, y, contactX, contactY) * 50 : 0;
             return error * 180 / Math.PI + blocked + seconds * .05;
         }
 

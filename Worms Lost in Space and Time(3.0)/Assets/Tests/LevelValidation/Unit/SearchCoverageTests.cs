@@ -106,6 +106,22 @@ namespace Worms.LevelValidation
         }
 
         [Test]
+        public void APlatformEmbeddedInACeilingCanBeApproachedFromBelow()
+        {
+            var map = Map();
+            var target = new SceneObjectIdentity { Id = "high", Role = "wheel", X = 10, Y = 10,
+                CenterX = 10, CenterY = 10, SizeX = 4, SizeY = 4 };
+            map.Objects.Add(target);
+            map.Objects.Add(new SceneObjectIdentity { Id = "ceiling", Role = "hazard",
+                X = 10, Y = 10, CenterX = 10, CenterY = 10, SizeX = 10, SizeY = .2f });
+            var state = new TrialResult { Angle = -45 };
+            Assert.That(new RouteGeometry(map).AimScore(state, map.Objects[0], target, 0), Is.LessThan(1));
+            map.Objects.Add(new SceneObjectIdentity { Id = "wall", Role = "hazard",
+                X = 5, Y = 5, CenterX = 5, CenterY = 5, SizeX = 2, SizeY = 2 });
+            Assert.That(new RouteGeometry(map).AimScore(state, map.Objects[0], target, 0), Is.GreaterThan(49));
+        }
+
+        [Test]
         public void FreshArrivalsOnAnEarlyPlatformCannotStarveAnotherPlatform()
         {
             var map = Map();
