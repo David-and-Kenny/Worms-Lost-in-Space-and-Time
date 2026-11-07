@@ -358,7 +358,8 @@ provider requires a separate decision.
 
 - [x] **BL-014:** reusable token-free viability search, certificates, complementary
   profiles and reporting; all 20 levels evaluated, 19 certified and strictly
-  replayed in two checkouts — [evidence](docs/SOLVER_COVERAGE.md).
+  replayed in two checkouts — [PR #12](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/12),
+  [evidence](docs/SOLVER_COVERAGE.md).
 - [x] Recover and upgrade the Unity project; remove tracked caches/obsolete ad SDK
   and establish a shared Git workflow — [PR #1](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/1).
 - [x] Introduce testable models/adapters, JSON saves, catalog/navigation, Canvas UI
