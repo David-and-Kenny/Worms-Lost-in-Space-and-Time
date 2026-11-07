@@ -74,8 +74,10 @@ No summary from an older invocation is accepted as the current result.
 1. The scene has one active player, real finish trigger(s), usable typed surfaces
    and required references. Inspection also records active tagged hazards.
 2. Ten identical fixed-tick input trials reproduce terminal outcomes and traversal
-   checkpoints. Position/velocity tolerance is 0.001 units, angle 0.1 degrees and
-   oxygen 0.01 units; event frames/identities must match exactly.
+   checkpoints. Launch/checkpoint position and all velocity tolerances are 0.001;
+   completed-event X/Y use 0.01, matching the pinned physics contact offset.
+   Angle tolerance is 0.1 degrees and oxygen 0.01; event frames/identities must
+   match exactly. See [the observed finish-contact case](SOLVER_COVERAGE.md).
    Without a proposal, initial calibration stops at the first authoritative
    attachment checkpoint, or a terminal result; a stationary attached player does
    not consume an entire trial horizon. A proposed full route is calibrated in full.
@@ -134,6 +136,9 @@ extended probes and a full-horizon passive action remain available. An outward
 zero-gravity flight beyond the scene's interaction envelope ends that search
 probe. None of these cutoffs proves a level impossible. Full certification/replay
 uses the full requested horizon and never uses these search cutoffs.
+Jump waits also respect the active breakable wheel's observed remaining timer;
+passive forced-detach continuations stay available. An unknown lifetime is -1,
+while zero remains a real imminent deadline rather than an unlimited wait.
 `Coverage` records attempted transitions, reached surfaces, frontier count,
 deepest observed prefix and timeout count. Unsuccessful reports retain a diagnostic
 trajectory, not a fabricated completion certificate.

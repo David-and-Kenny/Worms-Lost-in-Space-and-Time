@@ -35,7 +35,9 @@ points. Measured results and remaining limitations will be recorded below.
 (256-state beam, 120-second route horizon), then retries only inconclusive scenes
 with a 30-second horizon and a 1,024-state beam. If that also misses, a focused
 profile uses a 16-state beam and 60-second horizon to spend more launch angles on
-each retained arrival. Each profile has its own default five-minute wall budget;
+each retained arrival. Balanced and wide profiles have five-minute wall budgets;
+the focused profile gets ten minutes and a 50,000-trial cap, informed by Level 9's
+successful longer search. The other profiles retain the 10,000-trial cap.
 `-SearchSeconds`, `-FallbackSeconds` and `-FocusedSeconds` configure those budgets.
 Rendering defaults to 30 FPS to reduce search work; `-FramesPerSecond` changes the
 initial/analysis profile. The runtime physics rate remains 50 Hz, and sensitivity
@@ -83,3 +85,24 @@ Another regression fixture covers a platform embedded in a ceiling: its center
 is blocked, but the approach up to first contact can be clear. Obstruction hints
 stop at the landing envelope instead of rejecting that approach. A wall before
 contact still receives its penalty. Actual Unity collisions decide the outcome.
+
+## Observed lifetime and finish contact
+
+Breakable-wheel search waits use the active wheel's actual remaining countdown,
+combined with oxygen time when present. This avoids spending probes on jump
+commands after the wheel has exploded, including after an earlier visit started
+its timer. Unknown wait time is -1; zero means detachment/death is imminent.
+A two-tick allowance covers handoff boundaries. Both passive actions remain, so
+natural forced-detach routes can still reach the next attachment. The real
+breakable-wheel fixture checks the observed deadline and its later forced detach;
+unit tests cover zero and positive remaining lifetimes.
+
+Level 17 exposed a finish-pose comparison issue: identical routes reached the
+same finish tick and earlier traversal checkpoints, but terminal Y differed by
+0.00388 units. Waiting four extra ticks before the last jump also completed but
+still varied by 0.00295 units at the finish. The pinned Physics2D contact offset
+is 0.01. Completed-event X/Y therefore use that contact envelope; earlier launch
+and attachment-checkpoint positions retain 0.001, as do all velocity comparisons.
+Angle/oxygen limits and exact event frame/identity checks are unchanged. Tests
+reject 0.011 terminal drift and 0.004 drift at an earlier decision pose. This is a
+validator comparison policy change; no game physics or movement settings changed.

@@ -6,7 +6,7 @@ param(
     [ValidateRange(10, 240)][int]$FramesPerSecond = 30,
     [ValidateRange(1, 3600)][int]$SearchSeconds = 300,
     [ValidateRange(1, 3600)][int]$FallbackSeconds = 300,
-    [ValidateRange(1, 3600)][int]$FocusedSeconds = 300
+    [ValidateRange(1, 3600)][int]$FocusedSeconds = 600
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path $PSScriptRoot -Parent
@@ -79,7 +79,7 @@ foreach ($level in $initial.Levels) {
     if ($fallback.Levels[0].Status -eq 'Inconclusive') {
         # A small beam spends more angles on each retained arrival instead of spreading effort thinly.
         $focused = Invoke-LevelRun @{ Operation='search'; Level=$level.LevelId; SearchSeconds=$FocusedSeconds;
-            FramesPerSecond=30; TrialSeconds=60; BeamWidth=16; TimingRadiusTicks=2;
+            FramesPerSecond=30; TrialSeconds=60; BeamWidth=16; MaximumTrials=50000; TimingRadiusTicks=2;
             OutputDirectory=(Join-Path $output ('Focused-' + $level.LevelId)) }
     }
 }

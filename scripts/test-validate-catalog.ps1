@@ -11,7 +11,7 @@ try {
     }
     @'
 param($UnityEditor,$Operation,$Level='all',$OutputDirectory,$SearchSeconds,$TimingRadiusTicks,
-    $FramesPerSecond=60,$TrialSeconds=120,$BeamWidth=256,$ReplayDirectory,$ProposalDirectory,$ReplayFile)
+    $FramesPerSecond=60,$TrialSeconds=120,$BeamWidth=256,$MaximumTrials=10000,$ReplayDirectory,$ProposalDirectory,$ReplayFile)
 if ($env:WORMS_CATALOG_TEST_CASE -eq 'infrastructure') { exit 7 }
 function Row($id,$status) {
     $fingerprint='current-'+$id
@@ -27,7 +27,7 @@ elseif ($Operation -eq 'search') {
     if ($ReplayFile) {
         if ($Level -ne 'level-01' -or $FramesPerSecond -ne 30 -or $env:WORMS_CATALOG_TEST_CASE -ne 'analysis') { throw 'Wrong analysis selection.' }
     } elseif ($BeamWidth -eq 16) {
-        if ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 60 -or $env:WORMS_CATALOG_TEST_CASE -ne 'focused') { throw 'Wrong focused selection/profile.' }
+        if ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 60 -or $SearchSeconds -ne 600 -or $MaximumTrials -ne 50000 -or $env:WORMS_CATALOG_TEST_CASE -ne 'focused') { throw 'Wrong focused selection/profile.' }
     } elseif ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 30 -or $BeamWidth -ne 1024) { throw 'Wrong fallback selection/profile.' }
     $rows=@((Row $Level 'VerifiedReachable'))
     if ($env:WORMS_CATALOG_TEST_CASE -eq 'focused' -and $BeamWidth -eq 1024) { $rows=@((Row $Level 'Inconclusive')) }
