@@ -103,6 +103,33 @@ See `MONETIZATION.md` for account configuration and `PLAYTEST_SCRIPT.md` for
 device steps. Automated navigation/session fixtures prove wiring, not natural
 traversability. Use the existing no-AI level-validation tooling for traversal.
 
+## Level 1 artwork review (ART-01)
+
+The first art pass uses Level 1 scene overrides. Validate all scenes/prefabs after
+applying `Level1ArtTools.Apply`; run EditMode and PlayMode for serialized UI and
+physics wiring. Replay the maintained Level 1 route as a proposal after its
+dependency fingerprint changes, then strictly replay the newly certified route.
+Never substitute a screenshot for natural traversal evidence.
+
+`Level1ArtCaptureTests.CaptureAdvancingLevelOne` checks the five cog and seventeen
+pipe sprite bounds, the retained character, and advancing frame/time/wheel state
+with injected in-memory storage. Screenshot output is opt-in: pass
+`-worms-art-capture` with a graphics device (omit `-nographics`). It renders the
+runtime camera and existing Canvas UI to `TestResults/Art`; ordinary suites run
+the presentation integration checks without rendering. See
+`art/concepts/level-01/README.md` for the command and source prompts.
+Review portrait readability, distinct foreground/background metal colors, oxygen
+frame padding, and visible alignment with unchanged collision boundaries. These
+camera renders do not establish device behavior; landscape background coverage
+and actual mobile input/lifecycle remain manual player/device checks.
+
+When tagging replaced originals `.legacy`, verify that image bytes and `.meta`
+GUIDs are unchanged, and validate all scenes/prefabs because the originals may
+still be shared. Run the art authoring command against the legacy source paths
+and require the approved scene/textures to stay unchanged. Asset path changes
+invalidate route fingerprints: recertify maintained inputs and strictly replay
+the newly generated certificates rather than editing their hashes.
+
 ## Automated level traversal
 
 The reusable [level validator](LEVEL_VALIDATION.md) adds EditMode search/contract
