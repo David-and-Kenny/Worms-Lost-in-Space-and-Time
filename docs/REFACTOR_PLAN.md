@@ -4,6 +4,11 @@ This records the earlier architecture refactor. Its instruction to retain Update
 movement applied to that refactor. The separately authorized fixed-tick follow-up
 is described in [FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md).
 
+Implemented follow-up: modern monetization is now a separate integration layered
+on the refactored architecture. See `MONETIZATION.md` for current behavior and
+external release dependencies. The original refactor's ads exclusion below is
+historical scope, not a claim that the later SDK integration is absent.
+
 Planning baseline: merged modernization at `b0ff2d0`; target editor remains **6000.6.8f1**. This document specifies implementation and acceptance, not completed verification. Baseline evidence belongs in `docs/BASELINE_BEHAVIORS.md`; record results separately from proposed expectations.
 
 ## 1. Baseline and scope gates

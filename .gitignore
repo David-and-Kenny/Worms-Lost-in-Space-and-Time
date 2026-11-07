@@ -39,6 +39,8 @@ Thumbs.db
 Desktop.ini
 .local-tools/
 TestResults/
+# Rebuilt from the SDK dependency XML and committed Gradle templates.
+**/ProjectSettings/AndroidResolverDependencies.xml
 .env
 .env.*
 !.env.example

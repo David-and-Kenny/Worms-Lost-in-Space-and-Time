@@ -28,5 +28,6 @@
 *.ttf binary
 *.jar binary
 *.aar binary
+*.tgz binary
 # Current source assets are small; introduce LFS for future large source art.
 # Never put Unity YAML or .meta files in LFS or rewrite shared history casually.

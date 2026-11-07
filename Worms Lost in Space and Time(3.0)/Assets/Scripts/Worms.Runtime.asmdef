@@ -1,6 +1,6 @@
 {
   "name": "Worms.Runtime",
   "rootNamespace": "Worms",
-  "references": ["Worms.Core", "Unity.ugui"],
+  "references": ["Worms.Core", "Unity.ugui", "Unity.Purchasing", "Unity.Purchasing.Security", "Unity.Purchasing.SecurityCore", "Unity.Purchasing.SecurityStub"],
   "autoReferenced": true
 }

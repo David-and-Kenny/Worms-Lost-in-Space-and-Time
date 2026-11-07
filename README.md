@@ -129,11 +129,11 @@ Keep signing keys and passwords outside Git. Build output belongs in ignored `Bu
 iOS requires the matching iOS module and a Mac with Xcode for final compilation,
 signing, and device testing. Windows alone cannot produce a signed iOS app.
 
-Ads are deliberately inactive during migration. The unsupported 2015 SDK and
-native libraries are removed from the current source tree and remain recoverable
-from Git history; see [legacy integration notes](Legacy/README.md).
-The scene-attached script keeps its GUID. A maintained SDK and consent flow
-must be integrated separately before enabling ads.
+Modern AdMob and Unity IAP integrations are present, with developer ads and
+production monetization disabled by default. The unsupported 2015 SDK remains
+removed and the legacy scene component retains its GUID. See the
+[monetization guide](docs/MONETIZATION.md) for ad timing, Remove Ads purchasing,
+safe testing and the account/ID/device checks required before enabling production.
 
 ## Working together
 
