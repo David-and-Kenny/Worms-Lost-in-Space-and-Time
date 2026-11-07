@@ -85,6 +85,22 @@ For new behavior, start with the scenario/test layer in `TESTING.md`, implement
 the smallest cohesive object, then wire its Unity adapter. Keep migrations, game
 behavior changes, art/layout work and unrelated cleanup distinguishable in diffs.
 
+## Monetization
+
+`AdBreakPolicy`, `AdBreakController`, `ForegroundClock`, and `RemoveAdsEntitlement` are ordinary Core
+objects. Real substitution boundaries cover interstitial presentation, entitlement
+storage, purchasing, and deferred navigation. The persistent `MonetizationHost`
+owns platform SDK lifetimes and a foreground clock; it does not own progression or
+hold scene UI references. `SceneNavigator` validates/coalesces the destination
+before its optional transition gate presents an eligible ad. Test constructors
+omit the gate or inject a fake. Batch-mode runs never initialize monetization.
+
+Main/world menu prefabs contain an editable settings panel. The old ad component
+is inert. Developer ads and production monetization default OFF. See
+[MONETIZATION.md](MONETIZATION.md) for timing, child-safe defaults, purchase-cache
+boundaries, account handoff and release gates. Gameplay progress/save format is
+unchanged; purchase ownership has a separate recoverable cache.
+
 ## Level validation tooling
 
 `Worms.LevelValidation` is a test-only assembly, excluded from shipping builds.

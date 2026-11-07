@@ -112,7 +112,8 @@ models, UI assets, tests and documentation were added.
   controls with expected behavior; passing compilation alone does not establish parity.
 - Test Android on a physical device, configure current Player settings/signing,
   and validate an ARM64 build. Test iOS separately on macOS/Xcode.
-- Replace the archived ad SDK with a maintained integration and consent flow.
+- Configure accounts/IDs and device-test the modern AdMob/IAP integration before
+  enabling production monetization; see MONETIZATION.md.
 - Decide whether a separately reviewed legacy-save importer is needed, author
   Level 20's exit, and play through all catalog routes before preparing a release.
 - Confirm licensing/ownership of imported art, fonts, and legacy SDK materials.
