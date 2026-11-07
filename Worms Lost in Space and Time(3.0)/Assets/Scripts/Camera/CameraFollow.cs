@@ -26,7 +26,7 @@ public class CameraFollow : MonoBehaviour
         else if (aspect >= 1.5f) camera.orthographicSize = 9f;
         else if (aspect >= 1.3f) camera.orthographicSize = 7.5f;
     }
-    private void Update()
+    private void LateUpdate()
     {
         if (!target) return;
         Vector3 position = transform.position;

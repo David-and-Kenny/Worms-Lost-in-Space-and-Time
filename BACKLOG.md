@@ -45,7 +45,7 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
-| BL-022 | P1 | Proposed | Gameplay | Make precision jumps consistent across render rates | Measured fixed-simulation/input/attachment design; physical-device verification |
+| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Code/tests and 20-level iteration complete; Level 8 manual route check and device acceptance |
 | BL-023 | P1 | Ready | Accounts | Establish AdMob and store account access, agreements and payments | Account owner to complete console setup |
 | BL-024 | P1 | Blocked | Monetization | Register Android/iOS AdMob apps and interstitial units | BL-023; confirm existing store identifiers |
 | BL-025 | P1 | Ready | Web | Publish developer website, privacy policy and app-ads.txt | BL-024 for the authorized seller entry |
@@ -239,6 +239,14 @@ fixed simulation owner, buffered input and attached-body collision behavior, the
 choose a measured mobile rendering policy. Preserve force/contact baselines and
 recertify routes after the change; measure actual FPS and display refresh separately
 on devices. This gameplay refactor is separate from the level-validation utility.
+The implementation and measured evidence are in
+[FIXED_TICK_GAMEPLAY.md](docs/FIXED_TICK_GAMEPLAY.md). Physical input still has
+render-sampling latency; the fix makes simulation outcomes consistent for observed
+tick commands without claiming that every phone feels identical.
+The completed iteration certifies levels 1, 3, 4 and 10. Level 8's old route could
+not be recertified within the bounded searches and needs a manual check; fifteen
+levels remain unresolved and Level 20 lacks a finish. See
+[completion times and provisional difficulty](docs/FIXED_TICK_LEVEL_REPORT.md).
 
 ### BL-023 — Prepare publisher and store accounts
 

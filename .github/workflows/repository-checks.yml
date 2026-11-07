@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: '24'
       - run: node scripts/validate-repository.mjs
+      - name: Test level completion report
+        run: node --test scripts/report-level-validation.test.mjs
       - name: Test validation runner
         shell: pwsh
         run: ./scripts/test-check-unity.ps1

@@ -56,20 +56,23 @@ No summary from an older invocation is accepted as the current result.
 
 1. The scene has one active player, real finish trigger(s), usable typed surfaces
    and required references. Inspection also records active tagged hazards.
-2. Ten identical controlled trials reproduce terminal outcomes and traversal
+2. Ten identical fixed-tick input trials reproduce terminal outcomes and traversal
    checkpoints. Position/velocity tolerance is 0.001 units, angle 0.1 degrees and
    oxygen 0.01 units; event frames/identities must match exactly.
+   Without a proposal, initial calibration stops at the first authoritative
+   attachment checkpoint, or a terminal result; a stationary attached player does
+   not consume an entire trial horizon. A proposed full route is calibrated in full.
    Raw attachment collision poses remain diagnostic data: authoritative
-   attachment poses are sampled after following has run for two updates.
+   attachment poses are sampled after following has run for two simulation ticks.
    Immediate launches still verify their actual launch pose; transitions are
    always checked at their original frame and surface identity.
-3. Search begins at the real spawn. It injects one-frame jump presses through
-   `IPlayerInput`; normal gravity, collision, hazards, oxygen, forced detach and
+3. Search begins at the real spawn. It supplies observed jump commands through
+   `IPlayerTickCommands`; normal gravity, collision, hazards, oxygen, forced detach and
    finish callbacks execute. It cannot teleport or call completion APIs.
-4. A candidate reaches the actual finish and reproduces in three fresh controlled
+4. A candidate reaches the actual finish and reproduces in three fresh fixed-tick
    runs. Completion must write exactly once into disposable storage.
-5. The attachment-relative input policy also completes three fresh runs with
-   Unity's ordinary automatic physics at the reference rate.
+5. The attachment-relative input policy also completes three fresh runs at the
+   reference rendering rate. All runs use Unity's ordinary automatic physics.
 
 Legitimate shortcuts and zero-jump/direct exits count. No ordered checkpoint list
 is imposed. The known Level 20 missing exit is a structural failure, not a search
@@ -77,38 +80,44 @@ timeout. The validator never writes to a developer's actual save directory.
 
 ## Clock and search design
 
-The existing player/wheel/hazard code runs in `Update`. Search retains those
-behaviours and uses captured game-time frames plus a **test-only** integer phase
-clock: 50 physics steps per simulated second, before gameplay `Update`, at the
-requested render rate. This removes the automatic physics accumulator inherited
-between scene reloads. The absolute-time moving-spike adapter accepts an optional
-elapsed-time source for this controlled mode; human play keeps its existing clock.
-Animation, coroutines and the rest of the real Unity player loop continue running.
+The runtime now owns gameplay in one 50 Hz fixed-tick coordinator, followed by
+Unity's normal physics step. Player input is buffered from Update; validator
+commands are scheduled at that observed-input handoff using simulation ticks.
+The old test-only physics clock and moving-spike time override have been removed.
+Human play, search, certification and replay share the same runtime tick path.
 
-Normal-physics verification disables both overrides to check the route against
-the original scheduler. The tool does not claim bit-identical physics across
-platforms or editor versions. Timing certificates describe their recorded profile;
-device input, rendering, performance and movement feel still need device tests.
+Traversal events and authoritative attachment checkpoints record simulation tick
+numbers and Rigidbody2D poses. Presentation interpolation never supplies launch
+angles or certificate positions. Checkpoints are sampled after following, on a
+fixed tick, rather than on a render-dependent coroutine continuation.
+
+Rendering profiles still exercise real Unity Update/FixedUpdate scheduling and
+fixed-time attack animations. The tool does not claim bit-identical physics across
+platforms/editor versions or identical latency for physical taps sampled at
+different render rates. Device input, rendering and movement feel need device tests.
+See [FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md) for the change and evidence.
 
 Search is bounded best-first exploration of input prefixes. At each reached
 attachment it tries passive continuation and wait/jump actions, starting with a
-three-frame grid and then testing every remaining frame in the available horizon.
-Immediate attachment-frame jumps are included. Actual geometry only prioritizes
-frontiers by distance to an exit; it cannot certify or disprove a jump.
+three-tick grid and then testing every remaining tick in the available horizon.
+Collision attachment can first launch on the following simulation tick. Actual
+geometry only prioritizes frontiers by distance to an exit; it cannot certify or
+disprove a jump.
 
 Every candidate reloads the entire scene and replays its prefix. There are no
 partial physics snapshots that forget projectiles, timers or animation state.
 Different contact positions/times on a platform are retained as distinct routes.
 Beam limits, route depth and the finite input grid make this an incomplete search.
 For rotating surfaces, launch-direction estimates rank coarse candidates toward
-other surfaces/exits and interleave nearby one-frame refinements. Every frame
+other surfaces/exits and interleave nearby one-tick refinements. Every tick
 remains available to the search; estimates never exclude a possible route.
 Candidates that fail normal-physics verification are rejected and exploration
 continues within the remaining budget. A strict saved-route replay fails directly
 rather than silently replacing the requested route with a newly discovered one.
 
 After certification, the remaining budget samples single-jump timing offsets
-within ±250ms and executes the remaining route using attachment-relative waits.
+within ±250ms on the 20 ms simulation grid (±240ms sampled) and executes the
+remaining route using attachment-relative waits.
 Disconnected success windows are reported separately. Offsets outside that range
 are unknown, including when a success reaches the sampled boundary. The sampled
 success ratio concerns those variations, not human retention or combined random
@@ -119,11 +128,11 @@ incomplete analysis does not erase a separately certified reachable route.
 
 | Status | Meaning |
 | --- | --- |
-| `VerifiedReachable` | A real finish route passed controlled and normal-physics verification |
+| `VerifiedReachable` | A real finish route passed absolute-tick and relative-policy verification |
 | `InvalidContent` | Required authored content/references are absent or invalid |
 | `Inconclusive` | Search/frontier/time budget ended without a certified route |
 | `ReplayFailed` | A saved/candidate route failed; an alternative may still exist |
-| `RunnerUnstable` | Identical controlled trials diverged; no viability verdict issued |
+| `RunnerUnstable` | Identical fixed-tick input trials diverged; no viability verdict issued |
 | `Stale` | Certificate is missing, malformed or belongs to different sources/editor |
 | `ExecutionError` | The runner or game produced an execution error |
 
@@ -133,9 +142,11 @@ has a `.replay.json`. Logs and the command's NUnit XML establish whether executi
 itself completed. In reused output folders, use the current summary and `HasReplay`
 flag; unrelated older files are not evidence for that run.
 
-Requests, manifests, reports and replays are version 1. Replay commands contain
-absolute reference frames and attachment-relative delays, stable surface IDs and
-attachment ordinals. Reports contain events, sampled trajectories, budgets,
+Requests, manifests and reports remain version 1; new replay certificates are
+**version 2**. Their `Frame` fields are 50 Hz simulation tick numbers, independent
+of `FramesPerSecond` (the rendering profile). Commands retain attachment-relative
+delays, stable surface IDs and attachment ordinals. Version 1 inputs remain readable
+as search proposals, using their relative delays, but strict replay rejects them. Reports contain events, sampled trajectories, budgets,
 normal-physics profiles, timing windows and explicit `Status` names (Unity also
 serializes numeric enum values). `HasReplay` is authoritative because Unity's
 serializer can represent a null nested object with default fields.
@@ -156,6 +167,22 @@ the change and run strict batch replay before committing. See
 [LEVEL_VALIDATION_RESULTS.md](LEVEL_VALIDATION_RESULTS.md) for the initial catalog
 matrix, suite evidence and outstanding content/device checks.
 
+### Completion times and provisional difficulty
+
+Generate a shareable report from completed runs without Unity or AI tokens:
+
+```powershell
+node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/run/summary.json --output TestResults/level-report.md --csv TestResults/level-report.csv
+```
+
+Repeat `--summary` to combine the catalog scan with deeper per-level runs from the
+same source fingerprints. A verified route survives a later inconclusive retry.
+Partial runs and conflicting fingerprints are rejected. The report records replay
+completion time, jump count, sampled timing tolerance and a provisional Low,
+Moderate or High route difficulty. Its explicit rules are printed in the report.
+Incomplete timing analysis stays Not rated; these bands are not human playtest
+ratings or proof that an easier route does not exist.
+
 ## Visual replay and development
 
 In Unity, choose **Worms → Level Validation → Replay saved route** and select a
@@ -168,19 +195,11 @@ inspection; the tool does not silently save or discard another developer's work.
 
 Tool code lives in the `Worms.LevelValidation` test assembly and is excluded from
 ordinary player builds. Ordinary C# models/search/report logic are separated from
-Unity scene inspection, input and simulation adapters. Runtime changes are limited
-to read-only traversal events and an optional moving-hazard clock boundary.
-Existing script GUIDs and serialized event entry points remain unchanged.
-Wheel rotation now explicitly precedes default-priority attachment-following
-(`DefaultExecutionOrder(-100)`). Existing levels exposed a one-frame phase
-difference across reloads when those Updates had unspecified ordering. Forces,
-speeds and the Update/physics timestep split are retained; a PlayMode regression
-checks that the player and holder remain phase-locked.
-
-The remaining render/physics split is a separate gameplay concern; see
-[FRAME_RATE_INVESTIGATION.md](FRAME_RATE_INVESTIGATION.md). A route certified at
-60 Hz is not evidence that a shipping Android build, which currently has no
-explicit rendering-rate policy, follows that route at its default frame rate.
+Unity scene inspection and playback adapters. Existing script GUIDs and serialized
+animation/event entry points remain unchanged. The runtime coordinator, buffered
+input and Rigidbody attachment ownership are described in
+[ARCHITECTURE.md](ARCHITECTURE.md). The original investigation is preserved in
+[FRAME_RATE_INVESTIGATION.md](FRAME_RATE_INVESTIGATION.md).
 
 Fixtures cover a known route, sealed exit, moving hazard, breakable wheel, narrow
 exit and direct finish. The explicit `FixtureAuthoring.Create` command creates

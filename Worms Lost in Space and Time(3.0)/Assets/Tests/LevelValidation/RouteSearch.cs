@@ -9,6 +9,7 @@ namespace Worms.LevelValidation
         public List<JumpCommand> Jumps = new List<JumpCommand>();
         public int ObserveAfterFrame = -1;
         public bool StopAtFrontier;
+        public int MinimumAttachmentTicks;
         public bool RelativeTiming;
     }
 
@@ -36,9 +37,9 @@ namespace Worms.LevelValidation
         public void Add(TrialPlan prefix, TrialResult state)
         {
             if (state.Outcome != TrialOutcome.Frontier || prefix.Jumps.Count >= options.MaximumJumps) return;
-            int horizon = (int)Math.Ceiling(options.TrialSeconds * options.FramesPerSecond) - state.LastFrame;
+            int horizon = (int)Math.Ceiling(options.TrialSeconds * Worms.Gameplay.GameSimulation.TicksPerSecond) - state.LastFrame;
             if (state.SafeWaitSeconds > 0)
-                horizon = Math.Min(horizon, (int)Math.Ceiling(state.SafeWaitSeconds * options.FramesPerSecond) + 2);
+                horizon = Math.Min(horizon, (int)Math.Ceiling(state.SafeWaitSeconds * Worms.Gameplay.GameSimulation.TicksPerSecond) + 2);
             if (horizon < 0) return;
             // Coarse timing first, then every remaining frame. Narrow windows are not silently excluded.
             var delays = new List<int> { -1 };
@@ -69,9 +70,9 @@ namespace Worms.LevelValidation
                 plan.ObserveAfterFrame = source.State.LastFrame;
                 plan.StopAtFrontier = true;
                 if (delay >= 0)
-                    plan.Jumps.Add(new JumpCommand { Frame = source.State.LastFrame + delay,
+                    plan.Jumps.Add(new JumpCommand { Frame = Math.Max(source.State.AttachmentFrame + 1, source.State.LastFrame + delay),
                         SurfaceId = source.State.SurfaceId, AttachmentOrdinal = source.State.AttachmentOrdinal,
-                        DelaySeconds = (source.State.LastFrame + delay - source.State.AttachmentFrame) / (float)options.FramesPerSecond });
+                        DelaySeconds = (Math.Max(source.State.AttachmentFrame + 1, source.State.LastFrame + delay) - source.State.AttachmentFrame) / (float)Worms.Gameplay.GameSimulation.TicksPerSecond });
                 string key = string.Join(",", plan.Jumps.Select(item => item.Frame)) + ":" + plan.ObserveAfterFrame;
                 if (scheduled.Add(key)) return plan;
             }
@@ -103,7 +104,7 @@ namespace Worms.LevelValidation
 
         private float AimScore(TrialResult state, SceneObjectIdentity source, SceneObjectIdentity[] targets, int delay)
         {
-            double turn = source.AngularSpeed * delay / options.FramesPerSecond * Math.PI / 180;
+            double turn = source.AngularSpeed * delay / Worms.Gameplay.GameSimulation.TicksPerSecond * Math.PI / 180;
             double dx = state.X - source.X, dy = state.Y - source.Y;
             double x = source.X + dx * Math.Cos(turn) - dy * Math.Sin(turn);
             double y = source.Y + dx * Math.Sin(turn) + dy * Math.Cos(turn);
@@ -116,11 +117,11 @@ namespace Worms.LevelValidation
                 best = Math.Min(best, error);
             }
             // This is a ranking hint, never a collision test or a reason to reject a candidate.
-            return (float)(best + delay / (double)options.FramesPerSecond * .02);
+            return (float)(best + delay / (double)Worms.Gameplay.GameSimulation.TicksPerSecond * .02);
         }
 
         public static TrialPlan Copy(TrialPlan plan) => new TrialPlan { ObserveAfterFrame = plan.ObserveAfterFrame,
-            StopAtFrontier = plan.StopAtFrontier, RelativeTiming = plan.RelativeTiming,
+            StopAtFrontier = plan.StopAtFrontier, MinimumAttachmentTicks = plan.MinimumAttachmentTicks, RelativeTiming = plan.RelativeTiming,
             Jumps = plan.Jumps.Select(item => new JumpCommand { Frame = item.Frame, SurfaceId = item.SurfaceId,
                 AttachmentOrdinal = item.AttachmentOrdinal, DelaySeconds = item.DelaySeconds }).ToList() };
     }

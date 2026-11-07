@@ -34,13 +34,13 @@ namespace Worms.LevelValidation
             wheel.speed = 80;
             wheel.holder = new GameObject("Holder").transform;
             wheel.holder.SetParent(wheel.transform);
-            yield return null;
+            yield return new WaitForFixedUpdate();
             player.AttachToWheel(wheel, Vector2.right);
             for (int frame = 0; frame < 30; frame++)
             {
-                yield return null;
-                Assert.That(Quaternion.Angle(player.transform.rotation, wheel.holder.rotation * Quaternion.Euler(0, 0, -90)), Is.LessThan(.05f));
-                Assert.That(Vector3.Distance(player.transform.position, wheel.holder.position), Is.LessThan(.001f));
+                yield return new WaitForFixedUpdate();
+                Assert.That(Mathf.Abs(Mathf.DeltaAngle(player.GetComponent<Rigidbody2D>().rotation, wheel.holder.eulerAngles.z - 90)), Is.LessThan(.05f));
+                Assert.That(Vector2.Distance(player.GetComponent<Rigidbody2D>().position, wheel.holder.position), Is.LessThan(.001f));
             }
             Object.Destroy(player.gameObject); Object.Destroy(wheel.gameObject);
         }
@@ -74,7 +74,7 @@ namespace Worms.LevelValidation
         {
             var options = Options(); LevelValidator validator = null;
             var runner = new UnityTrialRunner(options, () => validator.BudgetExpired);
-            var automatic = new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false);
+            var automatic = new UnityTrialRunner(options, () => validator.BudgetExpired);
             validator = new LevelValidator(runner, options, automatic);
             LevelValidationReport report = null;
             yield return validator.Evaluate(Fixture("StaticRoute"), null, value => report = value);
@@ -83,10 +83,19 @@ namespace Worms.LevelValidation
             Assert.That(report.AnalysisComplete, Is.True);
             Assert.That(report.TimingWindows, Is.Not.Empty);
             Assert.That(report.Profiles.Count, Is.EqualTo(3));
+            Assert.That(report.Profiles.TrueForAll(profile => profile.Completed), Is.True, "The fixed-tick policy must complete at every render profile.");
             options.Operation = "replay";
             LevelValidationReport repeated = null;
             yield return validator.Evaluate(Fixture("StaticRoute"), report.Replay, value => repeated = value);
             Assert.That(repeated.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), repeated.Reason);
+            foreach (int rate in new[] { 30, 120 })
+            {
+                TrialResult crossRate = null;
+                yield return runner.Run(Fixture("StaticRoute"), new TrialPlan { Jumps = report.Replay.Jumps }, rate, value => crossRate = value);
+                var expected = new TrialResult { Outcome = TrialOutcome.Completed, Events = report.Replay.Expected };
+                Assert.That(ReplayComparison.Equivalent(expected, crossRate, out string difference), Is.True, rate + " FPS: " + difference);
+                Assert.That(crossRate.SaveWrites, Is.EqualTo(1));
+            }
         }
         [UnityTest]
         public IEnumerator SealedPhysicalExitReturnsInconclusiveWithinTrialBudget()
@@ -132,7 +141,7 @@ namespace Worms.LevelValidation
             }
             LevelValidator validator = null;
             validator = new LevelValidator(new UnityTrialRunner(options, () => validator.BudgetExpired), options,
-                new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false));
+                new UnityTrialRunner(options, () => validator.BudgetExpired));
             LevelValidationReport report = null;
             yield return validator.Evaluate(Fixture("NarrowExit"), null, value => report = value);
             Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);
@@ -144,7 +153,7 @@ namespace Worms.LevelValidation
         {
             var options = Options(); LevelValidator validator = null;
             validator = new LevelValidator(new UnityTrialRunner(options, () => validator.BudgetExpired), options,
-                new UnityTrialRunner(options, () => validator.BudgetExpired, controlledPhysics: false));
+                new UnityTrialRunner(options, () => validator.BudgetExpired));
             LevelValidationReport report = null;
             yield return validator.Evaluate(Fixture("DirectExit"), null, value => report = value);
             Assert.That(report.Outcome, Is.EqualTo(ValidationOutcome.VerifiedReachable), report.Reason);

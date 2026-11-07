@@ -1,5 +1,9 @@
 # Unity architecture and behaviour refactor plan
 
+This records the earlier architecture refactor. Its instruction to retain Update
+movement applied to that refactor. The separately authorized fixed-tick follow-up
+is described in [FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md).
+
 Implemented follow-up: modern monetization is now a separate integration layered
 on the refactored architecture. See `MONETIZATION.md` for current behavior and
 external release dependencies. The original refactor's ads exclusion below is

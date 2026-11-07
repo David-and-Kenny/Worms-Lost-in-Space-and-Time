@@ -31,14 +31,13 @@ namespace Worms.Gameplay
             Holder = null;
         }
         public bool HasSurface => (Wheel && Holder) || Conveyor;
-        public void Follow(Transform player)
+        public void Follow(PlayerMotor motor)
         {
             if (Wheel && Holder)
             {
-                player.position = Holder.position;
-                player.rotation = Holder.rotation * Quaternion.Euler(0f, 0f, -90f);
+                motor.FollowWheel(Holder);
             }
-            else if (Conveyor) player.rotation = Conveyor.transform.rotation;
+            else if (Conveyor) motor.FaceConveyor(Conveyor.transform);
         }
     }
 }

@@ -8,7 +8,11 @@ public class AlienB : MonoBehaviour
     public Wheel wheel;
     private Animator animator;
     private bool readyToAttack;
-    private void Awake() { animator = GetComponent<Animator>(); }
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        animator.updateMode = AnimatorUpdateMode.Fixed;
+    }
     private void OnTriggerStay2D(Collider2D target)
     {
         if (!target.CompareTag("Player")) return;
