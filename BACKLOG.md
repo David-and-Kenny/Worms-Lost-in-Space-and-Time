@@ -21,6 +21,26 @@ Priorities are provisional; feature ideas are not approved design decisions.
 All open items are currently unassigned. Order items within a priority when
 planning the next increment; the table is an inventory, not a delivery schedule.
 
+## Session results — November 6, 2026
+
+Implementation and evidence are in [PR #12](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/12)
+(open for review), following the fixed-tick movement work in
+[PR #9](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/9).
+
+| Item | Work completed | Remaining work |
+| --- | --- | --- |
+| BL-014 | Token-free solver, complementary search profiles, source-checked certificates, timing analysis and reusable catalog/report commands | Implementation complete; PR review remains |
+| BL-002 | All 20 levels evaluated; natural-input routes certified for Levels 1–19; strict replay passed in two checkouts | Author Level 20's finish under BL-001; complete human/device acceptance |
+| BL-022 | Shared 50 Hz movement and buffered input; certified routes completed at 30/60/120 rendered FPS | Physical phone input latency, perceived feel and lifecycle checks |
+| BL-012 | Per-level pass times, timing precision, tight-jump counts and consecutive chains recorded | Calibrate human difficulty and establish authoring/star-target rules |
+| BL-013 / BL-015 | Validator available as a dependency for future authoring and generation | Authoring framework and candidate generation have not been implemented |
+
+Validation passed **136 EditMode tests, 46 PlayMode tests**, all 24 scene/prefab
+binding checks, and **19/19 strict route replays in each checkout**. Repository CI
+also passed. See the [per-level report](docs/FIXED_TICK_LEVEL_REPORT.md),
+[compact evidence](docs/LEVEL_VALIDATION_EVIDENCE.json) and
+[solver coverage notes](docs/SOLVER_COVERAGE.md). Device checks remain unverified.
+
 ## Open work
 
 | ID | Priority | Status | Area | Outcome | Depends on / blocker |
@@ -76,6 +96,8 @@ The catalog audit confirms no authored finish trigger in Level 20. Author an exi
 that fits the level design; reach it from entry without teleporting. Completion
 must show the final result, save once and offer valid world/menu navigation.
 Add an authored-content regression check and record the natural playthrough.
+The full solver iteration reconfirmed this content blocker; no Level 20 completion
+certificate was issued. Rerun the catalog utility after authoring the exit.
 
 ### BL-002 — Establish playable level coverage
 
@@ -155,6 +177,11 @@ Document each level's teaching/purpose, required mechanics, difficulty factors,
 oxygen budget, hazards, camera transitions and target audience skill. Review
 existing star thresholds: Levels 1 and 2 have authored targets; zero targets on
 later levels disable the challenge. Choose new targets through playtesting.
+The stated direction is short, difficult levels with frequent expected retries,
+similar to Super Meat Boy. Failure or solver-attempt counts alone must not define
+difficulty. The current report measures exact launch-timing demand and tight-jump
+chains; human ratings still need playtests covering held-input buffering,
+learnability, route readability and recovery cost. This item remains open.
 
 ### BL-013 — Build a level-authoring framework
 
@@ -165,6 +192,8 @@ serialization, invalid input and deterministic generation where applicable.
 
 ### BL-014 — Evaluate level feasibility
 
+**Done — November 6, 2026; implementation in PR #12, awaiting review.**
+
 Check required entry/exit objects, references, bounds and structural constraints.
 Define a repeatable movement simulation or agent probe with recorded seed/input
 and budgets. Report demonstrated routes separately from inconclusive or failed
@@ -174,6 +203,21 @@ The [level-validation utility](docs/LEVEL_VALIDATION.md) implements local search
 certificates, profile retries and replay without AI tokens. Levels 1–19 are
 certified; Level 20 lacks a finish. See [coverage evidence](docs/SOLVER_COVERAGE.md).
 Physical-device acceptance remains BL-003; human difficulty is not calibrated.
+
+Completed scope:
+
+- [x] Inspect real scene references and collider geometry; distinguish invalid
+  content, unresolved search, unstable replay and verified reachability.
+- [x] Improve launch ordering, landing diversity and platform search fairness;
+  respect observed breakable-wheel lifetimes and preserve longer/passive fallbacks.
+- [x] Provide balanced, wide and focused profiles, matching-source worker-result
+  aggregation and separate budgets for incomplete timing analysis.
+- [x] Reload real scenes and drive ordinary jump input; preserve source fingerprints,
+  calibration, fresh certification and disposable save storage.
+- [x] Evaluate all 20 levels, maintain 19 certificates, check 30/60/120 FPS policies
+  and strictly replay all certificates in two checkouts.
+- [x] Publish Markdown/CSV run statistics, compact evidence and reusable token-free
+  report generation; add solver, integration and CI-runner regression coverage.
 
 ### BL-015 — Generate candidate level batches
 
