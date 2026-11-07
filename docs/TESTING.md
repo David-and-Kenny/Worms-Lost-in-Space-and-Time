@@ -126,6 +126,26 @@ and require the approved scene/textures to stay unchanged. Asset path changes
 invalidate route fingerprints: recertify maintained inputs and strictly replay
 the newly generated certificates rather than editing their hashes.
 
+## Start and menu artwork (ART-MENU-01)
+
+`MenuArtCaptureTests.ThemedMenusUseReadableAssetsAndRetainControls` loads Splash,
+StorySelect, World1 and World2 with injected disposable progress. It checks the
+new backdrop, fonts, retained character, pipe-button/lock/star assets and settings panel
+open/close behavior. Existing Canvas integration tests cover level labels,
+navigation callbacks, safe-area layouts and unavailable-store controls.
+
+Pass `-worms-menu-capture` with a graphics device to render portrait and landscape
+screens/settings to ignored `TestResults/Art/Menus`. Inspect title/button text,
+pipe frames, badge placement, background coverage and hidden-option layout.
+Both world selectors must have thirteen smaller decorative pipe connections,
+with raycasting disabled, behind the buttons in either orientation.
+Verify `MenuArtTools.Apply` leaves scenes/prefabs unchanged when reapplied and
+retains original image bytes/GUIDs plus legacy prefab copies. Run repository,
+scene/prefab, EditMode and PlayMode checks. Recertify maintained routes from their
+recorded inputs after runtime dependency changes, then strictly replay them.
+Actual phone input, notches, store flows and lifecycle remain device checks.
+See `art/concepts/menus/README.md` for source prompts and capture instructions.
+
 ## Automated level traversal
 
 The reusable [level validator](LEVEL_VALIDATION.md) adds EditMode search/contract
