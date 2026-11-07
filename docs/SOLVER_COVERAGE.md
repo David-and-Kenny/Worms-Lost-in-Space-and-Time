@@ -29,7 +29,37 @@ Search and reporting run locally without a model, API key or AI tokens. The
 existing `scripts/validate-levels.ps1` and report CLI remain the developer entry
 points. Measured results and remaining limitations are recorded below.
 
-## Final iteration — November 6, 2026
+## Completed small follow-ups — November 6, 2026
+
+All five scoped follow-ups are implemented in PR #12:
+
+1. A no-Unity CI integrity guard checks catalog/certificate/report agreement, with
+   six positive/mutation tests. It does not replace source-fresh Unity replay.
+2. Observed-button hold policies pass through `JumpInputBuffer`, with verified
+   press groups and prepared/continued-hold counts separate from exact precision.
+   Four rule tests and a two-attachment physical fixture cover this behavior.
+3. [GAME_BRIEF.md](GAME_BRIEF.md) records the agreed game direction and open choices.
+4. [LEVEL_DESIGN_CHECKLIST.md](LEVEL_DESIGN_CHECKLIST.md) supplies a reusable design
+   note and automated/human acceptance gates.
+5. Level 20 has a visible exit after its existing platforms. The solver's natural
+   input route completes in **3.94 seconds**; the final catalog policy has no Level 21.
+
+The frozen Unity source for this follow-up is `4e4d989`. EditMode **141/141**,
+PlayMode **47/47**, and all 24 scene/prefab binding checks passed. The report and
+integrity suites contain **16 passing Node tests**. All twenty levels have fresh
+certificates and complete timing/held-input analysis at 30/60/120 FPS; strict
+replay passed in the primary and independent checkouts. This supersedes the
+nineteen-route baseline below. No movement or earlier level geometry changed.
+
+Known routes in this iteration use a 30-second trial horizon, sufficient for all
+recorded completion times. Missed timing variations are observations within that
+bounded profile, not proofs about every possible longer path. Normal catalog
+search profiles retain their documented horizons and budgets. Logs/traces remain
+under ignored `TestResults/Catalog/Complete-20-Held` and the follow-up replay runs;
+the tracked report snapshot and maintained replay files contain shared evidence.
+Phone input/readability/lifecycle and calibrated human difficulty remain open.
+
+## Earlier solver iteration — November 6, 2026
 
 The final Unity source is `77fb024`, integrated with master `b40eacb`, using the
 pinned Windows editor. All twenty catalog levels were evaluated: **Levels 1–19

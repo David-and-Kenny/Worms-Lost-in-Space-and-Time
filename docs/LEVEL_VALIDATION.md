@@ -94,8 +94,9 @@ No summary from an older invocation is accepted as the current result.
    reference rendering rate. All runs use Unity's ordinary automatic physics.
 
 Legitimate shortcuts and zero-jump/direct exits count. No ordered checkpoint list
-is imposed. The known Level 20 missing exit is a structural failure, not a search
-timeout. The validator never writes to a developer's actual save directory.
+is imposed. Missing authored exits are structural failures, not search timeouts.
+Level 20's missing exit has now been authored and naturally completed. The
+validator never writes to a developer's actual save directory.
 
 ## Clock and search design
 
@@ -232,8 +233,39 @@ Incomplete timing analysis stays Not rated; these bands are not human playtest
 ratings or proof that an easier route does not exist.
 The tracked snapshot is report data, not a replay certificate; complete expected
 checkpoints remain in `ValidationRoutes/*.replay.json`. The current iteration
-certifies Levels 1–19; Level 20 has no authored finish. See
+certifies all twenty levels, including Level 20's newly authored exit. See
 [the full validation evidence](SOLVER_COVERAGE.md).
+
+### Verified held-input effort
+
+`HeldInputPolicy` proposes a continuous hold across consecutive earliest-legal
+attachments. Delayed jumps and intervening forced-detach waits split press groups.
+A press may be prepared while falling or after a forced detach when no earlier
+attachment would consume it. These are proposals until actual replays verify them.
+
+The runner samples the proposed observed button state into the production
+`JumpInputBuffer` at the fixed-tick input boundary. All manual launches must still
+match the recorded frame, surface and attachment ordinal; extra or missed launches
+fail the hold policy. Three normal-physics runs at 30/60/120 FPS must reproduce
+the certified route before `HeldInput.Verified` becomes true. A failed hold policy
+does not erase a separately verified exact-jump route.
+
+The report separately counts button-down groups, prepared presses, jumps from
+continued holding and tight non-prepared group starts. The last measure uses the
+first jump's exact-policy timing samples as a diagnostic proxy. It does not
+measure varied hold-release windows, physical touch latency or overall human
+difficulty. Empty/unverified evidence stays unknown instead of becoming zero.
+
+After regenerating and reviewing shared artifacts, run:
+
+```powershell
+node --test scripts/check-validation-artifacts.test.mjs
+node scripts/check-validation-artifacts.mjs
+```
+
+The guard checks that the published catalog, certificates, report snapshot and
+generated tables agree. It cannot establish current source freshness or physical
+viability without Unity; do not treat a coherent old artifact set as a fresh run.
 
 ## Visual replay and development
 

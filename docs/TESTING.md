@@ -12,6 +12,8 @@ Run from the repository root, with Unity closed:
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 node scripts/validate-repository.mjs
 node --test scripts/report-level-validation.test.mjs
+node --test scripts/check-validation-artifacts.test.mjs
+node scripts/check-validation-artifacts.mjs
 ./scripts/test-check-unity.ps1
 ./scripts/test-validate-catalog.ps1
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
@@ -159,6 +161,19 @@ a catalog search: the command entry point only dispatches a search/replay when a
 request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
 those requests. Search outcomes and saved-route regressions supplement the existing
 24-scene smoke test; they do not duplicate it or replace device/feel acceptance.
+`HeldInputPolicyTests` covers prepared input, successive earliest-attachment
+jumps, delayed presses and forced-detach boundaries. The `HeldChain` physical
+fixture verifies two real jumps from one prepared button hold at 30/60/120 FPS
+through `JumpInputBuffer`, and rejects an unrecorded early launch. A catalog test
+checks Level 20's active visible exit and final-level policy. Natural completion
+and exactly one disposable save are established by the explicit catalog runs.
+
+The artifact guard runs without Unity, a license or AI. It checks published
+catalog coverage, certificate identity/version/editor, matching fingerprints and
+inputs, finish times, complete timing/rate/held evidence and regenerated Markdown/
+CSV. Tests inject missing, inconsistent and malformed artifacts. This checks
+agreement of committed evidence, not current physical viability: a source change
+still requires fresh Unity certification and strict replay.
 `SearchCoverageTests` covers complete waiting-tick scheduling, passive/extended
 fallbacks, landing diversity, thin obstacles, reachable collider edges and search
 fairness. The catalog harness checks all three profile choices, analysis retries,

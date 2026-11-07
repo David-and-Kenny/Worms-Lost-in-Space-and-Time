@@ -24,6 +24,10 @@ jobs:
       - run: node scripts/validate-repository.mjs
       - name: Test level completion report
         run: node --test scripts/report-level-validation.test.mjs
+      - name: Test validation artifact checks
+        run: node --test scripts/check-validation-artifacts.test.mjs
+      - name: Verify maintained validation artifacts
+        run: node scripts/check-validation-artifacts.mjs
       - name: Test validation runner
         shell: pwsh
         run: ./scripts/test-check-unity.ps1

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { RouteDifficulty, LevelValidationReport } from './report-level-validation.mjs';
+import { RouteDifficulty, InputEffort, LevelValidationReport } from './report-level-validation.mjs';
 
 function route(overrides = {}) {
   return { LevelId: 'level-01', Fingerprint: 'current', Status: 'VerifiedReachable', HasReplay: true,
@@ -13,6 +13,23 @@ function route(overrides = {}) {
     TimingWindows: [{ JumpIndex: 0, FirstOffsetSeconds: -.1, LastOffsetSeconds: .1 }], ...overrides };
 }
 function summary(...levels) { return { Complete: true, RequestedLevels: levels.length, Levels: levels }; }
+
+test('verified holds separate prepared presses and continued jumps from timed presses', () => {
+  const report = route({ Replay: { Jumps: Array(6).fill({}) },
+    TimingWindows: Array.from({ length: 6 }, (_, JumpIndex) => ({ JumpIndex, FirstOffsetSeconds: 0, LastOffsetSeconds: 0 })),
+    HeldInput: { Complete: true, Verified: true, Groups: [
+      { FirstJump: 0, LastJump: 2, Preheld: true }, { FirstJump: 3, LastJump: 5, Preheld: false }] } });
+  const effort = new InputEffort(report);
+  assert.equal(effort.presses, 2); assert.equal(effort.preparedPresses, 1);
+  assert.equal(effort.continuedJumps, 4); assert.equal(effort.tightPresses, 1);
+  assert.equal(effort.longestTightChain, 1);
+});
+test('failed or incomplete hold verification does not invent effort counts', () => {
+  for (const HeldInput of [undefined, { Complete: false, Verified: false }, { Complete: true, Verified: false }]) {
+    const effort = new InputEffort(route({ HeldInput }));
+    assert.equal(effort.verified, false); assert.equal(effort.presses, null);
+  }
+});
 
 test('timing demand depends on precision rather than total jump count', () => {
   assert.equal(new RouteDifficulty(route()).rating, 'Low');

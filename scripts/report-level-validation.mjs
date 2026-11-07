@@ -37,6 +37,29 @@ export class RouteDifficulty {
   }
 }
 
+export class InputEffort {
+  constructor(report) {
+    this.verified = report.HeldInput?.Complete === true && report.HeldInput.Verified === true;
+    this.presses = this.preparedPresses = this.continuedJumps = this.tightPresses = this.longestTightChain = null;
+    if (!this.verified) return;
+    const groups = report.HeldInput.Groups;
+    this.presses = groups.length;
+    this.preparedPresses = groups.filter(group => group.Preheld).length;
+    this.continuedJumps = groups.reduce((sum, group) => sum + group.LastJump - group.FirstJump, 0);
+    if (!report.AnalysisComplete) return;
+    this.tightPresses = this.longestTightChain = 0;
+    let chain = 0;
+    for (const group of groups) {
+      const windows = report.TimingWindows.filter(window => window.JumpIndex === group.FirstJump);
+      const span = windows.length ? Math.max(...windows.map(window =>
+        (window.LastOffsetSeconds - window.FirstOffsetSeconds) * 1000)) : Infinity;
+      if (!group.Preheld && span <= 20.001) { this.tightPresses++; chain++; }
+      else chain = 0;
+      this.longestTightChain = Math.max(this.longestTightChain, chain);
+    }
+  }
+}
+
 export class LevelValidationReport {
   constructor() { this.levels = new Map(); }
 
@@ -93,18 +116,28 @@ export class LevelValidationReport {
         `**Content blocker — ${cell(level.LevelId)}:** ${cell(level.Reason)}`), '',
       'Completion times describe the discovered route at its recorded rendering profile; they are not best times.',
       'Timing demand describes measured execution precision. Overall human difficulty and learnability are uncalibrated; repeated failures are expected for this game.', '',
-      '| Level | Completion (s) | FPS | Jumps | Timing demand | Tightest sampled span (ms) | Tight jumps / longest chain | Successful timing variations |',
+      '| Level | Completion (s) | FPS | Jumps | Exact timing demand | Tightest sampled span (ms) | Tight jumps / longest chain | Successful timing variations |',
       '| --- | ---: | ---: | ---: | --- | ---: | ---: | ---: |'
     ];
     for (const { level } of certified) {
       const difficulty = new RouteDifficulty(level);
       lines.push(`| ${cell(level.LevelId)} | ${level.CompletionSeconds.toFixed(2)} | ${level.Replay.FramesPerSecond} | ${difficulty.jumps} | ${difficulty.rating} | ${difficulty.narrowestSpanMs?.toFixed(0) ?? '—'} | ${difficulty.tightJumps}/${difficulty.longestTightChain} | ${difficulty.successes}/${difficulty.trials} |`);
     }
-    lines.push('', '## Rating rules', '',
+    lines.push('', '## Verified held-input effort', '',
+      'A press group is one button-down interval verified through the production JumpInputBuffer at 30/60/120 FPS. Continuing to hold can launch on subsequent attachments without another press.',
+      'Prepared presses begin before the target attachment, including while falling after a forced detach. Counts describe the demonstrated policy, not a proven minimum or physical touch-latency measurement.', '',
+      '| Level | Press groups | Prepared presses | Jumps from continued holding | Tight timed presses / longest chain | Hold verification |',
+      '| --- | ---: | ---: | ---: | ---: | --- |');
+    for (const { level } of certified) {
+      const effort = new InputEffort(level);
+      lines.push(`| ${cell(level.LevelId)} | ${effort.presses ?? '—'} | ${effort.preparedPresses ?? '—'} | ${effort.continuedJumps ?? '—'} | ${effort.tightPresses ?? '—'}/${effort.longestTightChain ?? '—'} | ${effort.verified ? 'Verified' : 'Not verified'} |`);
+    }
+    lines.push('', 'Tight timed presses use the first jump’s exact-policy timing samples for each non-prepared group. This is a diagnostic proxy: hold-start/release perturbation windows and overall human difficulty are not measured. Prepared and continued-held jumps do not count as additional precisely timed presses.', '',
+      '## Rating rules', '',
       'Only complete timing analysis is rated. For each jump, take its widest sampled success window; the tightest of those windows determines the span above.',
       'Timing demand is High for a sampled span ≤20 ms, Moderate for ≤60 ms, otherwise Low. Attempt counts, sampled failure ratios and total jump count do not determine this label. Tight jumps and consecutive tight-jump chains are reported separately.',
       'A 0 ms sampled span means one grid point succeeded, not a literally zero-width input window. The simulation grid is 20 ms. Consult each run request for its sampling radius; combined errors, alternative routes and human retry/learning costs remain separate measures.',
-      'These samples vary exact launch ticks, not button-down/hold intervals. Held input and buffering can make human execution more forgiving, especially for jumps immediately after attachment.',
+      'The exact-timing table varies launch ticks, not button-down/hold intervals. Use the separately verified hold-effort table to distinguish new presses from automatic launches while holding.',
       'An easier alternative route may exist. Incomplete analysis stays Not rated.', '',
       '## Unresolved searches and content issues', '',
       '| Level | Status | Reason |', '| --- | --- | --- |');
@@ -118,14 +151,17 @@ export class LevelValidationReport {
 
   csv() {
     const rows = [['Level', 'Status', 'CompletionSeconds', 'RenderingFPS', 'Jumps', 'Difficulty',
-      'TightestSampledSpanMs', 'TightJumps', 'LongestTightChain', 'TimingSuccesses', 'TimingTrials', 'Fingerprint', 'Source']];
+      'TightestSampledSpanMs', 'TightJumps', 'LongestTightChain', 'TimingSuccesses', 'TimingTrials', 'Fingerprint', 'Source',
+      'HoldVerified', 'PressGroups', 'PreparedPresses', 'ContinuedHeldJumps', 'TightTimedPresses', 'LongestTightPressChain']];
     for (const { level, source } of this.rows()) {
       const verified = level.Status === 'VerifiedReachable';
       const difficulty = verified ? new RouteDifficulty(level) : null;
+      const effort = verified ? new InputEffort(level) : null;
       rows.push([level.LevelId, level.Status, verified ? level.CompletionSeconds.toFixed(2) : '',
         verified ? level.Replay.FramesPerSecond : '', difficulty?.jumps ?? '', difficulty?.rating ?? '',
         difficulty?.narrowestSpanMs?.toFixed(0) ?? '', difficulty?.tightJumps ?? '', difficulty?.longestTightChain ?? '', difficulty?.successes ?? '', difficulty?.trials ?? '',
-        level.Fingerprint, source]);
+        level.Fingerprint, source, effort?.verified ?? false, effort?.presses ?? '', effort?.preparedPresses ?? '',
+        effort?.continuedJumps ?? '', effort?.tightPresses ?? '', effort?.longestTightChain ?? '']);
     }
     return rows.map(row => row.map(value => `"${String(value ?? '').replaceAll('"', '""')}"`).join(',')).join('\n') + '\n';
   }

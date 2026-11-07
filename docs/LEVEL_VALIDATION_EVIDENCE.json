@@ -2,16 +2,16 @@
   "Version": 1,
   "Complete": true,
   "RequestedLevels": 20,
-  "Success": false,
+  "Success": true,
   "Levels": [
     {
       "Version": 1,
       "LevelId": "level-01",
-      "Fingerprint": "db5260a584e203f3d53d6b1d66f2d6c8388b54d8eec23846f5cf66e4b6cad5f4",
+      "Fingerprint": "8a84803eac149cd733da34f58a567c154b05dabfd2389163ca4069aac0cf69e3",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 56,
-      "WallSeconds": 4.0964627,
+      "Trials": 59,
+      "WallSeconds": 4.546152,
       "CompletionSeconds": 7.960000038146973,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -70,7 +70,7 @@
         "Version": 2,
         "LevelId": "level-01",
         "ScenePath": "Assets/Scenes/World1/Level1.unity",
-        "Fingerprint": "db5260a584e203f3d53d6b1d66f2d6c8388b54d8eec23846f5cf66e4b6cad5f4",
+        "Fingerprint": "8a84803eac149cd733da34f58a567c154b05dabfd2389163ca4069aac0cf69e3",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -115,16 +115,75 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 53,
+            "EndFrame": 53,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 118,
+            "EndFrame": 118,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 211,
+            "EndFrame": 211,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 274,
+            "EndFrame": 274,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 364,
+            "EndFrame": 364,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-02",
-      "Fingerprint": "b3b87654b3baa41131436c798ec5357840152ed868035f7bf292044f1da3d4ff",
+      "Fingerprint": "d759906290cf1d96484f2d153ed8e37076d84ecf5198c024a90a928e812f4ae4",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 43,
-      "WallSeconds": 39.8154829,
+      "Trials": 46,
+      "WallSeconds": 44.263815,
       "CompletionSeconds": 8.539999961853027,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -178,7 +237,7 @@
         "Version": 2,
         "LevelId": "level-02",
         "ScenePath": "Assets/Scenes/World1/Level2.unity",
-        "Fingerprint": "b3b87654b3baa41131436c798ec5357840152ed868035f7bf292044f1da3d4ff",
+        "Fingerprint": "d759906290cf1d96484f2d153ed8e37076d84ecf5198c024a90a928e812f4ae4",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -217,16 +276,68 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 76,
+            "EndFrame": 76,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 170,
+            "EndFrame": 170,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 312,
+            "EndFrame": 312,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 397,
+            "EndFrame": 397,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-03",
-      "Fingerprint": "9752725641f81acf60c23176fbd41ea641f22d6152a08aad423583766be5c137",
+      "Fingerprint": "1ef59e9bcad5ce5a2de1dbb3491bec38fedffb45ebcefbb1dbb83229dd161ef0",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 68,
-      "WallSeconds": 5.3807056,
+      "Trials": 71,
+      "WallSeconds": 9.7341257,
       "CompletionSeconds": 9.319999694824219,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -285,7 +396,7 @@
         "Version": 2,
         "LevelId": "level-03",
         "ScenePath": "Assets/Scenes/World1/Level3.unity",
-        "Fingerprint": "9752725641f81acf60c23176fbd41ea641f22d6152a08aad423583766be5c137",
+        "Fingerprint": "1ef59e9bcad5ce5a2de1dbb3491bec38fedffb45ebcefbb1dbb83229dd161ef0",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -330,16 +441,75 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 60,
+            "EndFrame": 60,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 125,
+            "EndFrame": 125,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 232,
+            "EndFrame": 232,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 335,
+            "EndFrame": 335,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 429,
+            "EndFrame": 429,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-04",
-      "Fingerprint": "1ae291d8a24cc587faed18f55217e8d88b177b3c02b9aaca999ef74cef019643",
+      "Fingerprint": "a05e5df78aa26c117c268495f894bf81018e72f6b3ae292b3e79cfe5b56ba701",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 39,
-      "WallSeconds": 4.453701199999999,
+      "Trials": 42,
+      "WallSeconds": 6.5961133,
       "CompletionSeconds": 9.859999656677246,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -393,7 +563,7 @@
         "Version": 2,
         "LevelId": "level-04",
         "ScenePath": "Assets/Scenes/World1/Level4.unity",
-        "Fingerprint": "1ae291d8a24cc587faed18f55217e8d88b177b3c02b9aaca999ef74cef019643",
+        "Fingerprint": "a05e5df78aa26c117c268495f894bf81018e72f6b3ae292b3e79cfe5b56ba701",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -432,16 +602,68 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 78,
+            "EndFrame": 78,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 159,
+            "EndFrame": 159,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 224,
+            "EndFrame": 224,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 353,
+            "EndFrame": 353,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-05",
-      "Fingerprint": "f443f30d132ae6dd87d3e35be9ae8e32fa3099834d71e4df04cdb571cfe88c61",
+      "Fingerprint": "6a1e3c57dff0b6d378e786a442fea0e9c0417af7fa3d71589857b6cbe112ccb1",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 56,
-      "WallSeconds": 105.1145373,
+      "Trials": 59,
+      "WallSeconds": 111.89126449999999,
       "CompletionSeconds": 15.619999885559082,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -500,7 +722,7 @@
         "Version": 2,
         "LevelId": "level-05",
         "ScenePath": "Assets/Scenes/World1/Level5.unity",
-        "Fingerprint": "f443f30d132ae6dd87d3e35be9ae8e32fa3099834d71e4df04cdb571cfe88c61",
+        "Fingerprint": "6a1e3c57dff0b6d378e786a442fea0e9c0417af7fa3d71589857b6cbe112ccb1",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -545,16 +767,68 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 1,
+            "StartFrame": 98,
+            "EndFrame": 138,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 276,
+            "EndFrame": 276,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 482,
+            "EndFrame": 482,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 611,
+            "EndFrame": 611,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-06",
-      "Fingerprint": "551660a2345d2ec356fb6d247a956d9550eb57bb219351d2ea853a66d871fa94",
+      "Fingerprint": "6616b09d8e9ffcdcc20dec38accc5b9d1df2586b079fd9e3800d7bbfbe1d884e",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 71,
-      "WallSeconds": 7.8664553999999995,
+      "Trials": 74,
+      "WallSeconds": 8.6601762,
       "CompletionSeconds": 13.680000305175781,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -628,7 +902,7 @@
         "Version": 2,
         "LevelId": "level-06",
         "ScenePath": "Assets/Scenes/World1/Level6.unity",
-        "Fingerprint": "551660a2345d2ec356fb6d247a956d9550eb57bb219351d2ea853a66d871fa94",
+        "Fingerprint": "6616b09d8e9ffcdcc20dec38accc5b9d1df2586b079fd9e3800d7bbfbe1d884e",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -691,16 +965,96 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 62,
+            "EndFrame": 62,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 193,
+            "EndFrame": 193,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 320,
+            "EndFrame": 320,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 391,
+            "EndFrame": 391,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 501,
+            "EndFrame": 501,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 541,
+            "EndFrame": 541,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 593,
+            "EndFrame": 593,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 661,
+            "EndFrame": 661,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-07",
-      "Fingerprint": "18704919e9a8da4b0edbce608e33aff8035f9ad613066d6423be70691740823c",
+      "Fingerprint": "aae3d30e18003a2dd7f4904e367647fddf1a27fa4666283a10de7dddbffc4256",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 53,
-      "WallSeconds": 6.0862038,
+      "Trials": 56,
+      "WallSeconds": 6.7904062,
       "CompletionSeconds": 10.760000228881836,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -764,7 +1118,7 @@
         "Version": 2,
         "LevelId": "level-07",
         "ScenePath": "Assets/Scenes/World1/Level7.unity",
-        "Fingerprint": "18704919e9a8da4b0edbce608e33aff8035f9ad613066d6423be70691740823c",
+        "Fingerprint": "aae3d30e18003a2dd7f4904e367647fddf1a27fa4666283a10de7dddbffc4256",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -815,16 +1169,82 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 71,
+            "EndFrame": 71,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 165,
+            "EndFrame": 165,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 249,
+            "EndFrame": 249,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 299,
+            "EndFrame": 299,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 417,
+            "EndFrame": 417,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 461,
+            "EndFrame": 461,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-08",
-      "Fingerprint": "f2ec328eb3bc37d89eddbeb55fb4c65da11a3abcbbf65d89936e14711e456b6b",
+      "Fingerprint": "5dde714f2719ac5e47970c0773ffee42e948d275ebfa7a6a2abd690c3c1f4c31",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 64,
-      "WallSeconds": 5.0812612999999995,
+      "Trials": 67,
+      "WallSeconds": 5.7256886,
       "CompletionSeconds": 10.420000076293945,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -903,7 +1323,7 @@
         "Version": 2,
         "LevelId": "level-08",
         "ScenePath": "Assets/Scenes/World1/Level8.unity",
-        "Fingerprint": "f2ec328eb3bc37d89eddbeb55fb4c65da11a3abcbbf65d89936e14711e456b6b",
+        "Fingerprint": "5dde714f2719ac5e47970c0773ffee42e948d275ebfa7a6a2abd690c3c1f4c31",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -972,16 +1392,103 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 88,
+            "EndFrame": 88,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 119,
+            "EndFrame": 119,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 169,
+            "EndFrame": 169,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 219,
+            "EndFrame": 219,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 266,
+            "EndFrame": 266,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 311,
+            "EndFrame": 311,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 378,
+            "EndFrame": 378,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 414,
+            "EndFrame": 414,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 8,
+            "LastJump": 8,
+            "StartFrame": 468,
+            "EndFrame": 468,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-09",
-      "Fingerprint": "a2bd9b3dace7d41861f776f04e0c148478383b6dce0d506c72a88bc85a117650",
+      "Fingerprint": "947ee914370c3304a1214ffb0684e433e635222087c195f6b240ab63b55b246c",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 118,
-      "WallSeconds": 29.375510199999997,
+      "Trials": 121,
+      "WallSeconds": 30.8091969,
       "CompletionSeconds": 23,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1075,7 +1582,7 @@
         "Version": 2,
         "LevelId": "level-09",
         "ScenePath": "Assets/Scenes/World1/Level9.unity",
-        "Fingerprint": "a2bd9b3dace7d41861f776f04e0c148478383b6dce0d506c72a88bc85a117650",
+        "Fingerprint": "947ee914370c3304a1214ffb0684e433e635222087c195f6b240ab63b55b246c",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1156,16 +1663,117 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 74,
+            "EndFrame": 74,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 174,
+            "EndFrame": 174,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 243,
+            "EndFrame": 243,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 306,
+            "EndFrame": 306,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 411,
+            "EndFrame": 411,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 479,
+            "EndFrame": 479,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 572,
+            "EndFrame": 572,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 686,
+            "EndFrame": 686,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 8,
+            "LastJump": 8,
+            "StartFrame": 1004,
+            "EndFrame": 1004,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 9,
+            "LastJump": 9,
+            "StartFrame": 1055,
+            "EndFrame": 1055,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 10,
+            "LastJump": 10,
+            "StartFrame": 1140,
+            "EndFrame": 1140,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-10",
-      "Fingerprint": "a935b3b8aa90f890428db84041e03b7b1ead651425799b09e37045f65e4275a4",
+      "Fingerprint": "0c3c61b095ba2dd8de4a5c3418db7538d94623101111d941a002a6e7fc77f051",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 24,
-      "WallSeconds": 1.3364768,
+      "Trials": 27,
+      "WallSeconds": 1.588225,
       "CompletionSeconds": 2.5999999046325684,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1204,7 +1812,7 @@
         "Version": 2,
         "LevelId": "level-10",
         "ScenePath": "Assets/Scenes/World1/Level10.unity",
-        "Fingerprint": "a935b3b8aa90f890428db84041e03b7b1ead651425799b09e37045f65e4275a4",
+        "Fingerprint": "0c3c61b095ba2dd8de4a5c3418db7538d94623101111d941a002a6e7fc77f051",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1225,16 +1833,47 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 39,
+            "EndFrame": 39,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-11",
-      "Fingerprint": "ef9e0f0e6fe3f17dfcf96ca8b25e1c49f6866dbba5ef1a0654cfcdfb8f5237b0",
+      "Fingerprint": "bb4ddfbac1a6b49d8f90713005775436cba81e061130cbb7a47368a4207fbd9c",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 44,
-      "WallSeconds": 5.3756467,
+      "Trials": 47,
+      "WallSeconds": 6.1195835999999995,
       "CompletionSeconds": 10.699999809265137,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1293,7 +1932,7 @@
         "Version": 2,
         "LevelId": "level-11",
         "ScenePath": "Assets/Scenes/World2/Level11.unity",
-        "Fingerprint": "ef9e0f0e6fe3f17dfcf96ca8b25e1c49f6866dbba5ef1a0654cfcdfb8f5237b0",
+        "Fingerprint": "bb4ddfbac1a6b49d8f90713005775436cba81e061130cbb7a47368a4207fbd9c",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1338,16 +1977,75 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 53,
+            "EndFrame": 53,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 174,
+            "EndFrame": 174,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 308,
+            "EndFrame": 308,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 371,
+            "EndFrame": 371,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 471,
+            "EndFrame": 471,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-12",
-      "Fingerprint": "8499cbaeaebe3143d93df698e8207a7c480acbb2ace5ac8c4e367ad855d44e76",
+      "Fingerprint": "406b658fb31fba034fd6b42858c81130f8fd7a11f3bdb248f2669b06594e52fd",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 83,
-      "WallSeconds": 12.373234199999999,
+      "Trials": 86,
+      "WallSeconds": 13.2843076,
       "CompletionSeconds": 13.180000305175781,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1421,7 +2119,7 @@
         "Version": 2,
         "LevelId": "level-12",
         "ScenePath": "Assets/Scenes/World2/Level12.unity",
-        "Fingerprint": "8499cbaeaebe3143d93df698e8207a7c480acbb2ace5ac8c4e367ad855d44e76",
+        "Fingerprint": "406b658fb31fba034fd6b42858c81130f8fd7a11f3bdb248f2669b06594e52fd",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1484,16 +2182,96 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 55,
+            "EndFrame": 55,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 112,
+            "EndFrame": 112,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 157,
+            "EndFrame": 157,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 258,
+            "EndFrame": 258,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 306,
+            "EndFrame": 306,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 374,
+            "EndFrame": 374,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 472,
+            "EndFrame": 472,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 649,
+            "EndFrame": 649,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-13",
-      "Fingerprint": "5d1994d6028cda159a428d972ef69392378b6307e5df8b9ccd35581e69c9018d",
+      "Fingerprint": "1447dbb7ee796e2ad864d2003a2a5629f5baabdfae3e332bf687dd9ad210a36f",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 59,
-      "WallSeconds": 9.078268999999999,
+      "Trials": 62,
+      "WallSeconds": 9.2075442,
       "CompletionSeconds": 13.979999542236328,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1567,7 +2345,7 @@
         "Version": 2,
         "LevelId": "level-13",
         "ScenePath": "Assets/Scenes/World2/Level13.unity",
-        "Fingerprint": "5d1994d6028cda159a428d972ef69392378b6307e5df8b9ccd35581e69c9018d",
+        "Fingerprint": "1447dbb7ee796e2ad864d2003a2a5629f5baabdfae3e332bf687dd9ad210a36f",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1630,16 +2408,96 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 57,
+            "EndFrame": 57,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 280,
+            "EndFrame": 280,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 348,
+            "EndFrame": 348,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 395,
+            "EndFrame": 395,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 456,
+            "EndFrame": 456,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 507,
+            "EndFrame": 507,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 567,
+            "EndFrame": 567,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 635,
+            "EndFrame": 635,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-14",
-      "Fingerprint": "a0c2e7813a4151fa775903027d5b3b0a610080fdc3de55bc76e4bbb64751c437",
+      "Fingerprint": "a8d196da1445d477648de6ceb992536d3d34d6b9b12447545eee022539f70eff",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 69,
-      "WallSeconds": 10.6249364,
+      "Trials": 72,
+      "WallSeconds": 11.763881399999999,
       "CompletionSeconds": 12.420000076293945,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1703,7 +2561,7 @@
         "Version": 2,
         "LevelId": "level-14",
         "ScenePath": "Assets/Scenes/World2/Level14.unity",
-        "Fingerprint": "a0c2e7813a4151fa775903027d5b3b0a610080fdc3de55bc76e4bbb64751c437",
+        "Fingerprint": "a8d196da1445d477648de6ceb992536d3d34d6b9b12447545eee022539f70eff",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1754,16 +2612,82 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 64,
+            "EndFrame": 64,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 145,
+            "EndFrame": 145,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 223,
+            "EndFrame": 223,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 293,
+            "EndFrame": 293,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 466,
+            "EndFrame": 466,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 619,
+            "EndFrame": 619,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-15",
-      "Fingerprint": "ee0a1603c1ee0b500665cbf5f3a757482ff669451ff47bf7b1c0cfd30bf44327",
+      "Fingerprint": "f9d5d5e4d3f15b7d13401236df720f59239fe775d22983d27dd4c25277b6a948",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 59,
-      "WallSeconds": 6.0639831,
+      "Trials": 62,
+      "WallSeconds": 6.714154,
       "CompletionSeconds": 12,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1837,7 +2761,7 @@
         "Version": 2,
         "LevelId": "level-15",
         "ScenePath": "Assets/Scenes/World2/Level15.unity",
-        "Fingerprint": "ee0a1603c1ee0b500665cbf5f3a757482ff669451ff47bf7b1c0cfd30bf44327",
+        "Fingerprint": "f9d5d5e4d3f15b7d13401236df720f59239fe775d22983d27dd4c25277b6a948",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -1900,16 +2824,96 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 47,
+            "EndFrame": 47,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 79,
+            "EndFrame": 79,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 195,
+            "EndFrame": 195,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 311,
+            "EndFrame": 311,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 362,
+            "EndFrame": 362,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 410,
+            "EndFrame": 410,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 482,
+            "EndFrame": 482,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 551,
+            "EndFrame": 551,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-16",
-      "Fingerprint": "ace3eaf96312e46d74e586fc01cd27873f3433878aee45412c53bcf89eec7523",
+      "Fingerprint": "be2d39f4669a1f1356793e3d3fa77b623d8a9d8ee4f4c2f33784db6d2f55a191",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 83,
-      "WallSeconds": 11.2488146,
+      "Trials": 86,
+      "WallSeconds": 12.0253231,
       "CompletionSeconds": 14.779999732971191,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -1998,7 +3002,7 @@
         "Version": 2,
         "LevelId": "level-16",
         "ScenePath": "Assets/Scenes/World2/Level16.unity",
-        "Fingerprint": "ace3eaf96312e46d74e586fc01cd27873f3433878aee45412c53bcf89eec7523",
+        "Fingerprint": "be2d39f4669a1f1356793e3d3fa77b623d8a9d8ee4f4c2f33784db6d2f55a191",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -2079,16 +3083,110 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 57,
+            "EndFrame": 57,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 2,
+            "StartFrame": 125,
+            "EndFrame": 134,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 290,
+            "EndFrame": 290,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 309,
+            "EndFrame": 309,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 344,
+            "EndFrame": 344,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 523,
+            "EndFrame": 523,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 570,
+            "EndFrame": 570,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 8,
+            "LastJump": 8,
+            "StartFrame": 610,
+            "EndFrame": 610,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 9,
+            "LastJump": 9,
+            "StartFrame": 656,
+            "EndFrame": 656,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 10,
+            "LastJump": 10,
+            "StartFrame": 711,
+            "EndFrame": 711,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-17",
-      "Fingerprint": "dfea732e59111b64a45ef3645e474c91f3ba20764d891497214cebea60138000",
+      "Fingerprint": "ddcce4f14ca7ef05487f1d26d0d17ffa1d3b994d1b2a9ee2bba3f9b8a149d977",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 74,
-      "WallSeconds": 9.628652899999999,
+      "Trials": 77,
+      "WallSeconds": 10.4683169,
       "CompletionSeconds": 13.319999694824219,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -2157,7 +3255,7 @@
         "Version": 2,
         "LevelId": "level-17",
         "ScenePath": "Assets/Scenes/World2/Level17.unity",
-        "Fingerprint": "dfea732e59111b64a45ef3645e474c91f3ba20764d891497214cebea60138000",
+        "Fingerprint": "ddcce4f14ca7ef05487f1d26d0d17ffa1d3b994d1b2a9ee2bba3f9b8a149d977",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -2214,16 +3312,89 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 49,
+            "EndFrame": 49,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 316,
+            "EndFrame": 316,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 402,
+            "EndFrame": 402,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 430,
+            "EndFrame": 430,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 506,
+            "EndFrame": 506,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 564,
+            "EndFrame": 564,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 627,
+            "EndFrame": 627,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-18",
-      "Fingerprint": "af1d11e6dbd3ddf8126400c8b1177bcee95f1e1681c46b6f9fcd060b133c05cd",
+      "Fingerprint": "790eaebc02ee15dc80a39d898a7f3047e1086b195da75ff603a251cb8a5227ec",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 67,
-      "WallSeconds": 8.032943999999999,
+      "Trials": 70,
+      "WallSeconds": 9.1449356,
       "CompletionSeconds": 16.739999771118164,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -2307,7 +3478,7 @@
         "Version": 2,
         "LevelId": "level-18",
         "ScenePath": "Assets/Scenes/World2/Level18.unity",
-        "Fingerprint": "af1d11e6dbd3ddf8126400c8b1177bcee95f1e1681c46b6f9fcd060b133c05cd",
+        "Fingerprint": "790eaebc02ee15dc80a39d898a7f3047e1086b195da75ff603a251cb8a5227ec",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -2382,16 +3553,103 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 63,
+            "EndFrame": 63,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 2,
+            "StartFrame": 98,
+            "EndFrame": 119,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 179,
+            "EndFrame": 179,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 235,
+            "EndFrame": 235,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 295,
+            "EndFrame": 295,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 378,
+            "EndFrame": 378,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 591,
+            "EndFrame": 591,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 8,
+            "LastJump": 8,
+            "StartFrame": 660,
+            "EndFrame": 660,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 9,
+            "LastJump": 9,
+            "StartFrame": 797,
+            "EndFrame": 797,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-19",
-      "Fingerprint": "9f4aa64bb3271ef2956dab891a182e6395a76fc718527a69821c84c1a0752e3d",
+      "Fingerprint": "0e7898e9b50cf49aa20cb9d73cbdc8180ac4435d912f8e9d058e891d873d1b2f",
       "Outcome": 0,
       "Reason": "Reached the authored finish through normal input and reproduced the route.",
-      "Trials": 89,
-      "WallSeconds": 19.6286181,
+      "Trials": 92,
+      "WallSeconds": 21.257354199999998,
       "CompletionSeconds": 22.15999984741211,
       "OxygenRemaining": -1,
       "AnalysisComplete": true,
@@ -2495,7 +3753,7 @@
         "Version": 2,
         "LevelId": "level-19",
         "ScenePath": "Assets/Scenes/World2/Level19.unity",
-        "Fingerprint": "9f4aa64bb3271ef2956dab891a182e6395a76fc718527a69821c84c1a0752e3d",
+        "Fingerprint": "0e7898e9b50cf49aa20cb9d73cbdc8180ac4435d912f8e9d058e891d873d1b2f",
         "UnityVersion": "6000.6.8f1",
         "FramesPerSecond": 30,
         "Seed": 1729,
@@ -2594,94 +3852,304 @@
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 66,
+            "EndFrame": 66,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 87,
+            "EndFrame": 87,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 2,
+            "LastJump": 2,
+            "StartFrame": 264,
+            "EndFrame": 264,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 3,
+            "LastJump": 3,
+            "StartFrame": 367,
+            "EndFrame": 367,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 4,
+            "LastJump": 4,
+            "StartFrame": 405,
+            "EndFrame": 405,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 5,
+            "LastJump": 5,
+            "StartFrame": 459,
+            "EndFrame": 459,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 6,
+            "LastJump": 6,
+            "StartFrame": 542,
+            "EndFrame": 542,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 7,
+            "LastJump": 7,
+            "StartFrame": 624,
+            "EndFrame": 624,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 8,
+            "LastJump": 8,
+            "StartFrame": 647,
+            "EndFrame": 647,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 9,
+            "LastJump": 9,
+            "StartFrame": 768,
+            "EndFrame": 768,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 10,
+            "LastJump": 10,
+            "StartFrame": 816,
+            "EndFrame": 816,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 11,
+            "LastJump": 11,
+            "StartFrame": 875,
+            "EndFrame": 875,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 12,
+            "LastJump": 12,
+            "StartFrame": 912,
+            "EndFrame": 912,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 13,
+            "LastJump": 13,
+            "StartFrame": 1010,
+            "EndFrame": 1010,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     },
     {
       "Version": 1,
       "LevelId": "level-20",
-      "Fingerprint": "b82c5b5292a2e72e3350ec2ea45de15d12989e4b13392af4ec5a5a51b544b6b2",
-      "Outcome": 1,
-      "Reason": "No active authored finish trigger.",
-      "Trials": 0,
-      "WallSeconds": 0.000012499999999999999,
-      "CompletionSeconds": 0,
-      "OxygenRemaining": 0,
-      "AnalysisComplete": false,
-      "TimingRadiusTicks": 0,
-      "PerturbationTrials": 0,
-      "PerturbationSuccesses": 0,
-      "TimingWindows": [],
-      "Profiles": [],
+      "Fingerprint": "0e4217bd98570966b96a930ed79b4dd56943f474a33784e84ece83b3de5ef7e8",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 40,
+      "WallSeconds": 2.6604341,
+      "CompletionSeconds": 3.940000057220459,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 4,
+      "PerturbationTrials": 18,
+      "PerturbationSuccesses": 8,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": -0.03999999910593033,
+          "LastOffsetSeconds": -0.03999999910593033
+        },
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": -0.03999999910593033,
+          "LastOffsetSeconds": 0.05999999865889549
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
       "Diagnostics": [
-        "No active oxygen component; oxygen readings use -1 (unavailable)."
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
       ],
       "Replay": {
         "Version": 2,
-        "LevelId": "",
-        "ScenePath": "",
-        "Fingerprint": "",
-        "UnityVersion": "",
-        "FramesPerSecond": 60,
-        "Seed": 0,
-        "Jumps": []
+        "LevelId": "level-20",
+        "ScenePath": "Assets/Scenes/World2/Level20.unity",
+        "Fingerprint": "0e4217bd98570966b96a930ed79b4dd56943f474a33784e84ece83b3de5ef7e8",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 54,
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-113838-2068329303",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8399999737739563
+          },
+          {
+            "Frame": 110,
+            "SurfaceId": "GlobalObjectId_V1-2-fae6601161f2ed448926431df7ec6517-151876-416762860",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.6200000047683716
+          }
+        ]
       },
-      "HasReplay": false,
-      "Status": "InvalidContent",
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
       "Coverage": {
         "ActionsTried": 0,
         "FrontiersReached": 0,
         "MaximumRouteJumps": 0,
         "TimedOutTrials": 0,
         "SurfacesReached": []
+      },
+      "HeldInput": {
+        "Complete": true,
+        "Verified": true,
+        "Reason": "Observed-tick hold policy verified at 30/60/120 FPS.",
+        "Groups": [
+          {
+            "FirstJump": 0,
+            "LastJump": 0,
+            "StartFrame": 54,
+            "EndFrame": 54,
+            "Preheld": false
+          },
+          {
+            "FirstJump": 1,
+            "LastJump": 1,
+            "StartFrame": 110,
+            "EndFrame": 110,
+            "Preheld": false
+          }
+        ],
+        "Profiles": [
+          {
+            "FramesPerSecond": 30,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 60,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          },
+          {
+            "FramesPerSecond": 120,
+            "Completed": true,
+            "Reason": "Held input reproduced the recorded route through JumpInputBuffer."
+          }
+        ]
       }
     }
   ],
   "LevelSources": {
-    "level-01": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-02": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-03": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-04": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-05": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-06": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-07": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-08": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-09": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-10": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-11": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-12": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-13": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-14": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-15": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-16": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-17": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-18": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-19": "TestResults/Catalog/Integrated-Selected/summary.json",
-    "level-20": "TestResults/Catalog/Integrated-Selected/summary.json"
+    "level-01": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-02": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-03": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-04": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-05": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-06": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-07": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-08": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-09": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-10": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-11": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-12": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-13": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-14": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-15": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-16": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-17": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-18": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-19": "TestResults/Catalog/Followups-Selected/summary.json",
+    "level-20": "TestResults/Catalog/Followups-Selected/summary.json"
   },
   "Sources": [
-    "TestResults/Catalog/Integrated-Selected/summary.json"
+    "TestResults/Catalog/Followups-Selected/summary.json"
   ],
   "Purpose": "Report snapshot; full replay checkpoints are maintained in ValidationRoutes/*.replay.json.",
   "Validation": {
     "Date": "2026-11-06",
     "UnityVersion": "6000.6.8f1",
-    "UnitySourceCommit": "77fb024fc6057800ea94a57f0fe84434d732f5a4",
+    "UnitySourceCommit": "4e4d989418dbf6b2c1d0743453c09c7e8213e79e",
     "IntegratedMaster": "b40eacb",
     "Platform": "Windows Editor",
     "SimulationHz": 50,
-    "EditModePassed": 136,
-    "PlayModePassed": 46,
-    "MainStrictReplayPassed": 19,
-    "IndependentStrictReplayPassed": 19,
+    "TrialHorizonSeconds": 30,
+    "EditModePassed": 141,
+    "PlayModePassed": 47,
+    "MainStrictReplayPassed": 20,
+    "IndependentStrictReplayPassed": 20,
     "RenderingProfiles": [
       30,
       60,
       120
     ],
+    "ReportTestsPassed": 10,
+    "ArtifactIntegrityTestsPassed": 6,
+    "WindowsBuildPassed": true,
     "RawRuns": [
-      "TestResults/Catalog/Integrated-UI",
-      "TestResults/Catalog/Integrated-Selected/Replay",
-      "TestResults/LevelValidation/Integrated-Independent-Strict"
+      "TestResults/Catalog/Complete-20-Held",
+      "TestResults/Catalog/Followups-Selected/Replay",
+      "TestResults/LevelValidation/Followups-Independent-Strict"
     ]
   }
 }

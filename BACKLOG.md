@@ -30,25 +30,39 @@ Implementation and evidence are in [PR #12](https://github.com/David-and-Kenny/W
 | Item | Work completed | Remaining work |
 | --- | --- | --- |
 | BL-014 | Token-free solver, complementary search profiles, source-checked certificates, timing analysis and reusable catalog/report commands | Implementation complete; PR review remains |
-| BL-002 | All 20 levels evaluated; natural-input routes certified for Levels 1–19; strict replay passed in two checkouts | Author Level 20's finish under BL-001; complete human/device acceptance |
+| BL-002 | All 20 levels evaluated; natural-input routes certified, including Level 20's new exit | Complete human/device acceptance |
 | BL-022 | Shared 50 Hz movement and buffered input; certified routes completed at 30/60/120 rendered FPS | Physical phone input latency, perceived feel and lifecycle checks |
-| BL-012 | Per-level pass times, timing precision, tight-jump counts and consecutive chains recorded | Calibrate human difficulty and establish authoring/star-target rules |
+| BL-012 | Pass times, timing precision, verified held-input effort and a reusable design checklist recorded | Calibrate human difficulty and establish star targets |
 | BL-013 / BL-015 | Validator available as a dependency for future authoring and generation | Authoring framework and candidate generation have not been implemented |
 
-Validation passed **136 EditMode tests, 46 PlayMode tests**, all 24 scene/prefab
-binding checks, and **19/19 strict route replays in each checkout**. Repository CI
+Validation passed **141 EditMode tests, 47 PlayMode tests**, all 24 scene/prefab
+binding checks, and **20/20 strict route replays in each checkout**. Repository CI
 also passed. See the [per-level report](docs/FIXED_TICK_LEVEL_REPORT.md),
 [compact evidence](docs/LEVEL_VALIDATION_EVIDENCE.json) and
 [solver coverage notes](docs/SOLVER_COVERAGE.md). Device checks remain unverified.
+
+### Completed small follow-ups
+
+- **BL-034:** CI checks catalog/certificate/report agreement, including missing
+  certificates, mismatched fingerprints, changed commands/finish times, held-input
+  evidence and stale Markdown/CSV. Unity remains the source-freshness authority.
+- **BL-014 follow-up:** real buffered-button replays distinguish prepared presses,
+  continued holds and new timed presses; a two-attachment fixture verifies both
+  successful holding and rejection of an unexpected launch.
+- **BL-004:** [one-page game brief](docs/GAME_BRIEF.md), with open decisions and
+  hypotheses explicitly identified.
+- **BL-012:** [level-design checklist](docs/LEVEL_DESIGN_CHECKLIST.md), with a
+  per-level note template, automated gates and separate human/device acceptance.
+- **BL-001:** visible Level 20 exit added beyond its existing platforms; its
+  discovered natural-input route completes in **3.94 seconds**. Existing geometry,
+  movement and character art were preserved.
 
 ## Open work
 
 | ID | Priority | Status | Area | Outcome | Depends on / blocker |
 | --- | --- | --- | --- | --- | --- |
-| BL-001 | P0 | Ready | Content | Give Level 20 a reachable exit | Designer must author and playtest the exit |
-| BL-002 | P0 | In progress | Quality | Verify natural traversal of every level | Levels 1–19 certified; BL-001 for Level 20; human/device acceptance remains |
+| BL-002 | P0 | In progress | Quality | Verify natural traversal of every level | All 20 have demonstrated routes; human/device acceptance remains |
 | BL-003 | P0 | Blocked | Mobile | Validate Android controls and app lifecycle | Physical Android device/tester |
-| BL-004 | P1 | Proposed | Direction | Write the game vision and description | Product/design decisions |
 | BL-005 | P1 | Proposed | Gameplay | Evaluate the core loop and retention | BL-004; representative playtesters |
 | BL-006 | P2 | Proposed | Gameplay | Prototype selected new mechanics | BL-005; select one hypothesis first |
 | BL-007 | P1 | Proposed | UI | Refine responsive menus, HUD and feedback | BL-003 for device acceptance |
@@ -56,7 +70,7 @@ also passed. See the [per-level report](docs/FIXED_TICK_LEVEL_REPORT.md),
 | BL-009 | P2 | Proposed | Art | Replace approved placeholder assets | BL-008 |
 | BL-010 | P1 | Proposed | State | Review save/session integrity and tampering risks | Explicit offline/online threat model |
 | BL-011 | P2 | Proposed | State | Decide legacy-save compatibility policy | Existing `.dat` files are retained, not imported |
-| BL-012 | P1 | Proposed | Levels | Define authoring and difficulty rules | BL-004 and BL-002 observations |
+| BL-012 | P1 | In progress | Levels | Define authoring and difficulty rules | Checklist and held-input metrics complete; human calibration/star targets remain |
 | BL-013 | P1 | Proposed | Tooling | Build maintainable level-authoring tools | BL-012 |
 | BL-015 | P2 | Proposed | Tooling | Generate and evaluate batches of candidate levels | BL-013 and BL-014 |
 | BL-017 | P2 | Proposed | Monetization | Model ad revenue across usage scenarios | BL-016; sourced assumptions, not forecasts |
@@ -64,7 +78,7 @@ also passed. See the [per-level report](docs/FIXED_TICK_LEVEL_REPORT.md),
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
-| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Levels 1–19 complete at 30/60/120 FPS; physical-device acceptance remains |
+| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Automated frame-rate evidence complete; physical-device acceptance remains |
 | BL-023 | P1 | Ready | Accounts | Establish AdMob and store account access, agreements and payments | Account owner to complete console setup |
 | BL-024 | P1 | Blocked | Monetization | Register Android/iOS AdMob apps and interstitial units | BL-023; confirm existing store identifiers |
 | BL-025 | P1 | Ready | Web | Publish developer website, privacy policy and app-ads.txt | BL-024 for the authorized seller entry |
@@ -92,12 +106,12 @@ them does not enable ads, approve an audience declaration or authorize publicati
 
 ### BL-001 — Complete Level 20
 
-The catalog audit confirms no authored finish trigger in Level 20. Author an exit
-that fits the level design; reach it from entry without teleporting. Completion
-must show the final result, save once and offer valid world/menu navigation.
-Add an authored-content regression check and record the natural playthrough.
-The full solver iteration reconfirmed this content blocker; no Level 20 completion
-certificate was issued. Rerun the catalog utility after authoring the exit.
+**Done — November 6, 2026; PR #12.** Added a visible shared-prefab finish beyond
+the last existing platform, with final-level identity and no Level 21 destination.
+The solver reached it with normal jump input in 3.94 seconds and one disposable
+save. An authored-content regression checks the active trigger, visible sign and
+catalog end policy. See the maintained Level 20 certificate and current report.
+Phone readability and final navigation acceptance remain device work under BL-003.
 
 ### BL-002 — Establish playable level coverage
 
@@ -106,8 +120,8 @@ hazards, attachment/camera/oxygen behavior, completion time and next destination
 File reproducible defects with level IDs. Startup tests and simulated finish
 triggers must not be presented as proof of natural reachability.
 The [current report](docs/FIXED_TICK_LEVEL_REPORT.md) records natural-input routes
-for Levels 1–19, complete timing analysis and strict replay in two checkouts.
-Level 20 is content-blocked; camera/input feel and device acceptance remain manual.
+for all twenty levels, complete timing analysis and strict replay evidence.
+Camera/input feel and device acceptance remain manual.
 
 ### BL-003 — Verify on a physical Android device
 
@@ -117,6 +131,11 @@ and persisted progress. Record device/OS/build and logs. Resolve failures or lin
 them as release blockers. iOS device coverage belongs to BL-019/BL-020.
 
 ### BL-004 — Document product direction
+
+**Done — November 6, 2026; PR #12.** The [game brief](docs/GAME_BRIEF.md) records the
+short precision-platformer direction, controls, contributors' priorities and
+scope boundaries. The final name, audience classification and calibrated human
+skill/duration targets remain explicitly open; engagement hypotheses belong to BL-005.
 
 Agree on the target player, core fantasy/loop, session length hypothesis, challenge
 and failure philosophy, progression goals, tone and explicit non-goals. Write a
@@ -200,8 +219,8 @@ and budgets. Report demonstrated routes separately from inconclusive or failed
 search; a solver timeout must not be labelled proof that a level is impossible.
 Validate results against known playable and deliberately invalid fixtures.
 The [level-validation utility](docs/LEVEL_VALIDATION.md) implements local search,
-certificates, profile retries and replay without AI tokens. Levels 1–19 are
-certified; Level 20 lacks a finish. See [coverage evidence](docs/SOLVER_COVERAGE.md).
+certificates, profile retries and replay without AI tokens. All twenty levels are
+certified, including Level 20's authored exit. See [coverage evidence](docs/SOLVER_COVERAGE.md).
 Physical-device acceptance remains BL-003; human difficulty is not calibrated.
 
 Completed scope:
@@ -214,7 +233,7 @@ Completed scope:
   aggregation and separate budgets for incomplete timing analysis.
 - [x] Reload real scenes and drive ordinary jump input; preserve source fingerprints,
   calibration, fresh certification and disposable save storage.
-- [x] Evaluate all 20 levels, maintain 19 certificates, check 30/60/120 FPS policies
+- [x] Evaluate all 20 levels, maintain 20 certificates, check 30/60/120 FPS policies
   and strictly replay all certificates in two checkouts.
 - [x] Publish Markdown/CSV run statistics, compact evidence and reusable token-free
   report generation; add solver, integration and CI-runner regression coverage.
@@ -290,8 +309,8 @@ The implementation and measured evidence are in
 [FIXED_TICK_GAMEPLAY.md](docs/FIXED_TICK_GAMEPLAY.md). Physical input still has
 render-sampling latency; the fix makes simulation outcomes consistent for observed
 tick commands without claiming that every phone feels identical.
-The solver iteration now certifies Levels 1–19, including Level 8, with successful
-30/60/120 FPS policy runs. Level 20 lacks a finish. See
+The solver iteration now certifies all twenty levels with successful
+30/60/120 FPS policy runs. See
 [completion times and measured timing demand](docs/FIXED_TICK_LEVEL_REPORT.md).
 
 ### BL-023 — Prepare publisher and store accounts
@@ -398,10 +417,23 @@ test traffic, compare observations with BL-017 assumptions, and propose frequenc
 changes with player-impact evidence. Adding another analytics SDK or mediation
 provider requires a separate decision.
 
+### BL-034 — Keep validation artifacts consistent in CI
+
+**Done — November 6, 2026; PR #12.** The no-Unity Node check compares the published
+catalog, maintained certificates, tracked evidence and generated Markdown/CSV.
+Missing/extra routes, incompatible editor versions, mismatched fingerprints or
+commands, inconsistent completion times, incomplete analysis and malformed hold
+groups fail CI. Mutation fixtures cover those failure modes. This does not
+recompute Unity dependency fingerprints or establish physical viability; fresh
+Unity certification is still required whenever relevant source/content changes.
+
 ## Completed foundation
 
+- [x] **BL-001:** author and naturally validate Level 20's visible final exit — PR #12.
+- [x] **BL-004:** contributor game brief with decisions, boundaries and open questions — PR #12.
+- [x] **BL-034:** lightweight CI integrity checks for maintained replay/report artifacts — PR #12.
 - [x] **BL-014:** reusable token-free viability search, certificates, complementary
-  profiles and reporting; all 20 levels evaluated, 19 certified and strictly
+  profiles and reporting; all 20 levels evaluated, certified and strictly
   replayed in two checkouts — [PR #12](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/12),
   [evidence](docs/SOLVER_COVERAGE.md).
 - [x] Recover and upgrade the Unity project; remove tracked caches/obsolete ad SDK

@@ -2,14 +2,13 @@
 
 Generated from completed Unity validation runs without an AI service.
 
-Evaluated: 20; certified routes: 19.
+Evaluated: 20; certified routes: 20.
 
-**Content blocker — level-20:** No active authored finish trigger.
 
 Completion times describe the discovered route at its recorded rendering profile; they are not best times.
 Timing demand describes measured execution precision. Overall human difficulty and learnability are uncalibrated; repeated failures are expected for this game.
 
-| Level | Completion (s) | FPS | Jumps | Timing demand | Tightest sampled span (ms) | Tight jumps / longest chain | Successful timing variations |
+| Level | Completion (s) | FPS | Jumps | Exact timing demand | Tightest sampled span (ms) | Tight jumps / longest chain | Successful timing variations |
 | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: |
 | level-01 | 7.96 | 30 | 5 | High | 0 | 4/4 | 15/37 |
 | level-02 | 8.54 | 30 | 4 | High | 0 | 3/3 | 7/24 |
@@ -30,20 +29,50 @@ Timing demand describes measured execution precision. Overall human difficulty a
 | level-17 | 13.32 | 30 | 7 | High | 0 | 5/5 | 18/55 |
 | level-18 | 16.74 | 30 | 10 | High | 0 | 9/9 | 12/48 |
 | level-19 | 22.16 | 30 | 14 | High | 0 | 14/14 | 15/70 |
+| level-20 | 3.94 | 30 | 2 | High | 0 | 1/1 | 8/18 |
+
+## Verified held-input effort
+
+A press group is one button-down interval verified through the production JumpInputBuffer at 30/60/120 FPS. Continuing to hold can launch on subsequent attachments without another press.
+Prepared presses begin before the target attachment, including while falling after a forced detach. Counts describe the demonstrated policy, not a proven minimum or physical touch-latency measurement.
+
+| Level | Press groups | Prepared presses | Jumps from continued holding | Tight timed presses / longest chain | Hold verification |
+| --- | ---: | ---: | ---: | ---: | --- |
+| level-01 | 5 | 0 | 0 | 4/4 | Verified |
+| level-02 | 4 | 0 | 0 | 3/3 | Verified |
+| level-03 | 5 | 0 | 0 | 3/3 | Verified |
+| level-04 | 4 | 0 | 0 | 4/4 | Verified |
+| level-05 | 4 | 0 | 1 | 3/3 | Verified |
+| level-06 | 8 | 0 | 0 | 7/7 | Verified |
+| level-07 | 6 | 0 | 0 | 5/5 | Verified |
+| level-08 | 9 | 0 | 0 | 9/9 | Verified |
+| level-09 | 11 | 0 | 0 | 8/8 | Verified |
+| level-10 | 1 | 0 | 0 | 0/0 | Verified |
+| level-11 | 5 | 0 | 0 | 5/5 | Verified |
+| level-12 | 8 | 0 | 0 | 6/6 | Verified |
+| level-13 | 8 | 0 | 0 | 8/8 | Verified |
+| level-14 | 6 | 0 | 0 | 5/5 | Verified |
+| level-15 | 8 | 0 | 0 | 8/8 | Verified |
+| level-16 | 10 | 0 | 1 | 9/9 | Verified |
+| level-17 | 7 | 0 | 0 | 5/5 | Verified |
+| level-18 | 9 | 0 | 1 | 8/8 | Verified |
+| level-19 | 14 | 0 | 0 | 14/14 | Verified |
+| level-20 | 2 | 0 | 0 | 1/1 | Verified |
+
+Tight timed presses use the first jump’s exact-policy timing samples for each non-prepared group. This is a diagnostic proxy: hold-start/release perturbation windows and overall human difficulty are not measured. Prepared and continued-held jumps do not count as additional precisely timed presses.
 
 ## Rating rules
 
 Only complete timing analysis is rated. For each jump, take its widest sampled success window; the tightest of those windows determines the span above.
 Timing demand is High for a sampled span ≤20 ms, Moderate for ≤60 ms, otherwise Low. Attempt counts, sampled failure ratios and total jump count do not determine this label. Tight jumps and consecutive tight-jump chains are reported separately.
 A 0 ms sampled span means one grid point succeeded, not a literally zero-width input window. The simulation grid is 20 ms. Consult each run request for its sampling radius; combined errors, alternative routes and human retry/learning costs remain separate measures.
-These samples vary exact launch ticks, not button-down/hold intervals. Held input and buffering can make human execution more forgiving, especially for jumps immediately after attachment.
+The exact-timing table varies launch ticks, not button-down/hold intervals. Use the separately verified hold-effort table to distinguish new presses from automatic launches while holding.
 An easier alternative route may exist. Incomplete analysis stays Not rated.
 
 ## Unresolved searches and content issues
 
 | Level | Status | Reason |
 | --- | --- | --- |
-| level-20 | InvalidContent | No active authored finish trigger. |
 
 Inconclusive searches do not prove impossibility. A missing authored finish is a content blocker.
 

@@ -6,6 +6,8 @@ avoid hazards, and reach the exit before oxygen runs out.
 ## Development status
 
 See the [product backlog](BACKLOG.md) for planned features, research and open issues.
+The [game brief](docs/GAME_BRIEF.md) records the agreed direction; use the
+[level-design checklist](docs/LEVEL_DESIGN_CHECKLIST.md) for authoring and review.
 Use the [level viability utility](docs/LEVEL_VALIDATION.md) to inspect levels,
 discover jump routes and replay regression certificates without AI token usage.
 Movement now uses a shared 50 Hz gameplay tick, buffered jump input and interpolated
@@ -27,9 +29,9 @@ uses versioned JSON saves and an editable level catalog, and replaces fixed-size
 rotated menus with Canvas prefabs. Read [architecture](docs/ARCHITECTURE.md),
 [test commands and coverage](docs/TESTING.md), and the
 [built-player/device script](docs/PLAYTEST_SCRIPT.md) before extending the game.
-The catalog audit identifies an existing content gap: **Level 20 has no authored
-finish trigger**. Its startup test passes, but natural completion is blocked until
-that level is finished by a designer.
+Level 20 now has an authored, visible exit beyond its existing platforms. Natural
+completion is validated through ordinary jump input; device feel and human
+difficulty still require playtesting.
 See [refactor validation](docs/REFACTOR_VALIDATION.md) for baseline/after results
 and the remaining manual acceptance checks.
 
@@ -73,6 +75,7 @@ From the repository root:
 
 ```powershell
 node scripts/validate-repository.mjs
+node scripts/check-validation-artifacts.mjs
 $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 ./scripts/setup-git.ps1 -UnityEditor $editor
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check Scenes
