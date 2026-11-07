@@ -31,7 +31,7 @@ points. Measured results and remaining limitations are recorded below.
 
 ## Final iteration — November 6, 2026
 
-The final Unity source is `1337c06`, integrated with master `6bc2a1e`, using the
+The final Unity source is `77fb024`, integrated with master `b40eacb`, using the
 pinned Windows editor. All twenty catalog levels were evaluated: **Levels 1–19
 are VerifiedReachable**, with complete timing analysis and successful 30/60/120
 FPS policy runs. **Level 20 is InvalidContent: no active authored finish trigger.**
@@ -40,7 +40,7 @@ There are no remaining untested or inconclusive catalog levels in this iteration
 Main-checkout strict replay passed **19/19**; an independent checkout also passed
 **19/19** against the same source fingerprints. Each strict route ran ten absolute
 replays and three attachment-relative replays. Tests passed: **136 EditMode,
-45 PlayMode**, 8 report tests, 12 catalog-runner scenarios and 8 existing runner
+46 PlayMode**, 8 report tests, 12 catalog-runner scenarios and 8 existing runner
 scenarios. The scene/prefab binding check passed all 24 enabled scenes.
 
 See the [full completion/timing-demand table](FIXED_TICK_LEVEL_REPORT.md), its
@@ -55,12 +55,14 @@ Selected discovery runs explain the longer focused budget: Level 9 required
 change; their recorded inputs were recertified against the final source. These
 are search-effort observations, not human attempt counts or controlled benchmarks.
 
-Raw runs are under ignored `TestResults/Catalog/Final-Catalog`,
-`TestResults/LevelValidation/Final19-Recertified`, `TestResults/Catalog/Selected/Replay`
-and `TestResults/LevelValidation/Independent-Strict`. Full traces/logs stay local;
+Raw runs are under ignored `TestResults/Catalog/Integrated-UI`,
+`TestResults/Catalog/Integrated-Selected/Replay` and
+`TestResults/LevelValidation/Integrated-Independent-Strict`. Full traces/logs stay local;
 the reviewed snapshot and replay inputs preserve the shared evidence. No shipping
 gameplay or level geometry changed. Physical input/feel, rendering and lifecycle
 acceptance on phones remain in `PLAYTEST_SCRIPT.md`.
+The concurrently merged menu-art change was integrated before this final pass;
+all nineteen certificates were reissued rather than carrying over old hashes.
 
 ## Reusable portfolio
 

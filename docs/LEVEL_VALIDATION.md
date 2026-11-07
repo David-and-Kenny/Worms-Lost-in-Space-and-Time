@@ -217,7 +217,7 @@ Generate a shareable report from completed runs without Unity or AI tokens:
 node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/run/summary.json --output TestResults/level-report.md --csv TestResults/level-report.csv
 
 # Publish compact report data without local trajectories or duplicate checkpoints.
-node scripts/report-level-validation.mjs --summary TestResults/Catalog/Selected/summary.json --output TestResults/preview.md --csv TestResults/preview.csv --evidence docs/LEVEL_VALIDATION_EVIDENCE.json
+node scripts/report-level-validation.mjs --summary TestResults/Catalog/current/summary.json --output TestResults/preview.md --csv TestResults/preview.csv --evidence docs/LEVEL_VALIDATION_EVIDENCE.json
 # Regenerate the shared table from the tracked snapshot, without Unity or a model.
 node scripts/report-level-validation.mjs --summary docs/LEVEL_VALIDATION_EVIDENCE.json --output docs/FIXED_TICK_LEVEL_REPORT.md --csv docs/FIXED_TICK_LEVEL_REPORT.csv
 ```
