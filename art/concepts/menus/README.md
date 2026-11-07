@@ -4,7 +4,8 @@ This review pass themes Splash, StorySelect (main menu), World 1, World 2, and
 their settings panels. It follows the approved Level 1 cartoon steampunk-space
 direction: bold outlines, flat shading, brass controls, rustic copper pipes and
 a quiet teal view into space. Background machinery stays duller than interactive
-gold cogs. There are no loose gears floating outside the station.
+buttons. There are no loose gears floating outside the station. The pipe-framed
+level selector revision is documented in [pipe-level-select.md](pipe-level-select.md).
 
 The existing astronaut.png character sprite is reused unchanged. Titles, button
 labels, level names and settings/status text are editable Unity uGUI Text, using
@@ -21,6 +22,7 @@ and settings callbacks are retained.
 | Begin.jpg and plain menu button surfaces | menu-button.png with editable labels |
 | gameLock.png | lock-badge.png |
 | magicalconch.png award | star-badge.png |
+| First-pass cog level buttons | level-pipe-button.png, with level-link-pipe.png connections |
 | Old title/button typography | Bungee and Nunito with dark outlines |
 
 Source PNGs are beside this README. Production imports live in
@@ -44,8 +46,10 @@ persistent button callbacks. It does not generate images or call an AI service.
 Safe-area roots contain title, subtitle, original character and native controls.
 Backgrounds cover the viewport using EnvelopeParent. World selection uses
 GridLayoutGroup with a small MenuLevelGrid presentation adapter: two columns in
-portrait, five in landscape. Square cog faces hold their own labels/lock/star
-badges. Settings use a VerticalLayoutGroup so unavailable controls collapse
+portrait, five in landscape. Pipe frames hold their own labels/lock/star
+badges, with thirteen thin decorative pipes connecting adjacent buttons behind
+the grid. The cog remains as the character's halo. Settings use a
+VerticalLayoutGroup so unavailable controls collapse
 without gaps. No complete UI hierarchy is constructed at runtime.
 
 ## Capture and review
@@ -63,7 +67,7 @@ and the original character. These camera/Canvas renders do not certify physical
 mobile input, store purchases, safe-area behavior on a device, or natural level
 traversal. Run the documented player/device checks separately.
 
-## Validation
+## Initial menu pass validation
 
 Repository validation passed: 404 assets/folders and GUIDs, 24 enabled scenes.
 Scene/prefab validation passed, along with all 122 EditMode and 46 PlayMode tests

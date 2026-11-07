@@ -13,7 +13,7 @@ public static class MenuArtTools
     private static readonly Color Cream = new Color(1f, .94f, .79f);
     private static readonly Color Gold = new Color(1f, .77f, .28f);
     private static Font displayFont, bodyFont;
-    private static Sprite background, plate, levelCog, padlock, star, character;
+    private static Sprite background, plate, levelCog, levelPipe, linkPipe, padlock, star, character;
     public static readonly string[] Scenes =
     {
         "Assets/Scenes/World1/Splash.unity", "Assets/Scenes/World1/StorySelect.unity",
@@ -66,6 +66,8 @@ public static class MenuArtTools
         background = ImportArt("observatory-background", false, 0);
         plate = ImportArt("menu-button", true, 1024);
         levelCog = ImportArt("level-cog", true, 512);
+        levelPipe = ImportArt("level-pipe-button", true, 768);
+        linkPipe = ImportArt("level-link-pipe", true, 512);
         padlock = ImportArt("lock-badge", true, 128);
         star = ImportArt("star-badge", true, 128);
         displayFont = AssetDatabase.LoadAssetAtPath<Font>(Art + "Fonts/Bungee-Regular.ttf");
@@ -168,6 +170,7 @@ public static class MenuArtTools
         importer.maxTextureSize = 2048;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         if (name == "menu-button") importer.spriteBorder = new Vector4(110, 50, 110, 50);
+        if (name == "level-link-pipe") importer.spriteBorder = new Vector4(80, 0, 80, 0);
         importer.SaveAndReimport();
         return AssetDatabase.LoadAssetAtPath<Sprite>(output);
     }
@@ -312,11 +315,21 @@ public static class MenuArtTools
         if (levels.Length == 0) return;
         Transform safe = levels[0].GetComponentInParent<SafeAreaLayout>().transform;
         var gridRect = Rect(safe, "Level Grid", new Vector2(.10f, .20f), new Vector2(.90f, .775f));
+        var linksRect = Rect(safe, "Level Pipe Connections", gridRect.anchorMin, gridRect.anchorMax);
+        linksRect.SetAsFirstSibling();
         var grid = gridRect.GetComponent<UnityEngine.UI.GridLayoutGroup>();
         if (!grid) grid = gridRect.gameObject.AddComponent<UnityEngine.UI.GridLayoutGroup>();
-        grid.spacing = new Vector2(18, 18);
+        grid.spacing = new Vector2(48, 32);
         var responsive = gridRect.GetComponent<MenuLevelGrid>();
         if (!responsive) responsive = gridRect.gameObject.AddComponent<MenuLevelGrid>();
+        var connections = new RectTransform[13];
+        for (int i = 0; i < connections.Length; i++)
+        {
+            var pipe = Image(linksRect, "Pipe Link " + i, linkPipe, Vector2.zero, Vector2.one, true);
+            pipe.pixelsPerUnitMultiplier = 6;
+            connections[i] = pipe.rectTransform;
+        }
+        responsive.SetPipeLinks(connections);
         for (int i = 0; i < levels.Length; i++)
         {
             var binding = levels[i];
@@ -325,23 +338,34 @@ public static class MenuArtTools
             StyleButton(binding.Button);
             var oldFace = binding.GetComponent<UnityEngine.UI.Image>();
             oldFace.enabled = false; oldFace.raycastTarget = false; Record(oldFace);
-            var face = Image(binding.transform, "Cog Face", levelCog, Vector2.zero, Vector2.one);
+            var oldCog = binding.transform.Find("Cog Face");
+            if (oldCog) oldCog.name = "Pipe Face";
+            var face = Image(binding.transform, "Pipe Face", levelPipe, Vector2.zero, Vector2.one);
             face.raycastTarget = true;
+            // A solid inset keeps decorative connections behind the translucent source artwork.
+            var backing = Rect(binding.transform, "Pipe Backing", Vector2.zero, Vector2.one);
+            backing.SetAsFirstSibling();
+            var backingFitter = backing.GetComponent<UnityEngine.UI.AspectRatioFitter>();
+            if (!backingFitter) backingFitter = backing.gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();
+            backingFitter.aspectMode = UnityEngine.UI.AspectRatioFitter.AspectMode.FitInParent;
+            backingFitter.aspectRatio = levelPipe.rect.width / levelPipe.rect.height;
+            var inset = Image(backing, "Opaque Inset", null, new Vector2(.07f, .18f), new Vector2(.93f, .82f));
+            inset.color = new Color(.015f, .15f, .19f, 1);
             var fitter = face.GetComponent<UnityEngine.UI.AspectRatioFitter>();
             if (!fitter) fitter = face.gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();
             fitter.aspectMode = UnityEngine.UI.AspectRatioFitter.AspectMode.FitInParent;
-            fitter.aspectRatio = 1;
+            fitter.aspectRatio = levelPipe.rect.width / levelPipe.rect.height;
             binding.Button.targetGraphic = face; Record(binding.Button);
             foreach (var text in binding.GetComponentsInChildren<UnityEngine.UI.Text>(true))
             {
                 if (text.transform.parent != face.transform) text.transform.SetParent(face.transform, false);
-                SetRect(text.rectTransform, new Vector2(.14f, .30f), new Vector2(.86f, .70f));
+                SetRect(text.rectTransform, new Vector2(.16f, .25f), new Vector2(.84f, .75f));
                 StyleText(text, true, 28); Record(text.rectTransform);
             }
             if (binding.Lock && binding.Lock.transform.parent != face.transform) binding.Lock.transform.SetParent(face.transform, false);
             if (binding.Star && binding.Star.transform.parent != face.transform) binding.Star.transform.SetParent(face.transform, false);
-            Badge(binding.Lock, padlock, new Vector2(.80f, .01f), new Vector2(1.07f, .32f));
-            Badge(binding.Star, star, new Vector2(-.07f, .01f), new Vector2(.20f, .32f));
+            Badge(binding.Lock, padlock, new Vector2(.86f, -.15f), new Vector2(1.02f, .40f));
+            Badge(binding.Star, star, new Vector2(-.02f, -.15f), new Vector2(.14f, .40f));
         }
         Canvas.ForceUpdateCanvases();
         responsive.Refresh();

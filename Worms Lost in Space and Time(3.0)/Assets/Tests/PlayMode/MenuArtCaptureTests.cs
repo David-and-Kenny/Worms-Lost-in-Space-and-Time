@@ -46,9 +46,15 @@ public sealed class MenuArtCaptureTests
                     "Reuse the original character artwork without a new generation.");
             foreach (var binding in UnityEngine.Object.FindObjectsByType<LevelButtonBinding>(FindObjectsSortMode.None))
             {
-                Assert.AreEqual("level-cog", ((UnityEngine.UI.Image)binding.Button.targetGraphic).sprite.name);
+                Assert.AreEqual("level-pipe-button", ((UnityEngine.UI.Image)binding.Button.targetGraphic).sprite.name);
                 if (binding.Lock) Assert.AreEqual("lock-badge", binding.Lock.GetComponent<UnityEngine.UI.Image>().sprite.name);
                 if (binding.Star) Assert.AreEqual("star-badge", binding.Star.GetComponent<UnityEngine.UI.Image>().sprite.name);
+            }
+            if (sceneName == "World1" || sceneName == "World2")
+            {
+                var pipes = images.Where(image => image.sprite && image.sprite.name == "level-link-pipe").ToArray();
+                Assert.AreEqual(13, pipes.Length, "Every adjacent level is joined by a smaller pipe.");
+                Assert.IsTrue(pipes.All(pipe => !pipe.raycastTarget), "Decorative pipes must not intercept level input.");
             }
             if (capture) Capture(sceneName, output);
             var settings = UnityEngine.Object.FindFirstObjectByType<MonetizationSettingsView>();

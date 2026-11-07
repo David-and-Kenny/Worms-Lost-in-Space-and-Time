@@ -130,8 +130,11 @@ persistent callbacks. The original character sprite is reused. Text stays native
 uGUI Text with bundled Bungee/Nunito fonts and OFL notices in Resources.
 
 MenuLevelGrid is a presentation adapter for a serialized GridLayoutGroup: two
-columns in portrait and five in landscape. Square cog faces contain labels and
-status badges. Settings use VerticalLayoutGroup so hidden options collapse.
+columns in portrait and five in landscape. Copper pipe frames contain labels
+and status badges; thirteen smaller pipes join adjacent buttons behind the grid.
+Serialized connector references let the adapter reposition this decorative
+network without constructing UI objects. Settings use VerticalLayoutGroup so
+hidden options collapse.
 Neither adapter constructs UI hierarchies at runtime. Existing navigation,
 progression, settings availability and save contracts are unchanged.
 
