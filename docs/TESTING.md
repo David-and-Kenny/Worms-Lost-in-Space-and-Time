@@ -77,6 +77,24 @@ For a behavior PR, include the executed suite counts/results and relevant scenar
 IDs, not a claim of total coverage. Attach XML/logs or summarize their failures.
 Device cases remain unverified until someone records an actual device run.
 
+## Monetization scenarios
+
+| ID | Scenario and primary layer |
+| --- | --- |
+| ADS-01 | EditMode: 25 distinct failed runs or 3 completions; duplicate death/retry does not increment twice; both counters reset only on opened ads |
+| ADS-02 | EditMode: five-minute opening grace, three-minute shared cooldown, consent/ownership gating, missing ads and failed presentation |
+| ADS-03 | EditMode: repeated taps/SDK events navigate once; cancelled/stale callbacks cannot navigate a new screen |
+| ADS-04 | EditMode: committed defaults request no ads or purchases; developer preview uses only sample IDs |
+| IAP-01 | EditMode: idempotent grants, durable ownership, failed writes, cached offline ownership, authoritative revocation, isolated purchase storage |
+| UI-ADS-01 | PlayMode: editable settings panel opens/closes, bindings and unavailable-store behavior; existing safe-area fixture includes its controls |
+| DEVICE-ADS-01 | Device: test ads at natural completion/retry transitions, foreground timing, audio/focus restoration, suspend/resume and no closing-touch leakage |
+| DEVICE-IAP-01 | Device: store purchase/cancel/defer/restore/reinstall/offline ownership and purchase-confirmation retry |
+| RELEASE-ADS-01 | Editor: production build guard rejects incomplete/sample configuration; SDK app IDs must match; child/privacy declarations require external review |
+
+See `MONETIZATION.md` for account configuration and `PLAYTEST_SCRIPT.md` for
+device steps. Automated navigation/session fixtures prove wiring, not natural
+traversability. Use the existing no-AI level-validation tooling for traversal.
+
 ## Automated level traversal
 
 The reusable [level validator](LEVEL_VALIDATION.md) adds EditMode search/contract
