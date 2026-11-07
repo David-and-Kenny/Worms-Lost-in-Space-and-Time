@@ -6,9 +6,11 @@ background in the same style; this is not approval to replace production art.
 
 ## Files and baseline
 
-- Latest: [background V03](level-background-v03.png), restoring the mechanical
-  framing with dull rustic background cogs and pipes, a smaller window, and no
-  gears visible through it. See [V03 notes and prompt](level-background-v03.md).
+- Latest: [background V04](level-background-v04.png), returning closely to V01's
+  broad space-window composition with duller metal tones and no cogs inside the
+  window. See [V04 notes and prompt](level-background-v04.md).
+- Previous: [background V03](level-background-v03.png) and
+  [V03 notes](level-background-v03.md), the rustic frame with a smaller window.
 - Previous: [background V02](level-background-v02.png) and
   [V02 notes](level-background-v02.md), the simpler wall experiment.
 - [Background concept](level-background-v01.png)
@@ -45,7 +47,10 @@ The owner then requested more of V01's machinery, with background cogs colored
 differently from playable cogs and duller, more rustic pipes and gears. V03
 addresses that direction while retaining the smaller window and clear space view.
 Earlier versions remain as design history. The art-direction section describes
-the original V01 experiment; use the V03 notes for the current direction.
+the original V01 experiment. The owner subsequently pointed back to V01 and
+clarified that they wanted that composition with duller tones, rather than the
+small-window wall treatment. V04 follows this correction; use the V04 notes for
+the current direction.
 
 Check composition, amount of space versus machinery, edge brightness, and whether
 the cartoon treatment belongs with the unchanged character and round-01 assets.
