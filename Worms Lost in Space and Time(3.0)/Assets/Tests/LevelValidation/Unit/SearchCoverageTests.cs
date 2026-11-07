@@ -106,6 +106,24 @@ namespace Worms.LevelValidation
         }
 
         [Test]
+        public void FreshArrivalsOnAnEarlyPlatformCannotStarveAnotherPlatform()
+        {
+            var map = Map();
+            map.Objects.Add(new SceneObjectIdentity { Id = "other", Role = "wheel", X = -3, CenterX = -3, AngularSpeed = 90 });
+            var search = new RouteSearch(new LevelValidationRequest(), map);
+            search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier,
+                SurfaceId = "other", X = -3, LastFrame = 1000 });
+            bool explored = false;
+            for (int index = 0; index < 100; index++)
+            {
+                search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier,
+                    SurfaceId = "source", LastFrame = index + 10 });
+                if (search.Next().ObserveAfterFrame == 1000) { explored = true; break; }
+            }
+            Assert.That(explored, Is.True, "Effort belongs to the platform, not just the newest arrival.");
+        }
+
+        [Test]
         public void LandingDiversityRetainsSubTickAnglePhaseAndDifferentHazardTimes()
         {
             var surface = new SceneObjectIdentity { Id = "wheel", AngularSpeed = 300 };

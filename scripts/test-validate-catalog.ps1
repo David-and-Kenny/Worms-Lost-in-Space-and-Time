@@ -23,14 +23,19 @@ function Row($id,$status) {
 }
 if ($Operation -eq 'inspect') { $rows=@((Row 'level-01' 'Inconclusive'),(Row 'level-02' 'Inconclusive'),(Row 'level-20' 'InvalidContent')) }
 elseif ($Operation -eq 'search') {
-    if ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 30 -or $BeamWidth -ne 1024) { throw 'Wrong fallback selection/profile.' }
+    if ($ReplayFile) {
+        if ($Level -ne 'level-01' -or $env:WORMS_CATALOG_TEST_CASE -ne 'analysis') { throw 'Wrong analysis selection.' }
+    } elseif ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 30 -or $BeamWidth -ne 1024) { throw 'Wrong fallback selection/profile.' }
     $rows=@((Row $Level 'VerifiedReachable'))
 } elseif ($ReplayDirectory) {
     $rows=@(Get-ChildItem -LiteralPath $ReplayDirectory -Filter '*.replay.json' | ForEach-Object { Row ((Get-Content $_.FullName -Raw | ConvertFrom-Json).LevelId) 'VerifiedReachable' })
 } else { $rows=@((Row 'level-01' 'VerifiedReachable'),(Row 'level-02' 'Inconclusive'),(Row 'level-20' 'InvalidContent')) }
+if ($env:WORMS_CATALOG_TEST_CASE -eq 'analysis' -and $Operation -eq 'batch' -and !$ReplayDirectory) { $rows[0].AnalysisComplete=$false }
+if ($env:WORMS_CATALOG_TEST_CASE -eq 'replay-failure' -and $ReplayDirectory) { $rows[0].Status='ReplayFailed' }
+if ($env:WORMS_CATALOG_TEST_CASE -eq 'unstable') { $rows[0].Status='RunnerUnstable' }
 New-Item -ItemType Directory -Force -Path $OutputDirectory | Out-Null
 foreach($row in $rows | Where-Object HasReplay) { $row.Replay | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $OutputDirectory ($row.LevelId+'.replay.json')) }
-@{Version=1;Complete=$true;RequestedLevels=$rows.Count;Success=(@($rows | Where-Object {$_.Status -ne 'VerifiedReachable'}).Count -eq 0);Levels=$rows} |
+@{Version=1;Complete=($env:WORMS_CATALOG_TEST_CASE -ne 'partial');RequestedLevels=$rows.Count;Success=(@($rows | Where-Object {$_.Status -ne 'VerifiedReachable'}).Count -eq 0);Levels=$rows} |
     ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $OutputDirectory 'summary.json')
 if ($rows | Where-Object {$_.Status -ne 'VerifiedReachable'}) { exit 2 }
 exit 0
@@ -48,6 +53,19 @@ exit 0
     if (!(Test-Path -LiteralPath (Join-Path $output 'Replay/summary.json'))) { throw 'Strict replay was not executed.' }
     Write-Host 'PASS: fallback profile, merged evidence, certificate selection, content blocker and strict replay'
 
+    $env:WORMS_CATALOG_TEST_CASE = 'analysis'
+    $analysisOutput = Join-Path $fixtureRoot 'Analysis'
+    & $shellPath -NoProfile -File $runner -OutputDirectory $analysisOutput *> (Join-Path $fixtureRoot 'analysis.log')
+    if ($LASTEXITCODE -ne 2) { throw 'Analysis scenario did not preserve the content blocker.' }
+    $analyzed = Get-Content -LiteralPath (Join-Path $analysisOutput 'summary.json') -Raw | ConvertFrom-Json
+    if (!$analyzed.LevelSources.'level-01'.Contains('Analysis-level-01')) { throw 'Analysis evidence was not selected.' }
+    Write-Host 'PASS: incomplete timing analysis gets a separate budget'
+
+    $env:WORMS_CATALOG_TEST_CASE = 'normal'
+    & $shellPath -NoProfile -File $runner -InitialRun (Join-Path $output 'Initial') -OutputDirectory (Join-Path $fixtureRoot 'Resume') *> (Join-Path $fixtureRoot 'resume.log')
+    if ($LASTEXITCODE -ne 2) { throw 'Same-source complete resume failed.' }
+    Write-Host 'PASS: same-source resume accepted'
+
     & $shellPath -NoProfile -File $runner -OutputDirectory $output *> (Join-Path $fixtureRoot 'reuse.log')
     if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq 2) { throw 'Reused certificate output was accepted.' }
     Write-Host 'PASS: stale output rejected'
@@ -61,6 +79,13 @@ exit 0
     & $shellPath -NoProfile -File $runner -OutputDirectory (Join-Path $fixtureRoot 'Failure') *> (Join-Path $fixtureRoot 'failure.log')
     if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq 2) { throw 'Execution failure was converted into a logical outcome.' }
     Write-Host 'PASS: infrastructure failure propagated'
+
+    foreach ($scenario in @('partial','unstable','replay-failure')) {
+        $env:WORMS_CATALOG_TEST_CASE = $scenario
+        & $shellPath -NoProfile -File $runner -OutputDirectory (Join-Path $fixtureRoot $scenario) *> (Join-Path $fixtureRoot ($scenario+'.log'))
+        if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq 2) { throw "Invalid evidence accepted: $scenario" }
+        Write-Host "PASS: $scenario rejected"
+    }
 } finally {
     $env:WORMS_CATALOG_TEST_CASE = $previousCase
     $resolvedFixture = [IO.Path]::GetFullPath($fixtureRoot)

@@ -33,6 +33,7 @@ namespace Worms.LevelValidation
         private readonly List<Frontier> frontiers = new List<Frontier>();
         private readonly HashSet<string> scheduled = new HashSet<string>();
         private readonly Queue<TrialPlan> extendedProbes = new Queue<TrialPlan>();
+        private readonly Dictionary<string, int> surfaceAttempts = new Dictionary<string, int>();
         public int ActionsScheduled => scheduled.Count;
         public RouteSearch(LevelValidationRequest options, LevelManifest manifest)
         {
@@ -60,7 +61,9 @@ namespace Worms.LevelValidation
             int visits = prefix.Jumps.Count(jump => jump.SurfaceId == state.SurfaceId);
             frontiers.Add(new Frontier { Prefix = Copy(prefix), State = state, Schedule = schedule,
                 DiversityCell = LandingDiversity.Cell(state, surface),
-                Priority = geometry.ExitCost(state.SurfaceId, state.X, state.Y) + prefix.Jumps.Count * .5 + visits * 15 });
+                Priority = geometry.ExitCost(null, state.X, state.Y)
+                    + geometry.ExitCost(state.SurfaceId, state.X, state.Y) * .1
+                    + prefix.Jumps.Count * .5 + visits * 15 });
 
             // Retain alternative platforms instead of filling the beam with arrivals on one wheel.
             int perSurface = Math.Max(8, options.BeamWidth / 2);
@@ -83,7 +86,9 @@ namespace Worms.LevelValidation
                 return extendedProbes.Dequeue();
             while (frontiers.Count > 0)
             {
-                var source = frontiers.OrderBy(item => item.Priority + item.Next * .2).First();
+                // Fresh arrivals must not reset a platform's search effort and starve later platforms.
+                var source = frontiers.OrderBy(item => item.Priority + item.Next * .05
+                    + AttemptsOn(item.State.SurfaceId) * .1).First();
                 if (source.Next == source.Schedule.Delays.Count) { frontiers.Remove(source); continue; }
                 int delay = source.Schedule.Delays[source.Next++];
                 var plan = Copy(source.Prefix);
@@ -106,10 +111,16 @@ namespace Worms.LevelValidation
                     if (delay == -2) plan.FrameLimit = -1;
                 }
                 string key = string.Join(",", plan.Jumps.Select(item => item.Frame)) + ":" + plan.ObserveAfterFrame + ":" + plan.FrameLimit;
-                if (scheduled.Add(key)) return plan;
+                if (scheduled.Add(key))
+                {
+                    surfaceAttempts[source.State.SurfaceId] = AttemptsOn(source.State.SurfaceId) + 1;
+                    return plan;
+                }
             }
             return extendedProbes.Count > 0 ? extendedProbes.Dequeue() : null;
         }
+
+        private int AttemptsOn(string surfaceId) => surfaceAttempts.TryGetValue(surfaceId, out int count) ? count : 0;
 
         public static TrialPlan Copy(TrialPlan plan) => new TrialPlan { ObserveAfterFrame = plan.ObserveAfterFrame,
             StopAtFrontier = plan.StopAtFrontier, MinimumAttachmentTicks = plan.MinimumAttachmentTicks,

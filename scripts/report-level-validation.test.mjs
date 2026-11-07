@@ -47,6 +47,16 @@ test('aggregation retains verified evidence and reports content blockers honestl
   assert.match(report.markdown(), /Inconclusive searches do not prove impossibility/);
 });
 
+test('aggregation preserves complete timing evidence and its certificate source', () => {
+  const report = new LevelValidationReport();
+  report.add(summary(route()), 'complete');
+  report.add(summary(route({ AnalysisComplete: false })), 'partial-analysis');
+  const saved = JSON.parse(report.json());
+  assert.equal(saved.Levels[0].AnalysisComplete, true);
+  assert.deepEqual(saved.LevelSources, { 'level-01': 'complete' });
+  assert.deepEqual(saved.Sources, ['complete']);
+});
+
 test('partial runs and mixed-source evidence are rejected', () => {
   const report = new LevelValidationReport();
   assert.throws(() => report.add({ ...summary(route()), Complete: false }, 'partial'), /Incomplete/);
@@ -54,17 +64,22 @@ test('partial runs and mixed-source evidence are rejected', () => {
   assert.throws(() => report.add(summary(route({ Fingerprint: 'old' })), 'old'), /Different source/);
 });
 
-test('CLI writes readable Markdown and CSV without Unity or network access', () => {
+test('CLI writes Markdown, CSV and reusable JSON without Unity or network access', () => {
   const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'worms-report-'));
   try {
     const input = path.join(folder, 'summary.json');
     const output = path.join(folder, 'report.md');
     const csv = path.join(folder, 'report.csv');
+    const json = path.join(folder, 'report.json');
     fs.writeFileSync(input, JSON.stringify(summary(route())));
     execFileSync(process.execPath, [path.join(import.meta.dirname, 'report-level-validation.mjs'),
-      '--summary', input, '--output', output, '--csv', csv]);
+      '--summary', input, '--output', output, '--csv', csv, '--json', json]);
     assert.match(fs.readFileSync(output, 'utf8'), /certified routes: 1/);
     assert.match(fs.readFileSync(csv, 'utf8'), /"level-01","VerifiedReachable","4.20","60","1","Low"/);
+    const saved = JSON.parse(fs.readFileSync(json, 'utf8'));
+    assert.equal(saved.Complete, true);
+    assert.equal(saved.RequestedLevels, 1);
+    assert.equal(saved.LevelSources['level-01'], input);
   } finally { fs.rmSync(folder, { recursive: true, force: true }); }
 });
 
