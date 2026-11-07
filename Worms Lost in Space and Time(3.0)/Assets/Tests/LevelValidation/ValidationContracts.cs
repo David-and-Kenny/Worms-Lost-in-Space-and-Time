@@ -190,6 +190,7 @@ namespace Worms.LevelValidation
         public string Status;
         public List<TraversalSample> Trajectory = new List<TraversalSample>();
         public SearchCoverage Coverage = new SearchCoverage();
+        public HeldInputAnalysis HeldInput = new HeldInputAnalysis();
     }
 
     [Serializable]

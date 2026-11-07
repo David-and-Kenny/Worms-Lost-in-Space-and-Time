@@ -13,6 +13,7 @@ namespace Worms.LevelValidation
         public int MinimumAttachmentTicks;
         public bool RelativeTiming;
         public int FrameLimit = -1;
+        public List<ButtonHold> ButtonHolds;
     }
 
     /// <summary>Best-first traversal with destination-diverse arrivals and bounded transition probes.</summary>
@@ -125,6 +126,8 @@ namespace Worms.LevelValidation
         public static TrialPlan Copy(TrialPlan plan) => new TrialPlan { ObserveAfterFrame = plan.ObserveAfterFrame,
             StopAtFrontier = plan.StopAtFrontier, MinimumAttachmentTicks = plan.MinimumAttachmentTicks,
             RelativeTiming = plan.RelativeTiming, FrameLimit = plan.FrameLimit,
+            ButtonHolds = plan.ButtonHolds?.Select(item => new ButtonHold { FirstJump = item.FirstJump,
+                LastJump = item.LastJump, StartFrame = item.StartFrame, EndFrame = item.EndFrame, Preheld = item.Preheld }).ToList(),
             Jumps = plan.Jumps.Select(item => new JumpCommand { Frame = item.Frame, SurfaceId = item.SurfaceId,
                 AttachmentOrdinal = item.AttachmentOrdinal, DelaySeconds = item.DelaySeconds }).ToList() };
     }

@@ -279,7 +279,34 @@ namespace Worms.LevelValidation
                 yield return MeasureTimingWindow(manifest, solution, index);
                 if (BudgetExpired) yield break;
             }
+            yield return AnalyzeHeldInput(manifest, solution);
+            if (BudgetExpired) yield break;
             report.AnalysisComplete = true;
+        }
+
+        private IEnumerator AnalyzeHeldInput(LevelManifest manifest, TrialPlan solution)
+        {
+            var analysis = report.HeldInput;
+            analysis.Groups = HeldInputPolicy.Build(report.Replay);
+            analysis.Reason = "Budget exhausted before held-input verification completed.";
+            var heldPlan = RouteSearch.Copy(solution);
+            heldPlan.RelativeTiming = false;
+            heldPlan.ButtonHolds = analysis.Groups;
+            var expected = new TrialResult { Outcome = TrialOutcome.Completed, Events = report.Replay.Expected };
+            foreach (int rate in new[] { 30, 60, 120 })
+            {
+                if (BudgetExpired) yield break;
+                TrialResult result = null;
+                yield return Trial(manifest, heldPlan, rate, value => result = value, true);
+                bool matches = result.Outcome == TrialOutcome.Completed
+                    && ReplayComparison.Equivalent(expected, result, out _);
+                analysis.Profiles.Add(new ProfileResult { FramesPerSecond = rate, Completed = matches,
+                    Reason = matches ? "Held input reproduced the recorded route through JumpInputBuffer." : result.Reason });
+            }
+            analysis.Complete = true;
+            analysis.Verified = analysis.Profiles.TrueForAll(item => item.Completed);
+            analysis.Reason = analysis.Verified ? "Observed-tick hold policy verified at 30/60/120 FPS."
+                : "Hold grouping did not reproduce the route at every profile; exact-jump evidence remains valid.";
         }
     }
 }

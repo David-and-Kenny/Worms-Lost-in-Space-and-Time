@@ -19,7 +19,7 @@ namespace Worms.LevelValidation
                 EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
                 EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), Folder + "EmptyReset.unity");
             }
-            foreach (string name in new[] { "StaticRoute", "SealedExit", "MovingHazard", "BreakableWheel", "NarrowExit", "DirectExit" })
+            foreach (string name in new[] { "StaticRoute", "SealedExit", "MovingHazard", "BreakableWheel", "NarrowExit", "DirectExit", "HeldChain" })
             {
                 if (File.Exists(Folder + name + ".unity")) continue;
                 var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -37,7 +37,7 @@ namespace Worms.LevelValidation
                 wheelObject.tag = "Wheel";
                 wheelObject.AddComponent<CircleCollider2D>().radius = 1;
                 var wheel = wheelObject.AddComponent<Wheel>();
-                wheel.speed = 90;
+                wheel.speed = name == "HeldChain" ? 0 : 90;
                 wheel.direction = -1;
                 wheel.holder = new GameObject("Holder").transform;
                 wheel.holder.SetParent(wheelObject.transform, false);
@@ -45,6 +45,15 @@ namespace Worms.LevelValidation
                 if (name == "BreakableWheel") wheelObject.AddComponent<CountdownExplode>().timer = 1.5f;
                 var finish = new GameObject("Finish");
                 finish.transform.position = name == "DirectExit" ? new Vector3(0, 1.7f) : new Vector3(4, 0);
+                if (name == "HeldChain")
+                {
+                    var conveyor = new GameObject("Turn conveyor");
+                    conveyor.transform.position = new Vector3(0, 4);
+                    conveyor.transform.rotation = Quaternion.Euler(0, 0, 90);
+                    conveyor.AddComponent<BoxCollider2D>().size = new Vector2(1.2f, .3f);
+                    conveyor.AddComponent<Conveyor>().speed = 0;
+                    finish.transform.position = new Vector3(-3, 3.2f);
+                }
                 var trigger = finish.AddComponent<BoxCollider2D>();
                 trigger.isTrigger = true;
                 trigger.size = name == "NarrowExit" ? new Vector2(.2f, .05f) : new Vector2(.8f, 1.5f);
@@ -72,7 +81,7 @@ namespace Worms.LevelValidation
                 EditorSceneManager.SaveScene(scene, Folder + name + ".unity");
             }
             AssetDatabase.Refresh();
-            foreach (string name in new[] { "StaticRoute", "SealedExit", "MovingHazard", "BreakableWheel", "NarrowExit", "DirectExit" })
+            foreach (string name in new[] { "StaticRoute", "SealedExit", "MovingHazard", "BreakableWheel", "NarrowExit", "DirectExit", "HeldChain" })
             {
                 var manifest = SceneInspection.Inspect(Folder + name + ".unity")[0];
                 File.WriteAllText(Folder + name + ".json", JsonUtility.ToJson(manifest, true));

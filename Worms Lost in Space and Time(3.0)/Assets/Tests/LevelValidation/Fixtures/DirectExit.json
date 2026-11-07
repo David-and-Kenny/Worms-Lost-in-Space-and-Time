@@ -2,7 +2,7 @@
     "LevelId": "DirectExit",
     "SceneName": "DirectExit",
     "ScenePath": "Assets/Tests/LevelValidation/Fixtures/DirectExit.unity",
-    "Fingerprint": "b028ec873b0515586f1f26c4fa72cf903ea7122bc2cf60db509f59fb597bd54e",
+    "Fingerprint": "e1ba2cb537a5dda9a4501626be73e8ba2c6e2b1d1d0ce42197f31e85e4158d03",
     "Objects": [
         {
             "Id": "GlobalObjectId_V1-2-216fd0a60812f56478074840b680c001-1028645670-0",
@@ -10,7 +10,15 @@
             "Name": "Player",
             "Role": "spawn",
             "X": 0.0,
-            "Y": 3.0
+            "Y": 3.0,
+            "AngularSpeed": 0.0,
+            "CenterX": 0.0,
+            "CenterY": 3.0,
+            "SizeX": 0.30000001192092896,
+            "SizeY": 0.3000001907348633,
+            "Circle": true,
+            "Moving": false,
+            "BreakSeconds": 0.0
         },
         {
             "Id": "GlobalObjectId_V1-2-216fd0a60812f56478074840b680c001-1986935902-0",
@@ -18,7 +26,15 @@
             "Name": "Wheel",
             "Role": "wheel",
             "X": 0.0,
-            "Y": 0.0
+            "Y": 0.0,
+            "AngularSpeed": -90.0,
+            "CenterX": 0.0,
+            "CenterY": 0.0,
+            "SizeX": 2.0,
+            "SizeY": 2.0,
+            "Circle": true,
+            "Moving": false,
+            "BreakSeconds": 0.0
         },
         {
             "Id": "GlobalObjectId_V1-2-216fd0a60812f56478074840b680c001-1219029062-0",
@@ -26,7 +42,15 @@
             "Name": "Finish",
             "Role": "finish",
             "X": 0.0,
-            "Y": 1.7000000476837158
+            "Y": 1.7000000476837158,
+            "AngularSpeed": 0.0,
+            "CenterX": 0.0,
+            "CenterY": 1.7000000476837158,
+            "SizeX": 0.800000011920929,
+            "SizeY": 1.5,
+            "Circle": false,
+            "Moving": false,
+            "BreakSeconds": 0.0
         }
     ],
     "Errors": [],

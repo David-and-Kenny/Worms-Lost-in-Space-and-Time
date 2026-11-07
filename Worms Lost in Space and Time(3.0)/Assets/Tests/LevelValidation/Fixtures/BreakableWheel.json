@@ -2,7 +2,7 @@
     "LevelId": "BreakableWheel",
     "SceneName": "BreakableWheel",
     "ScenePath": "Assets/Tests/LevelValidation/Fixtures/BreakableWheel.unity",
-    "Fingerprint": "d67febc9d452d6ca4d6a570680da27872c371d82ab33b0cb23fc5ae25030d3b0",
+    "Fingerprint": "0dfbd93fa3214b05766eeb426f500147b344d74f06007a84f92f6a41b97b6e7c",
     "Objects": [
         {
             "Id": "GlobalObjectId_V1-2-05a5e4ba575c31945a698e57f48ec8ac-791984112-0",
@@ -10,7 +10,15 @@
             "Name": "Player",
             "Role": "spawn",
             "X": 0.0,
-            "Y": 3.0
+            "Y": 3.0,
+            "AngularSpeed": 0.0,
+            "CenterX": 0.0,
+            "CenterY": 3.0,
+            "SizeX": 0.30000001192092896,
+            "SizeY": 0.3000001907348633,
+            "Circle": true,
+            "Moving": false,
+            "BreakSeconds": 0.0
         },
         {
             "Id": "GlobalObjectId_V1-2-05a5e4ba575c31945a698e57f48ec8ac-393501114-0",
@@ -18,7 +26,15 @@
             "Name": "Wheel",
             "Role": "wheel",
             "X": 0.0,
-            "Y": 0.0
+            "Y": 0.0,
+            "AngularSpeed": -90.0,
+            "CenterX": 0.0,
+            "CenterY": 0.0,
+            "SizeX": 2.0,
+            "SizeY": 2.0,
+            "Circle": true,
+            "Moving": false,
+            "BreakSeconds": 1.5
         },
         {
             "Id": "GlobalObjectId_V1-2-05a5e4ba575c31945a698e57f48ec8ac-69571045-0",
@@ -26,7 +42,15 @@
             "Name": "Finish",
             "Role": "finish",
             "X": 4.0,
-            "Y": 0.0
+            "Y": 0.0,
+            "AngularSpeed": 0.0,
+            "CenterX": 4.0,
+            "CenterY": 0.0,
+            "SizeX": 0.8000001907348633,
+            "SizeY": 1.5,
+            "Circle": false,
+            "Moving": false,
+            "BreakSeconds": 0.0
         }
     ],
     "Errors": [],

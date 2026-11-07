@@ -195,6 +195,7 @@ namespace Worms.LevelValidation
         private int next;
         private int sampledFrame = -1;
         private bool held;
+        private readonly JumpInputBuffer buttonBuffer = new JumpInputBuffer();
         public string Divergence { get; private set; }
         public ReplayInput(TrialObservation observation, TrialPlan plan)
         { this.observation = observation; this.plan = plan; }
@@ -204,6 +205,19 @@ namespace Worms.LevelValidation
             if (frame == sampledFrame) return held;
             sampledFrame = frame;
             held = false;
+            if (plan.ButtonHolds != null)
+            {
+                buttonBuffer.Sample(plan.ButtonHolds.Any(item => frame >= item.StartFrame && frame <= item.EndFrame));
+                bool requested = buttonBuffer.Consume(observation.Attached);
+                if (!requested)
+                {
+                    if (next < plan.Jumps.Count && frame >= plan.Jumps[next].Frame)
+                        Divergence = "Held input missed jump " + next + ".";
+                    return false;
+                }
+                if (next >= plan.Jumps.Count || plan.Jumps[next].Frame != frame)
+                { Divergence = "Held input requested an unrecorded jump."; return false; }
+            }
             if (next >= plan.Jumps.Count || Divergence != null) return false;
             var jump = plan.Jumps[next];
             int target = plan.RelativeTiming
