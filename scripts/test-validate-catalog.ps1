@@ -23,6 +23,7 @@ function Row($id,$status) {
 }
 if ($Operation -eq 'inspect') { $rows=@((Row 'level-01' 'Inconclusive'),(Row 'level-02' 'Inconclusive'),(Row 'level-20' 'InvalidContent')) }
 elseif ($Operation -eq 'search') {
+    if ($env:WORMS_CATALOG_TEST_CASE -eq 'supplemental') { throw 'An already verified supplemental route must not be searched again.' }
     if ($ReplayFile) {
         if ($Level -ne 'level-01' -or $FramesPerSecond -ne 30 -or $env:WORMS_CATALOG_TEST_CASE -ne 'analysis') { throw 'Wrong analysis selection.' }
     } elseif ($BeamWidth -eq 16) {
@@ -76,6 +77,23 @@ exit 0
     & $shellPath -NoProfile -File $runner -InitialRun (Join-Path $output 'Initial') -OutputDirectory (Join-Path $fixtureRoot 'Resume') *> (Join-Path $fixtureRoot 'resume.log')
     if ($LASTEXITCODE -ne 2) { throw 'Same-source complete resume failed.' }
     Write-Host 'PASS: same-source resume accepted'
+
+    $env:WORMS_CATALOG_TEST_CASE = 'supplemental'
+    $supplementalOutput = Join-Path $fixtureRoot 'Supplemental'
+    & $shellPath -NoProfile -File $runner -InitialRun (Join-Path $output 'Initial') -AdditionalRuns (Join-Path $output 'Wide-level-02') -OutputDirectory $supplementalOutput *> (Join-Path $fixtureRoot 'supplemental.log')
+    if ($LASTEXITCODE -ne 2) { throw 'Same-source supplemental evidence failed.' }
+    $supplemental = Get-Content -LiteralPath (Join-Path $supplementalOutput 'summary.json') -Raw | ConvertFrom-Json
+    if (($supplemental.Levels | Where-Object LevelId -eq 'level-02').Status -ne 'VerifiedReachable') { throw 'Supplemental proof was lost.' }
+    Write-Host 'PASS: same-source supplemental proof skips redundant search and gets strict replay'
+
+    $wrongSource = Join-Path $fixtureRoot 'WrongSource'
+    New-Item -ItemType Directory -Path $wrongSource | Out-Null
+    $wrong = Get-Content -LiteralPath (Join-Path $output 'Wide-level-02/summary.json') -Raw | ConvertFrom-Json
+    $wrong.Levels[0].Fingerprint = 'changed'
+    $wrong | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $wrongSource 'summary.json')
+    & $shellPath -NoProfile -File $runner -InitialRun (Join-Path $output 'Initial') -AdditionalRuns $wrongSource -OutputDirectory (Join-Path $fixtureRoot 'WrongSupplement') *> (Join-Path $fixtureRoot 'wrong-supplement.log')
+    if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq 2) { throw 'Changed-source supplemental evidence accepted.' }
+    Write-Host 'PASS: changed-source supplemental proof rejected'
 
     & $shellPath -NoProfile -File $runner -OutputDirectory $output *> (Join-Path $fixtureRoot 'reuse.log')
     if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq 2) { throw 'Reused certificate output was accepted.' }

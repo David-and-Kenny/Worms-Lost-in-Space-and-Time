@@ -90,6 +90,7 @@ export class LevelValidationReport {
       'Only complete timing analysis is rated. For each jump, take its widest sampled success window; the tightest of those windows determines the span above.',
       'Timing demand is High for a sampled span ≤20 ms, Moderate for ≤60 ms, otherwise Low. Attempt counts, sampled failure ratios and total jump count do not determine this label. Tight jumps and consecutive tight-jump chains are reported separately.',
       'A 0 ms sampled span means one grid point succeeded, not a literally zero-width input window. The simulation grid is 20 ms. Consult each run request for its sampling radius; combined errors, alternative routes and human retry/learning costs remain separate measures.',
+      'These samples vary exact launch ticks, not button-down/hold intervals. Held input and buffering can make human execution more forgiving, especially for jumps immediately after attachment.',
       'An easier alternative route may exist. Incomplete analysis stays Not rated.', '',
       '## Unresolved searches and content issues', '',
       '| Level | Status | Reason |', '| --- | --- | --- |');

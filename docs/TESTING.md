@@ -144,6 +144,8 @@ fallbacks, landing diversity, thin obstacles, reachable collider edges and searc
 fairness. The catalog harness checks all three profile choices, analysis retries,
 same-source resume, certificate selection and strict replay; partial, stale,
 unstable and execution-failed evidence must fail the command.
+Matching-source completed worker runs can supplement a catalog pass; tests require
+those verified routes to skip redundant search and reject changed-source evidence.
 
 ## Fixed-tick movement acceptance
 

@@ -2,6 +2,7 @@ param(
     [string]$UnityEditor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com',
     [string]$OutputDirectory,
     [string]$InitialRun,
+    [string[]]$AdditionalRuns = @(),
     [ValidateRange(10, 240)][int]$FramesPerSecond = 30,
     [ValidateRange(1, 3600)][int]$SearchSeconds = 300,
     [ValidateRange(1, 3600)][int]$FallbackSeconds = 300,
@@ -18,6 +19,7 @@ if ((Test-Path -LiteralPath $certificates) -and (Get-ChildItem -LiteralPath $cer
 }
 New-Item -ItemType Directory -Force -Path $certificates | Out-Null
 $sources = [Collections.Generic.List[string]]::new()
+$verifiedLevels = [Collections.Generic.HashSet[string]]::new()
 
 function Read-CompleteRun([string]$Directory) {
     $file = Join-Path $Directory 'summary.json'
@@ -29,6 +31,7 @@ function Read-CompleteRun([string]$Directory) {
     $sources.Add($file)
     foreach ($level in $summary.Levels) {
         if ($level.Status -eq 'VerifiedReachable' -and $level.HasReplay) {
+            $null = $verifiedLevels.Add($level.LevelId)
             Copy-Item -LiteralPath (Join-Path $Directory ($level.LevelId + '.replay.json')) -Destination $certificates -Force
         }
     }
@@ -58,8 +61,18 @@ if ($InitialRun) {
     $initial = Invoke-LevelRun $options
 }
 
+foreach ($directory in $AdditionalRuns) {
+    $directory = [IO.Path]::GetFullPath($directory)
+    $extra = Get-Content -LiteralPath (Join-Path $directory 'summary.json') -Raw | ConvertFrom-Json
+    foreach ($level in $extra.Levels) {
+        $current = $initial.Levels | Where-Object { $_.LevelId -eq $level.LevelId }
+        if (!$current -or $current.Fingerprint -ne $level.Fingerprint) { throw "Additional run has changed/unknown sources for $($level.LevelId)." }
+    }
+    $null = Read-CompleteRun $directory
+}
+
 foreach ($level in $initial.Levels) {
-    if ($level.Status -ne 'Inconclusive') { continue }
+    if ($level.Status -ne 'Inconclusive' -or $verifiedLevels.Contains($level.LevelId)) { continue }
     $fallback = Invoke-LevelRun @{ Operation='search'; Level=$level.LevelId; SearchSeconds=$FallbackSeconds;
         FramesPerSecond=30; TrialSeconds=30; BeamWidth=1024; TimingRadiusTicks=2;
         OutputDirectory=(Join-Path $output ('Wide-' + $level.LevelId)) }

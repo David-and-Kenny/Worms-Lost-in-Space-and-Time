@@ -49,11 +49,17 @@ analysis gets a separate budget. The pipeline emits JSON, Markdown and CSV, and
 strictly replays the selected certificate set before returning. An old initial
 run can be resumed only after fresh inspection confirms all source fingerprints.
 Output folders containing an earlier certificate set are rejected.
+`-AdditionalRuns` accepts completed per-level or subset runs from independent
+checkouts. Each must match the initial catalog's fingerprints. Verified
+supplemental routes skip redundant searches, retain complete timing evidence and
+join the same final strict replay. Changed sources and partial runs are rejected.
 
 ```powershell
 ./scripts/validate-catalog.ps1 -OutputDirectory TestResults/Catalog/current
 # Resume a complete same-source first pass without paying its search cost again.
 ./scripts/validate-catalog.ps1 -InitialRun TestResults/LevelValidation/Coverage-Catalog -OutputDirectory TestResults/Catalog/continued
+# Combine completed matching-source worker runs before retrying any remaining misses.
+./scripts/validate-catalog.ps1 -InitialRun TestResults/Catalog/current/Initial -AdditionalRuns TestResults/Manual-level09,TestResults/Manual-level16 -OutputDirectory TestResults/Catalog/combined
 ```
 
 The deterministic harness `scripts/test-validate-catalog.ps1` runs in CI without

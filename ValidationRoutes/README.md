@@ -1,8 +1,8 @@
 # Maintained level routes
 
-These four version 2 certificates cover levels 1, 3, 4 and 10 at a 60 FPS rendering
-profile, using 50 Hz simulation ticks. Run them without
-searching or using an AI service:
+These version 2 certificates record natural finish routes using 50 Hz simulation
+ticks. Each file records its rendering profile. Run them without searching or
+using an AI service:
 
 ```powershell
 ./scripts/validate-levels.ps1 -Operation batch -ReplayDirectory ./ValidationRoutes
@@ -14,12 +14,14 @@ the newly verified certificates and run strict replay before replacing these fil
 Do not edit fingerprints to obtain a pass. Reports and logs belong in ignored
 `TestResults/`, not this directory.
 
-Level 8's old certificate could not be recertified after the timing change, even
-with a five-minute search and uniform one-to-three-tick timing-offset proposals.
-It needs manual playtesting or further search. It is unresolved, not proved
-impossible, and its obsolete certificate is excluded. Level 7 also remains
-unresolved. These certificates do not imply
-that every catalog level is viable, or that timing is equivalent across devices
-or devices. Current routes completed at 30/60/120 FPS; strict saved-route replay
-passed in both checkouts. See [the evidence](../docs/FIXED_TICK_GAMEPLAY.md) and
-[completion times/difficulty](../docs/FIXED_TICK_LEVEL_REPORT.md).
+For a fresh catalog iteration, run `./scripts/validate-catalog.ps1`. It treats
+these inputs as proposals, certifies them again and searches unresolved levels
+with complementary bounded profiles. Review its selected `Certificates/` folder
+and strict replay result before replacing maintained files.
+
+The [current completion and timing-demand report](../docs/FIXED_TICK_LEVEL_REPORT.md)
+lists every evaluated level, including unresolved searches and invalid content.
+These certificates do not establish that every catalog level is viable or that
+device input latency and perceived difficulty are equivalent. See
+[solver coverage](../docs/SOLVER_COVERAGE.md) for the search changes and
+[fixed-tick movement](../docs/FIXED_TICK_GAMEPLAY.md) for the runtime timing policy.
