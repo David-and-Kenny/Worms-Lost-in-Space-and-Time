@@ -27,3 +27,6 @@ jobs:
       - name: Test validation runner
         shell: pwsh
         run: ./scripts/test-check-unity.ps1
+      - name: Test catalog search portfolio
+        shell: pwsh
+        run: ./scripts/test-validate-catalog.ps1

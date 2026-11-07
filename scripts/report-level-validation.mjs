@@ -48,6 +48,8 @@ export class LevelValidationReport {
       if (previous && previous.level.Fingerprint !== level.Fingerprint)
         throw new Error(`Different source fingerprints for ${level.LevelId}; recertify before combining reports.`);
       if (previous?.level.Status === 'VerifiedReachable' && level.Status !== 'VerifiedReachable') continue;
+      if (previous?.level.Status === 'VerifiedReachable' && previous.level.AnalysisComplete
+        && level.Status === 'VerifiedReachable' && !level.AnalysisComplete) continue;
       if (level.Status === 'VerifiedReachable' && (!level.HasReplay || !Number.isFinite(level.CompletionSeconds)
         || level.CompletionSeconds < 0 || level.Replay?.Version !== 2)) throw new Error('Invalid certificate evidence.');
       this.levels.set(level.LevelId, { level, source });
@@ -56,6 +58,14 @@ export class LevelValidationReport {
 
   rows() {
     return [...this.levels.values()].sort((left, right) => left.level.LevelId.localeCompare(right.level.LevelId));
+  }
+
+  json() {
+    const levels = this.rows().map(row => row.level);
+    return JSON.stringify({ Version: 1, Complete: true, RequestedLevels: levels.length,
+      Success: levels.every(level => level.Status === 'VerifiedReachable'), Levels: levels,
+      LevelSources: Object.fromEntries(this.rows().map(row => [row.level.LevelId, row.source])),
+      Sources: [...new Set(this.rows().map(row => row.source))] }, null, 2) + '\n';
   }
 
   markdown() {
@@ -110,22 +120,24 @@ function cell(value) { return String(value ?? '').replaceAll('|', '/').replace(/
 
 function main(args) {
   const summaries = [];
-  let output, csv;
+  let output, csv, json;
   for (let index = 0; index < args.length; index += 2) {
     const [option, value] = args.slice(index, index + 2);
     if (!value) throw new Error(`Missing value for ${option}`);
     if (option === '--summary') summaries.push(value);
     else if (option === '--output') output = value;
     else if (option === '--csv') csv = value;
+    else if (option === '--json') json = value;
     else throw new Error(`Unknown argument: ${option}`);
   }
   if (summaries.length === 0 || !output || !csv)
     throw new Error('Usage: node scripts/report-level-validation.mjs --summary run/summary.json [--summary other/summary.json] --output report.md --csv report.csv');
   const report = new LevelValidationReport();
   for (const file of summaries) report.add(JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')), file);
-  for (const destination of [output, csv]) fs.mkdirSync(path.dirname(destination), { recursive: true });
+  for (const destination of [output, csv, json].filter(Boolean)) fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.writeFileSync(output, report.markdown());
   fs.writeFileSync(csv, report.csv());
+  if (json) fs.writeFileSync(json, report.json());
   console.log(`Wrote ${report.levels.size} level results to ${output} and ${csv}.`);
 }
 

@@ -13,6 +13,7 @@ $editor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com'
 node scripts/validate-repository.mjs
 node --test scripts/report-level-validation.test.mjs
 ./scripts/test-check-unity.ps1
+./scripts/test-validate-catalog.ps1
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check EditMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check PlayMode
 ./scripts/check-unity.ps1 -UnityEditor $editor -Check Scenes
@@ -77,9 +78,12 @@ Git LFS, Node 24, the pinned editor, and Android tools on that runner first.
 For a behavior PR, include the executed suite counts/results and relevant scenario
 IDs, not a claim of total coverage. Attach XML/logs or summarize their failures.
 Device cases remain unverified until someone records an actual device run.
-The six Node report tests cover difficulty bands, incomplete evidence, disconnected
+The Node report tests cover execution-demand bands, incomplete evidence, disconnected
 timing windows, aggregation/source guards and the actual Markdown/CSV CLI. They
 run in repository CI without Unity or an AI service.
+The catalog portfolio harness additionally checks fallback selection, matching-source
+resume, clean output isolation, certificate selection, strict replay and propagation
+of execution errors using a fake backend. It does not claim to run Unity.
 
 ## Monetization scenarios
 
