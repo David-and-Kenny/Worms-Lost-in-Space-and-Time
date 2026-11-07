@@ -3,7 +3,8 @@
 - Output: [level-background-v04.png](level-background-v04.png)
 - Input: [original background concept V01](level-background-v01.png)
 - Mode: built-in Imagegen edit; opaque output.
-- Status: latest experiment awaiting owner review; not integrated.
+- Status: owner approved the direction ("That looks great"); selected for the
+  first Level 1 art pass. Original shared background assets remain in place.
 
 ## Owner correction
 
