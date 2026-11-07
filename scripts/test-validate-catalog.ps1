@@ -24,9 +24,12 @@ function Row($id,$status) {
 if ($Operation -eq 'inspect') { $rows=@((Row 'level-01' 'Inconclusive'),(Row 'level-02' 'Inconclusive'),(Row 'level-20' 'InvalidContent')) }
 elseif ($Operation -eq 'search') {
     if ($ReplayFile) {
-        if ($Level -ne 'level-01' -or $env:WORMS_CATALOG_TEST_CASE -ne 'analysis') { throw 'Wrong analysis selection.' }
+        if ($Level -ne 'level-01' -or $FramesPerSecond -ne 30 -or $env:WORMS_CATALOG_TEST_CASE -ne 'analysis') { throw 'Wrong analysis selection.' }
+    } elseif ($BeamWidth -eq 16) {
+        if ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 60 -or $env:WORMS_CATALOG_TEST_CASE -ne 'focused') { throw 'Wrong focused selection/profile.' }
     } elseif ($Level -ne 'level-02' -or $FramesPerSecond -ne 30 -or $TrialSeconds -ne 30 -or $BeamWidth -ne 1024) { throw 'Wrong fallback selection/profile.' }
     $rows=@((Row $Level 'VerifiedReachable'))
+    if ($env:WORMS_CATALOG_TEST_CASE -eq 'focused' -and $BeamWidth -eq 1024) { $rows=@((Row $Level 'Inconclusive')) }
 } elseif ($ReplayDirectory) {
     $rows=@(Get-ChildItem -LiteralPath $ReplayDirectory -Filter '*.replay.json' | ForEach-Object { Row ((Get-Content $_.FullName -Raw | ConvertFrom-Json).LevelId) 'VerifiedReachable' })
 } else { $rows=@((Row 'level-01' 'VerifiedReachable'),(Row 'level-02' 'Inconclusive'),(Row 'level-20' 'InvalidContent')) }
@@ -60,6 +63,14 @@ exit 0
     $analyzed = Get-Content -LiteralPath (Join-Path $analysisOutput 'summary.json') -Raw | ConvertFrom-Json
     if (!$analyzed.LevelSources.'level-01'.Contains('Analysis-level-01')) { throw 'Analysis evidence was not selected.' }
     Write-Host 'PASS: incomplete timing analysis gets a separate budget'
+
+    $env:WORMS_CATALOG_TEST_CASE = 'focused'
+    $focusedOutput = Join-Path $fixtureRoot 'Focused'
+    & $shellPath -NoProfile -File $runner -OutputDirectory $focusedOutput *> (Join-Path $fixtureRoot 'focused.log')
+    if ($LASTEXITCODE -ne 2) { throw 'Focused scenario did not preserve the content blocker.' }
+    $focused = Get-Content -LiteralPath (Join-Path $focusedOutput 'summary.json') -Raw | ConvertFrom-Json
+    if (!$focused.LevelSources.'level-02'.Contains('Focused-level-02')) { throw 'Focused fallback evidence was not selected.' }
+    Write-Host 'PASS: narrow-beam fallback spends more angles on each arrival'
 
     $env:WORMS_CATALOG_TEST_CASE = 'normal'
     & $shellPath -NoProfile -File $runner -InitialRun (Join-Path $output 'Initial') -OutputDirectory (Join-Path $fixtureRoot 'Resume') *> (Join-Path $fixtureRoot 'resume.log')

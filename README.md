@@ -10,8 +10,10 @@ Use the [level viability utility](docs/LEVEL_VALIDATION.md) to inspect levels,
 discover jump routes and replay regression certificates without AI token usage.
 Movement now uses a shared 50 Hz gameplay tick, buffered jump input and interpolated
 player presentation; see [the timing change and validation](docs/FIXED_TICK_GAMEPLAY.md).
-The [completion-time and provisional difficulty report](docs/FIXED_TICK_LEVEL_REPORT.md)
+The [completion-time and timing-demand report](docs/FIXED_TICK_LEVEL_REPORT.md)
 records the currently certified routes and unresolved content.
+Run `./scripts/validate-catalog.ps1` for a token-free catalog pass with alternate
+search profiles, timing analysis, reports and strict certificate replay.
 
 The project is upgraded from **Unity 5.2.0f3** to **Unity 6000.6.8f1 (Unity 6.6)**,
 the latest supported release verified on November 6, 2026. All 24 enabled scenes

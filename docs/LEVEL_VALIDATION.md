@@ -21,6 +21,9 @@ with `-UnityEditor /path/to/Unity` when needed.
 # Search the full catalog, independently budgeting each level.
 ./scripts/validate-levels.ps1 -Operation batch -Level all
 
+# Full catalog, alternate-profile retries, timing analysis, reports and strict replay.
+./scripts/validate-catalog.ps1 -OutputDirectory TestResults/Catalog/current
+
 # Reproduce a saved route without searching.
 ./scripts/validate-levels.ps1 -Operation replay -ReplayFile '/absolute/path/level-01.replay.json'
 
@@ -33,6 +36,12 @@ with `-UnityEditor /path/to/Unity` when needed.
 # Recertify just those recorded routes after a deliberate source change.
 ./scripts/validate-levels.ps1 -Operation batch -Level certified -ProposalDirectory ./ValidationRoutes
 ```
+
+The catalog command uses 30 FPS rendering and the same 50 Hz gameplay physics.
+It tries balanced, wide and focused search profiles for unresolved scenes, gives
+incomplete timing analysis a separate budget, then strictly replays the selected
+certificates. See [profile budgets and coverage](SOLVER_COVERAGE.md). It leaves
+maintained repository certificates untouched until a developer reviews the run.
 
 `-Level` accepts a catalog ID, scene name or project-relative `Assets/.../*.unity`
 path. Custom scenes need not be published in Build Settings. `-SearchSeconds`,
@@ -114,6 +123,11 @@ the fallback grid. Static obstruction costs help rank paths around obstacles;
 moving hazards remain real simulation, not static blockers. The larger beam
 retains different landing phases, radii and clock phases so a crowded platform
 does not monopolize the search. Those cells guide allocation, not state equality.
+Platform-wide effort also increases a frontier's scheduling cost: another arrival
+on an early wheel cannot reset its effort and indefinitely starve later wheels.
+Exit distance remains the main progress hint; obstruction estimates have a small
+weight because a center-to-center line can intersect a hazard that an edge-to-edge
+jump safely avoids.
 
 Search-only transition horizons stop spending the full 120 seconds on every miss;
 extended probes and a full-horizon passive action remain available. An outward

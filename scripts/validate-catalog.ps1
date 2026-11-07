@@ -2,8 +2,10 @@ param(
     [string]$UnityEditor = 'C:\Program Files\Unity\Hub\Editor\6000.6.8f1\Editor\Unity.com',
     [string]$OutputDirectory,
     [string]$InitialRun,
+    [ValidateRange(10, 240)][int]$FramesPerSecond = 30,
     [ValidateRange(1, 3600)][int]$SearchSeconds = 300,
-    [ValidateRange(1, 3600)][int]$FallbackSeconds = 300
+    [ValidateRange(1, 3600)][int]$FallbackSeconds = 300,
+    [ValidateRange(1, 3600)][int]$FocusedSeconds = 300
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path $PSScriptRoot -Parent
@@ -49,7 +51,7 @@ if ($InitialRun) {
     }
     if ($initial.Levels.Count -ne $inspection.Levels.Count) { throw 'Cannot resume a partial catalog selection.' }
 } else {
-    $options = @{ Operation='batch'; Level='all'; SearchSeconds=$SearchSeconds; TimingRadiusTicks=2;
+    $options = @{ Operation='batch'; Level='all'; SearchSeconds=$SearchSeconds; TimingRadiusTicks=2; FramesPerSecond=$FramesPerSecond;
         OutputDirectory=(Join-Path $output 'Initial') }
     $maintained = Join-Path $repoRoot 'ValidationRoutes'
     if (Test-Path -LiteralPath $maintained) { $options.ProposalDirectory = $maintained }
@@ -61,6 +63,12 @@ foreach ($level in $initial.Levels) {
     $fallback = Invoke-LevelRun @{ Operation='search'; Level=$level.LevelId; SearchSeconds=$FallbackSeconds;
         FramesPerSecond=30; TrialSeconds=30; BeamWidth=1024; TimingRadiusTicks=2;
         OutputDirectory=(Join-Path $output ('Wide-' + $level.LevelId)) }
+    if ($fallback.Levels[0].Status -eq 'Inconclusive') {
+        # A small beam spends more angles on each retained arrival instead of spreading effort thinly.
+        $focused = Invoke-LevelRun @{ Operation='search'; Level=$level.LevelId; SearchSeconds=$FocusedSeconds;
+            FramesPerSecond=30; TrialSeconds=60; BeamWidth=16; TimingRadiusTicks=2;
+            OutputDirectory=(Join-Path $output ('Focused-' + $level.LevelId)) }
+    }
 }
 
 # Complete sensitivity evidence separately from route discovery when the first budget ran out.
@@ -72,7 +80,7 @@ foreach ($certificate in Get-ChildItem -LiteralPath $certificates -Filter '*.rep
     }
     if ($runs | Where-Object { $_.AnalysisComplete }) { continue }
     $analysis = Invoke-LevelRun @{ Operation='search'; Level=$id; ReplayFile=$certificate.FullName;
-        SearchSeconds=$FallbackSeconds; TimingRadiusTicks=2;
+        SearchSeconds=$FallbackSeconds; TimingRadiusTicks=2; FramesPerSecond=$FramesPerSecond;
         OutputDirectory=(Join-Path $output ('Analysis-' + $id)) }
 }
 

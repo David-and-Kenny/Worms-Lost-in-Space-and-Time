@@ -139,6 +139,11 @@ a catalog search: the command entry point only dispatches a search/replay when a
 request is explicitly supplied. `scripts/validate-levels.ps1` is the no-AI CLI for
 those requests. Search outcomes and saved-route regressions supplement the existing
 24-scene smoke test; they do not duplicate it or replace device/feel acceptance.
+`SearchCoverageTests` covers complete waiting-tick scheduling, passive/extended
+fallbacks, landing diversity, thin obstacles, reachable collider edges and search
+fairness. The catalog harness checks all three profile choices, analysis retries,
+same-source resume, certificate selection and strict replay; partial, stale,
+unstable and execution-failed evidence must fail the command.
 
 ## Fixed-tick movement acceptance
 

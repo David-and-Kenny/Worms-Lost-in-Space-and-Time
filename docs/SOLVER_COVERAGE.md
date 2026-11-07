@@ -31,10 +31,16 @@ points. Measured results and remaining limitations will be recorded below.
 
 ## Reusable portfolio
 
-`scripts/validate-catalog.ps1` runs the full catalog with the balanced profile,
-then retries only inconclusive scenes with 30 FPS rendering, a 30-second route
-horizon and a 1,024-state beam. The runtime physics rate remains 50 Hz. This second
-profile spends more search on short routes and landing diversity. Invalid content,
+`scripts/validate-catalog.ps1` runs the full catalog with the balanced profile
+(256-state beam, 120-second route horizon), then retries only inconclusive scenes
+with a 30-second horizon and a 1,024-state beam. If that also misses, a focused
+profile uses a 16-state beam and 60-second horizon to spend more launch angles on
+each retained arrival. Each profile has its own default five-minute wall budget;
+`-SearchSeconds`, `-FallbackSeconds` and `-FocusedSeconds` configure those budgets.
+Rendering defaults to 30 FPS to reduce search work; `-FramesPerSecond` changes the
+initial/analysis profile. The runtime physics rate remains 50 Hz, and sensitivity
+analysis separately checks 30/60/120 FPS. The wide profile spends more search on
+short routes and landing diversity. Invalid content,
 execution failures and unstable calibration are not relabelled as search misses.
 
 Verified inputs are freshly replayed and copied into the run's `Certificates/`
@@ -53,3 +59,21 @@ Output folders containing an earlier certificate set are rejected.
 The deterministic harness `scripts/test-validate-catalog.ps1` runs in CI without
 Unity or a model. The CLI uses exit 2 for unresolved/content-blocked outcomes and
 exit 1 for execution/aggregation failure; it never calls a timeout impossible.
+
+## Search scheduling regression
+
+The first iteration spent 3,191 transition probes on Level 8 but reached only
+three platforms. Center-line obstruction costs ranked a farther platform behind
+the starting area, and fresh arrivals reset their local exploration counter.
+The final scheduler blends distance with a small obstruction hint and accounts
+for effort across all arrivals on a platform. It retains different landing states
+and every waiting tick; the fix changes ordering, not physical reachability.
+
+The same Level 8 then required 93 transition probes to discover its certified
+10.42-second route. A regression fixture continuously supplies fresh arrivals on
+an early wheel and requires another wheel to receive search effort.
+
+Another regression fixture covers a platform embedded in a ceiling: its center
+is blocked, but the approach up to first contact can be clear. Obstruction hints
+stop at the landing envelope instead of rejecting that approach. A wall before
+contact still receives its penalty. Actual Unity collisions decide the outcome.
