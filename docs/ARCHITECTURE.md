@@ -121,6 +121,26 @@ advancing simulation using disposable storage. Its optional graphics capture
 renders the runtime camera plus existing Canvas UI. Captures are local reports
 under `TestResults/Art`, not production assets or traversal proofs.
 
+## Start and menu artwork
+
+Splash, StorySelect, World1 and World2 use the shared cartoon steampunk-space
+assets in `Assets/Artwork/Menus`. `MenuArtTools.Apply` authors editable Canvas
+hierarchies and themes the existing MainMenu/WorldMenu prefabs while preserving
+persistent callbacks. The original character sprite is reused. Text stays native
+uGUI Text with bundled Bungee/Nunito fonts and OFL notices in Resources.
+
+MenuLevelGrid is a presentation adapter for a serialized GridLayoutGroup: two
+columns in portrait and five in landscape. Square cog faces contain labels and
+status badges. Settings use VerticalLayoutGroup so hidden options collapse.
+Neither adapter constructs UI hierarchies at runtime. Existing navigation,
+progression, settings availability and save contracts are unchanged.
+
+Eight replaced images are retained in place as `.legacy` with original GUIDs.
+The two original menu prefab layouts are retained as `.legacy.prefab` copies;
+active prefab GUIDs remain unchanged. Source prompts and authoring/capture
+instructions are in `art/concepts/menus/README.md`. Runtime screenshots are local
+review reports, not traversal or device acceptance evidence.
+
 ## Monetization
 
 `AdBreakPolicy`, `AdBreakController`, `ForegroundClock`, and `RemoveAdsEntitlement` are ordinary Core
