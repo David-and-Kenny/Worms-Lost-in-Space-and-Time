@@ -167,6 +167,22 @@ the change and run strict batch replay before committing. See
 [LEVEL_VALIDATION_RESULTS.md](LEVEL_VALIDATION_RESULTS.md) for the initial catalog
 matrix, suite evidence and outstanding content/device checks.
 
+### Completion times and provisional difficulty
+
+Generate a shareable report from completed runs without Unity or AI tokens:
+
+```powershell
+node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/run/summary.json --output TestResults/level-report.md --csv TestResults/level-report.csv
+```
+
+Repeat `--summary` to combine the catalog scan with deeper per-level runs from the
+same source fingerprints. A verified route survives a later inconclusive retry.
+Partial runs and conflicting fingerprints are rejected. The report records replay
+completion time, jump count, sampled timing tolerance and a provisional Low,
+Moderate or High route difficulty. Its explicit rules are printed in the report.
+Incomplete timing analysis stays Not rated; these bands are not human playtest
+ratings or proof that an easier route does not exist.
+
 ## Visual replay and development
 
 In Unity, choose **Worms → Level Validation → Replay saved route** and select a
