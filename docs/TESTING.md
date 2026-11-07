@@ -97,6 +97,13 @@ frame padding, and visible alignment with unchanged collision boundaries. These
 camera renders do not establish device behavior; landscape background coverage
 and actual mobile input/lifecycle remain manual player/device checks.
 
+When tagging replaced originals `.legacy`, verify that image bytes and `.meta`
+GUIDs are unchanged, and validate all scenes/prefabs because the originals may
+still be shared. Run the art authoring command against the legacy source paths
+and require the approved scene/textures to stay unchanged. Asset path changes
+invalidate route fingerprints: recertify maintained inputs and strictly replay
+the newly generated certificates rather than editing their hashes.
+
 ## Automated level traversal
 
 The reusable [level validator](LEVEL_VALIDATION.md) adds EditMode search/contract

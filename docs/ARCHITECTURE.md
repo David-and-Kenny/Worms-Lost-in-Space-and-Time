@@ -95,6 +95,12 @@ preserving sprite world bounds, pivots, scene transforms, colliders, and callbac
 bindings. Its explicit Apply command updates only Level 1. Source generations and
 prompts live in `art/concepts/level-01`; the selected background is round 02 V04.
 
+The owner approved the Level 1 artwork for use. Replaced source images retain
+their existing folders with `.legacy` before the extension, preserving their
+bytes, GUIDs, and shared references. `Level1ArtTools.MarkOriginalArtLegacy` performs
+this explicit rename. Keep these legacy images until the owner approves final
+asset cleanup; the main character is excluded from replacement.
+
 `Level1ArtCaptureTests` verifies the new sprite bounds, unchanged character, and
 advancing simulation using disposable storage. Its optional graphics capture
 renders the runtime camera plus existing Canvas UI. Captures are local reports

@@ -46,6 +46,39 @@ public static class Level1ArtTools
         Debug.Log("Level 1 art inventory: " + output);
     }
 
+    [MenuItem("Worms/Art/Mark replaced Level 1 originals legacy")]
+    public static void MarkOriginalArtLegacy()
+    {
+        string[] originals =
+        {
+            "Assets/Artwork/sprite-sheets/cog2.png",
+            "Assets/Artwork/sprite-sheets/cog3.png",
+            "Assets/Artwork/sprite-sheets/cog5.png",
+            "Assets/Artwork/sprite-sheets/pipe-large3.png",
+            "Assets/Artwork/bg_red.jpg"
+        };
+        foreach (string original in originals)
+        {
+            string legacy = Path.ChangeExtension(original, ".legacy" + Path.GetExtension(original));
+            if (AssetDatabase.LoadMainAssetAtPath(original) == null)
+            {
+                if (AssetDatabase.LoadMainAssetAtPath(legacy) == null)
+                    throw new InvalidOperationException("Missing original and legacy art: " + original);
+                continue;
+            }
+            if (AssetDatabase.LoadMainAssetAtPath(legacy) != null)
+                throw new InvalidOperationException("Legacy destination already exists: " + legacy);
+            string guid = AssetDatabase.AssetPathToGUID(original);
+            byte[] image = File.ReadAllBytes(original);
+            string error = AssetDatabase.MoveAsset(original, legacy);
+            if (!string.IsNullOrEmpty(error)) throw new IOException(error);
+            if (AssetDatabase.AssetPathToGUID(legacy) != guid || !image.SequenceEqual(File.ReadAllBytes(legacy)))
+                throw new InvalidOperationException("Legacy move changed asset identity or image bytes: " + legacy);
+            Debug.Log("Preserved original artwork and GUID: " + legacy + " (" + guid + ")");
+        }
+        AssetDatabase.SaveAssets();
+    }
+
     [MenuItem("Worms/Art/Apply Level 1 first pass")]
     public static void Apply()
     {
@@ -58,11 +91,11 @@ public static class Level1ArtTools
         string[] concepts = { "cog-spokes", "cog-double-ring", "cog-cutouts", "hazard-pipe" };
         for (int i = 0; i < originals.Length; i++)
         {
-            string source = "Assets/Artwork/sprite-sheets/" + originals[i] + ".png";
+            string source = "Assets/Artwork/sprite-sheets/" + originals[i] + ".legacy.png";
             replacements[source] = ImportMatchedSprite(source,
                 "art/concepts/level-01/" + concepts[i] + ".png", folder + concepts[i] + ".png", 3);
         }
-        replacements["Assets/Artwork/bg_red.jpg"] = ImportMatchedSprite("Assets/Artwork/bg_red.jpg",
+        replacements["Assets/Artwork/bg_red.legacy.jpg"] = ImportMatchedSprite("Assets/Artwork/bg_red.legacy.jpg",
             "art/concepts/round-02/level-background-v04.png", folder + "background.png", 2);
         Sprite plate = ImportPlate(folder + "ui-plate.png");
         var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);

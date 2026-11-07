@@ -1,31 +1,55 @@
 # Level 1 first art pass
 
-Status: implemented for review in Level 1 only. The owner approved the cartoon
-asset direction and V04 background, then requested the first pass on all artwork
-used by Level 1 and a simulation screenshot. Generated through built-in Imagegen.
+Status: approved by the owner for use in Level 1. The main character remains
+unchanged. Artwork was generated through built-in Imagegen.
 
 ## Inventory and scope
 
-The instantiated scene uses five cog objects across three unique designs:
+Before the art pass, the instantiated scene used five cog objects across three unique designs:
 `cog2`, `cog3`, and `cog5`; seventeen repeated `pipe-large3` hazard sprites;
 a `bg_red.jpg` scene override; the player; and the existing Canvas oxygen,
 completion, and death screens. There are no visible pickup sprites or exit art.
 The invisible finish trigger is retained without inventing a new goal mechanic.
 The player's existing artwork and body-part effects are unchanged.
 
-| Source | New production asset under Assets/Artwork/Level1 |
+| Retained source | Active production asset under Assets/Artwork/Level1 |
 | --- | --- |
-| cog2.png | cog-spokes.png |
-| cog3.png | cog-double-ring.png |
-| cog5.png | cog-cutouts.png |
-| pipe-large3.png | hazard-pipe.png |
-| bg_red.jpg scene override | background.png, based on round-02 V04 |
+| cog2.legacy.png | cog-spokes.png |
+| cog3.legacy.png | cog-double-ring.png |
+| cog5.legacy.png | cog-cutouts.png |
+| pipe-large3.legacy.png | hazard-pipe.png |
+| bg_red.legacy.jpg scene override | background.png, based on round-02 V04 |
 | Plain UI surfaces | ui-plate.png plus cream text and teal oxygen fill |
 
 Source generated PNGs are beside this README. Selected background source:
 [round 02 V04](../round-02/level-background-v04.md). Production assets are imported
 through `Assets/Editor/Level1ArtTools.cs`; scene-level overrides isolate this
 review pass from other levels and shared prefabs. Original art remains in place.
+
+## Legacy preservation
+
+Replaced originals stay in their existing folders with `.legacy` immediately
+before the image extension, retaining the file type Unity imports. The five
+sources above are renamed through `Level1ArtTools.MarkOriginalArtLegacy`, which
+verifies unchanged image bytes and GUIDs. Their `.meta` files move with them;
+shared prefabs and other levels continue to reference the original GUIDs.
+The historical GUID-baseline manifest keeps its original recorded paths.
+
+The owner requested retaining legacy artwork until all assets are finalized.
+Do not delete or overwrite it during subsequent art passes. The new Level 1
+textures remain active. The old plain UI surfaces were serialized Image settings,
+not separate image files; their shared source prefabs remain unchanged. The
+main character, unrelated artwork, and versioned concept iterations are retained.
+
+Legacy-retention verification: Git detects all five images and their metadata as
+100% unchanged renames. The art importer still runs successfully using the legacy
+paths, with identical hashes for the approved Level 1 scene and all six active
+textures plus their metadata. Repository and all-scene/prefab checks passed, as
+did 86 EditMode and 40 PlayMode tests. The original jump policies for all five
+maintained routes were re-executed to regenerate their certificates after the
+path changes; all passed strict batch replay (13 trials per route). Local evidence
+is under `TestResults/Art/LegacyRecertification` and `LegacyStrictBatch`.
+No build or device checks were added for this filename-only preservation step.
 
 The importer removes generation padding, maps artwork into the original alpha
 envelope, and sets canvas size/pixels-per-unit and pivot to preserve world bounds.
