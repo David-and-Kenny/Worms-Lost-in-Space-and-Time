@@ -82,7 +82,7 @@ public sealed class Level1ArtCaptureTests
         Debug.Log("Level 1 art simulation advanced and captured: " + output);
     }
 
-    private static void Capture(Camera camera, int width, int height, string path)
+    internal static void Capture(Camera camera, int width, int height, string path)
     {
         var previousTarget = camera.targetTexture;
         var previousActive = RenderTexture.active;

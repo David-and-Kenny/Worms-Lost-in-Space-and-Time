@@ -43,7 +43,7 @@ namespace Worms.UI
             Restore.interactable = host?.CanRestore == true;
             Privacy.gameObject.SetActive(host?.PrivacyOptionsRequired == true);
             Policy.interactable = ValidPolicy(host?.PrivacyPolicyUrl);
-            Status.text = host?.Status ?? "Monetization is disabled in automated tests.";
+            Status.text = host?.Status ?? "Store services are currently unavailable.";
         }
         private static bool ValidPolicy(string value) => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == "https";
         private void OpenPolicy()
