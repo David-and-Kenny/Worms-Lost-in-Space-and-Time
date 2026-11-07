@@ -250,7 +250,7 @@ namespace Worms.LevelValidation
             search.Add(new TrialPlan(), new TrialResult { Outcome = TrialOutcome.Frontier, SurfaceId = "wheel", X = 1, Angle = -90 });
             Assert.That(search.Next().Jumps, Is.Empty, "Passive continuation remains an option.");
             var frames = new List<int>(); TrialPlan plan;
-            while ((plan = search.Next()) != null) frames.Add(plan.Jumps[0].Frame);
+            while ((plan = search.Next()) != null) if (plan.Jumps.Count > 0) frames.Add(plan.Jumps[0].Frame);
             Assert.That(frames.Take(5), Does.Contain(50));
             Assert.That(frames.OrderBy(frame => frame), Is.EqualTo(Enumerable.Range(1, 100)));
         }

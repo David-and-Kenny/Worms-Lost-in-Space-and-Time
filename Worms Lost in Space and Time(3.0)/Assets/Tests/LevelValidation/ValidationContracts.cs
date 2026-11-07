@@ -22,7 +22,8 @@ namespace Worms.LevelValidation
         public int MaximumTrials = 10000;
         public int MaximumJumps = 64;
         public float TrialSeconds = 120;
-        public int BeamWidth = 64;
+        public int BeamWidth = 256;
+        public int TimingRadiusTicks = 12;
         public bool Visual;
         public void Validate()
         {
@@ -30,7 +31,8 @@ namespace Worms.LevelValidation
                 throw new ArgumentException("Unsupported request version or operation.");
             if (FramesPerSecond < 10 || FramesPerSecond > 240 || Seed < 0 || !Finite(SearchSeconds) || SearchSeconds <= 0
                 || SearchSeconds > 3600 || !Finite(TrialSeconds) || TrialSeconds <= 0 || TrialSeconds > 600
-                || MaximumTrials < 1 || MaximumTrials > 100000 || MaximumJumps < 1 || MaximumJumps > 64 || BeamWidth < 1 || BeamWidth > 1024)
+                || MaximumTrials < 1 || MaximumTrials > 100000 || MaximumJumps < 1 || MaximumJumps > 64 || BeamWidth < 1 || BeamWidth > 1024
+                || TimingRadiusTicks < 1 || TimingRadiusTicks > 50)
                 throw new ArgumentException("Invalid validation budget or timing profile.");
             if (string.IsNullOrWhiteSpace(OutputDirectory)) throw new ArgumentException("An output directory is required.");
         }
@@ -47,6 +49,13 @@ namespace Worms.LevelValidation
         public float X;
         public float Y;
         public float AngularSpeed;
+        public float CenterX;
+        public float CenterY;
+        public float SizeX;
+        public float SizeY;
+        public bool Circle;
+        public bool Moving;
+        public float BreakSeconds;
     }
 
     [Serializable]
@@ -133,6 +142,8 @@ namespace Worms.LevelValidation
         public float Y;
         public float Angle;
         public string SurfaceId;
+        public float VelocityX;
+        public float VelocityY;
         public int AttachmentOrdinal;
         public int AttachmentFrame;
         public List<TraversalSample> Events = new List<TraversalSample>();
@@ -168,6 +179,7 @@ namespace Worms.LevelValidation
         public float CompletionSeconds;
         public float OxygenRemaining;
         public bool AnalysisComplete;
+        public int TimingRadiusTicks;
         public int PerturbationTrials;
         public int PerturbationSuccesses;
         public List<TimingWindow> TimingWindows = new List<TimingWindow>();
@@ -177,6 +189,17 @@ namespace Worms.LevelValidation
         public bool HasReplay;
         public string Status;
         public List<TraversalSample> Trajectory = new List<TraversalSample>();
+        public SearchCoverage Coverage = new SearchCoverage();
+    }
+
+    [Serializable]
+    public sealed class SearchCoverage
+    {
+        public int ActionsTried;
+        public int FrontiersReached;
+        public int MaximumRouteJumps;
+        public int TimedOutTrials;
+        public List<string> SurfacesReached = new List<string>();
     }
 
     [Serializable]

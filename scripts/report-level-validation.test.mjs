@@ -14,13 +14,14 @@ function route(overrides = {}) {
 }
 function summary(...levels) { return { Complete: true, RequestedLevels: levels.length, Levels: levels }; }
 
-test('ratings distinguish precision, broader timing and route length', () => {
+test('timing demand depends on precision rather than total jump count', () => {
   assert.equal(new RouteDifficulty(route()).rating, 'Low');
   assert.equal(new RouteDifficulty(route({ TimingWindows: [{ JumpIndex: 0, FirstOffsetSeconds: 0, LastOffsetSeconds: .04 }] })).rating, 'Moderate');
   assert.equal(new RouteDifficulty(route({ TimingWindows: [{ JumpIndex: 0, FirstOffsetSeconds: 0, LastOffsetSeconds: .02 }] })).rating, 'High');
   const long = route({ Replay: { Jumps: Array(8).fill({}) },
     TimingWindows: Array.from({ length: 8 }, (_, JumpIndex) => ({ JumpIndex, FirstOffsetSeconds: -.1, LastOffsetSeconds: .1 })) });
-  assert.equal(new RouteDifficulty(long).rating, 'High');
+  assert.equal(new RouteDifficulty(long).rating, 'Low');
+  assert.equal(new RouteDifficulty(route({ PerturbationSuccesses: 1 })).rating, 'Low');
 });
 
 test('incomplete evidence stays unrated and zero-jump analysis is low', () => {
@@ -65,4 +66,12 @@ test('CLI writes readable Markdown and CSV without Unity or network access', () 
     assert.match(fs.readFileSync(output, 'utf8'), /certified routes: 1/);
     assert.match(fs.readFileSync(csv, 'utf8'), /"level-01","VerifiedReachable","4.20","60","1","Low"/);
   } finally { fs.rmSync(folder, { recursive: true, force: true }); }
+});
+
+test('tight-jump chains are independent of the overall route length', () => {
+  const profile = new RouteDifficulty(route({ Replay: { Jumps: [{}, {}, {}, {}] },
+    TimingWindows: [0, 1, 2, 3].map(JumpIndex => ({ JumpIndex, FirstOffsetSeconds: 0,
+      LastOffsetSeconds: JumpIndex === 2 ? .1 : .02 })) }));
+  assert.equal(profile.tightJumps, 3);
+  assert.equal(profile.longestTightChain, 2);
 });

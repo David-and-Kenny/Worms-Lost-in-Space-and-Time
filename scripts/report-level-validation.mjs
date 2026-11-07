@@ -9,6 +9,8 @@ export class RouteDifficulty {
     this.trials = report.PerturbationTrials ?? 0;
     this.narrowestSpanMs = null;
     this.rating = 'Not rated';
+    this.tightJumps = 0;
+    this.longestTightChain = 0;
     if (!report.AnalysisComplete) return;
     if (this.jumps === 0) { this.rating = 'Low'; return; }
     if (this.trials <= 0) return;
@@ -23,9 +25,14 @@ export class RouteDifficulty {
       spans.push(widest);
     }
     this.narrowestSpanMs = Math.min(...spans);
-    const successRate = this.successes / this.trials;
-    if (this.narrowestSpanMs <= 20.001 || successRate < .25 || this.jumps >= 8) this.rating = 'High';
-    else if (this.narrowestSpanMs <= 60.001 || successRate < .5 || this.jumps >= 5) this.rating = 'Moderate';
+    let chain = 0;
+    for (const span of spans) {
+      if (span <= 20.001) { this.tightJumps++; chain++; }
+      else chain = 0;
+      this.longestTightChain = Math.max(this.longestTightChain, chain);
+    }
+    if (this.narrowestSpanMs <= 20.001) this.rating = 'High';
+    else if (this.narrowestSpanMs <= 60.001) this.rating = 'Moderate';
     else this.rating = 'Low';
   }
 }
@@ -61,18 +68,18 @@ export class LevelValidationReport {
       ...rows.filter(row => row.level.Status === 'InvalidContent').map(({ level }) =>
         `**Content blocker — ${cell(level.LevelId)}:** ${cell(level.Reason)}`), '',
       'Completion times describe the discovered route at its recorded rendering profile; they are not best times.',
-      'Difficulty is a provisional rating of that route, not a human playtest rating of every possible route.', '',
-      '| Level | Completion (s) | FPS | Jumps | Provisional difficulty | Tightest sampled span (ms) | Successful timing variations |',
-      '| --- | ---: | ---: | ---: | --- | ---: | ---: |'
+      'Timing demand describes measured execution precision. Overall human difficulty and learnability are uncalibrated; repeated failures are expected for this game.', '',
+      '| Level | Completion (s) | FPS | Jumps | Timing demand | Tightest sampled span (ms) | Tight jumps / longest chain | Successful timing variations |',
+      '| --- | ---: | ---: | ---: | --- | ---: | ---: | ---: |'
     ];
     for (const { level } of certified) {
       const difficulty = new RouteDifficulty(level);
-      lines.push(`| ${cell(level.LevelId)} | ${level.CompletionSeconds.toFixed(2)} | ${level.Replay.FramesPerSecond} | ${difficulty.jumps} | ${difficulty.rating} | ${difficulty.narrowestSpanMs?.toFixed(0) ?? '—'} | ${difficulty.successes}/${difficulty.trials} |`);
+      lines.push(`| ${cell(level.LevelId)} | ${level.CompletionSeconds.toFixed(2)} | ${level.Replay.FramesPerSecond} | ${difficulty.jumps} | ${difficulty.rating} | ${difficulty.narrowestSpanMs?.toFixed(0) ?? '—'} | ${difficulty.tightJumps}/${difficulty.longestTightChain} | ${difficulty.successes}/${difficulty.trials} |`);
     }
     lines.push('', '## Rating rules', '',
       'Only complete timing analysis is rated. For each jump, take its widest sampled success window; the tightest of those windows determines the span above.',
-      'High: span ≤20 ms, sampled success ratio <25%, or at least eight jumps. Moderate: span ≤60 ms, ratio <50%, or at least five jumps. Otherwise Low; zero-jump routes are Low.',
-      'A 0 ms sampled span means one grid point succeeded, not a literally zero-width input window. The 20 ms grid samples single-jump offsets within ±240 ms; combined errors and other waiting periods are untested.',
+      'Timing demand is High for a sampled span ≤20 ms, Moderate for ≤60 ms, otherwise Low. Attempt counts, sampled failure ratios and total jump count do not determine this label. Tight jumps and consecutive tight-jump chains are reported separately.',
+      'A 0 ms sampled span means one grid point succeeded, not a literally zero-width input window. The simulation grid is 20 ms. Consult each run request for its sampling radius; combined errors, alternative routes and human retry/learning costs remain separate measures.',
       'An easier alternative route may exist. Incomplete analysis stays Not rated.', '',
       '## Unresolved searches and content issues', '',
       '| Level | Status | Reason |', '| --- | --- | --- |');
@@ -86,13 +93,13 @@ export class LevelValidationReport {
 
   csv() {
     const rows = [['Level', 'Status', 'CompletionSeconds', 'RenderingFPS', 'Jumps', 'Difficulty',
-      'TightestSampledSpanMs', 'TimingSuccesses', 'TimingTrials', 'Fingerprint', 'Source']];
+      'TightestSampledSpanMs', 'TightJumps', 'LongestTightChain', 'TimingSuccesses', 'TimingTrials', 'Fingerprint', 'Source']];
     for (const { level, source } of this.rows()) {
       const verified = level.Status === 'VerifiedReachable';
       const difficulty = verified ? new RouteDifficulty(level) : null;
       rows.push([level.LevelId, level.Status, verified ? level.CompletionSeconds.toFixed(2) : '',
         verified ? level.Replay.FramesPerSecond : '', difficulty?.jumps ?? '', difficulty?.rating ?? '',
-        difficulty?.narrowestSpanMs?.toFixed(0) ?? '', difficulty?.successes ?? '', difficulty?.trials ?? '',
+        difficulty?.narrowestSpanMs?.toFixed(0) ?? '', difficulty?.tightJumps ?? '', difficulty?.longestTightChain ?? '', difficulty?.successes ?? '', difficulty?.trials ?? '',
         level.Fingerprint, source]);
     }
     return rows.map(row => row.map(value => `"${String(value ?? '').replaceAll('"', '""')}"`).join(',')).join('\n') + '\n';

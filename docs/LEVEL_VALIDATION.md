@@ -38,12 +38,20 @@ with `-UnityEditor /path/to/Unity` when needed.
 path. Custom scenes need not be published in Build Settings. `-SearchSeconds`,
 `-MaximumTrials` and `-TrialSeconds` override the default budgets of 300 wall
 seconds, 10,000 trials and 120 simulated seconds. The request additionally caps
-routes at 64 jumps and retains 64 frontier states. Inspect request/report JSON
+routes at 64 jumps and retains 256 frontier states. Inspect request/report JSON
 when comparing budgets; a deeper search is not guaranteed to find a route.
 `-FramesPerSecond`, `-Seed`, `-MaximumJumps` and `-BeamWidth` expose the remaining
 profile options. `-ProposalDirectory` supplies optional recorded-input proposals
 for a catalog search; this never bypasses fresh certification. Strict replay
 uses the certificate's recorded seed/rate and does not perform a new search.
+
+`-TimingRadiusTicks` chooses the initial sensitivity-test radius (default 12).
+Use `-TimingRadiusTicks 2` for an efficient catalog iteration: each jump starts
+with ±40ms at 20ms resolution and expands up to ±240ms if a tested success reaches
+the boundary. Requests for a larger initial radius retain that larger cap.
+The report records the maximum radius actually sampled. Each legal wait tick is
+tested once; negative/duplicate earliest-tick commands are not counted as distinct
+observations. Budget-limited analysis remains explicitly incomplete.
 
 Output goes into a unique ignored `TestResults/LevelValidation/` directory, or an
 explicit `-OutputDirectory`. The command returns **0** for successful inspection
@@ -100,6 +108,21 @@ See [FIXED_TICK_GAMEPLAY.md](FIXED_TICK_GAMEPLAY.md) for the change and evidence
 Search is bounded best-first exploration of input prefixes. At each reached
 attachment it tries passive continuation and wait/jump actions, starting with a
 three-tick grid and then testing every remaining tick in the available horizon.
+
+Collider-size-aware angle hints are shared among possible destinations before
+the fallback grid. Static obstruction costs help rank paths around obstacles;
+moving hazards remain real simulation, not static blockers. The larger beam
+retains different landing phases, radii and clock phases so a crowded platform
+does not monopolize the search. Those cells guide allocation, not state equality.
+
+Search-only transition horizons stop spending the full 120 seconds on every miss;
+extended probes and a full-horizon passive action remain available. An outward
+zero-gravity flight beyond the scene's interaction envelope ends that search
+probe. None of these cutoffs proves a level impossible. Full certification/replay
+uses the full requested horizon and never uses these search cutoffs.
+`Coverage` records attempted transitions, reached surfaces, frontier count,
+deepest observed prefix and timeout count. Unsuccessful reports retain a diagnostic
+trajectory, not a fabricated completion certificate.
 Collision attachment can first launch on the following simulation tick. Actual
 geometry only prioritizes frontiers by distance to an exit; it cannot certify or
 disprove a jump.

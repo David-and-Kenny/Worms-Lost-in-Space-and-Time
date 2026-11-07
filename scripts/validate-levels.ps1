@@ -12,7 +12,8 @@ param(
     [ValidateRange(1, 100000)][int]$MaximumTrials = 10000,
     [ValidateRange(1, 600)][int]$TrialSeconds = 120,
     [ValidateRange(1, 64)][int]$MaximumJumps = 64,
-    [ValidateRange(1, 1024)][int]$BeamWidth = 64
+    [ValidateRange(1, 1024)][int]$BeamWidth = 256,
+    [ValidateRange(1, 50)][int]$TimingRadiusTicks = 12
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path $PSScriptRoot -Parent
@@ -38,7 +39,7 @@ if ($ProposalDirectory) { $ProposalDirectory = (Resolve-Path -LiteralPath $Propo
 if ($Operation -eq 'replay' -and !$ReplayFile -and !$ReplayDirectory) { throw 'Replay requires -ReplayFile or -ReplayDirectory.' }
 $request = @{ Version=1; Operation=$Operation; Level=$Level; OutputDirectory=$output; ReplayFile=$ReplayFile;
     ReplayDirectory=$ReplayDirectory; ProposalDirectory=$ProposalDirectory; Seed=$Seed; FramesPerSecond=$FramesPerSecond; SearchSeconds=$SearchSeconds; MaximumTrials=$MaximumTrials;
-    MaximumJumps=$MaximumJumps; TrialSeconds=$TrialSeconds; BeamWidth=$BeamWidth; Visual=$false }
+    MaximumJumps=$MaximumJumps; TrialSeconds=$TrialSeconds; BeamWidth=$BeamWidth; TimingRadiusTicks=$TimingRadiusTicks; Visual=$false }
 $requestPath = Join-Path $output 'request.json'
 $request | ConvertTo-Json | Set-Content -LiteralPath $requestPath
 $common = @('-batchmode', '-nographics', '-projectPath', $project, '-worms-validation-request', $requestPath)

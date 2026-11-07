@@ -127,3 +127,10 @@ observations. Commands/events use simulation ticks; replay certificates are vers
 2. Old frame-based inputs are proposals that require fresh certification.
 See [LEVEL_VALIDATION.md](LEVEL_VALIDATION.md) for the clock, proof boundaries and
 command/artifact contract. This tooling never requires an AI service at runtime.
+
+Search uses collider envelopes and static obstruction costs to order real
+transition probes. Destination-diverse launch schedules retain the full waiting
+tick grid; short probes have longer fallbacks. Landing-phase/radius/time cells
+allocate the frontier beam without claiming two worlds are equivalent. No physics
+snapshots are restored. See [SOLVER_COVERAGE.md](SOLVER_COVERAGE.md) for coverage
+evidence, diagnostics and the execution-profile reporting contract.
