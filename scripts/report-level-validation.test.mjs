@@ -64,22 +64,31 @@ test('partial runs and mixed-source evidence are rejected', () => {
   assert.throws(() => report.add(summary(route({ Fingerprint: 'old' })), 'old'), /Different source/);
 });
 
-test('CLI writes Markdown, CSV and reusable JSON without Unity or network access', () => {
+test('CLI writes reports and compact evidence that can regenerate them offline', () => {
   const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'worms-report-'));
   try {
     const input = path.join(folder, 'summary.json');
     const output = path.join(folder, 'report.md');
     const csv = path.join(folder, 'report.csv');
     const json = path.join(folder, 'report.json');
-    fs.writeFileSync(input, JSON.stringify(summary(route())));
+    const evidence = path.join(folder, 'evidence.json');
+    fs.writeFileSync(input, JSON.stringify(summary(route({ Trajectory: [{ X: 1 }],
+      Replay: { Version: 2, FramesPerSecond: 60, Jumps: [{}], Expected: [{ Kind: 'Completed' }] } }))));
     execFileSync(process.execPath, [path.join(import.meta.dirname, 'report-level-validation.mjs'),
-      '--summary', input, '--output', output, '--csv', csv, '--json', json]);
+      '--summary', input, '--output', output, '--csv', csv, '--json', json, '--evidence', evidence]);
     assert.match(fs.readFileSync(output, 'utf8'), /certified routes: 1/);
     assert.match(fs.readFileSync(csv, 'utf8'), /"level-01","VerifiedReachable","4.20","60","1","Low"/);
     const saved = JSON.parse(fs.readFileSync(json, 'utf8'));
     assert.equal(saved.Complete, true);
     assert.equal(saved.RequestedLevels, 1);
     assert.equal(saved.LevelSources['level-01'], input);
+    const snapshot = JSON.parse(fs.readFileSync(evidence, 'utf8'));
+    assert.equal(snapshot.Levels[0].Trajectory, undefined);
+    assert.equal(snapshot.Levels[0].Replay.Expected, undefined);
+    assert.deepEqual(snapshot.Levels[0].Replay.Jumps, [{}]);
+    const regenerated = new LevelValidationReport();
+    regenerated.add(snapshot, evidence);
+    assert.match(regenerated.markdown(), /level-01 \| 4\.20/);
   } finally { fs.rmSync(folder, { recursive: true, force: true }); }
 });
 

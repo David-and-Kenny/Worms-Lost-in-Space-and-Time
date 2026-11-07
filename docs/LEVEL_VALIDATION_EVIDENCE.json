@@ -1,0 +1,2687 @@
+{
+  "Version": 1,
+  "Complete": true,
+  "RequestedLevels": 20,
+  "Success": false,
+  "Levels": [
+    {
+      "Version": 1,
+      "LevelId": "level-01",
+      "Fingerprint": "36ccfd8f14559aaf140d7557083d6e11314cf264c0288e549a2236ae0ad6d147",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 56,
+      "WallSeconds": 6.3415194,
+      "CompletionSeconds": 7.960000038146973,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 8,
+      "PerturbationTrials": 37,
+      "PerturbationSuccesses": 15,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": -0.03999999910593033,
+          "LastOffsetSeconds": 0.14000000059604645
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-01",
+        "ScenePath": "Assets/Scenes/World1/Level1.unity",
+        "Fingerprint": "36ccfd8f14559aaf140d7557083d6e11314cf264c0288e549a2236ae0ad6d147",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 53,
+            "SurfaceId": "GlobalObjectId_V1-2-3b52abb8238794a45b36fba0e89df03e-161392-1936350303",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8399999737739563
+          },
+          {
+            "Frame": 118,
+            "SurfaceId": "GlobalObjectId_V1-2-3b52abb8238794a45b36fba0e89df03e-161392-33255016",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.6599999666213989
+          },
+          {
+            "Frame": 211,
+            "SurfaceId": "GlobalObjectId_V1-2-3b52abb8238794a45b36fba0e89df03e-113044-1710620316",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.5
+          },
+          {
+            "Frame": 274,
+            "SurfaceId": "GlobalObjectId_V1-2-3b52abb8238794a45b36fba0e89df03e-176060-1800485115",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.8399999737739563
+          },
+          {
+            "Frame": 364,
+            "SurfaceId": "GlobalObjectId_V1-2-3b52abb8238794a45b36fba0e89df03e-176060-489832617",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 1.0199999809265137
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-02",
+      "Fingerprint": "30f03a76324e2a896f8f8670a9f52e6de5509fa4c5afbe4e7ee5e946d3b2604a",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 43,
+      "WallSeconds": 46.1972467,
+      "CompletionSeconds": 8.539999961853027,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 4,
+      "PerturbationTrials": 24,
+      "PerturbationSuccesses": 7,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0.03999999910593033
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-02",
+        "ScenePath": "Assets/Scenes/World1/Level2.unity",
+        "Fingerprint": "30f03a76324e2a896f8f8670a9f52e6de5509fa4c5afbe4e7ee5e946d3b2604a",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 76,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-740303734",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.5
+          },
+          {
+            "Frame": 170,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-113838-1219020360",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.2999999523162842
+          },
+          {
+            "Frame": 312,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-638128112",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 2.319999933242798
+          },
+          {
+            "Frame": 397,
+            "SurfaceId": "GlobalObjectId_V1-2-0e12354dcfcf7c844a3ce520fb3f1d46-171948-1800759661",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.7799999713897705
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-03",
+      "Fingerprint": "d5b14064c74754144b6b951226de326fdbf2aedc7e63db2cd20d4264677e8b38",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 68,
+      "WallSeconds": 6.863714,
+      "CompletionSeconds": 9.319999694824219,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 12,
+      "PerturbationTrials": 49,
+      "PerturbationSuccesses": 19,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.03999999910593033
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.23999999463558197
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-03",
+        "ScenePath": "Assets/Scenes/World1/Level3.unity",
+        "Fingerprint": "d5b14064c74754144b6b951226de326fdbf2aedc7e63db2cd20d4264677e8b38",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 60,
+            "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-348593376",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8399999737739563
+          },
+          {
+            "Frame": 125,
+            "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-182825984",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.5999999642372131
+          },
+          {
+            "Frame": 232,
+            "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-1766192336",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.3199999332427979
+          },
+          {
+            "Frame": 335,
+            "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-16719907",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 1.5
+          },
+          {
+            "Frame": 429,
+            "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-1949838905",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 1.1399999856948853
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-04",
+      "Fingerprint": "273894daad5049cf42d63d53125c83f88c361b0a01b8d9a4608b9b21b1d67d01",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 39,
+      "WallSeconds": 5.8382296,
+      "CompletionSeconds": 9.859999656677246,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 20,
+      "PerturbationSuccesses": 4,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-04",
+        "ScenePath": "Assets/Scenes/World1/Level4.unity",
+        "Fingerprint": "273894daad5049cf42d63d53125c83f88c361b0a01b8d9a4608b9b21b1d67d01",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 78,
+            "SurfaceId": "GlobalObjectId_V1-2-12e36b1e73341af4cb0b3d5263f839d4-112308-624356892",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.0199999809265137
+          },
+          {
+            "Frame": 159,
+            "SurfaceId": "GlobalObjectId_V1-2-12e36b1e73341af4cb0b3d5263f839d4-112308-1386805695",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.1999999284744263
+          },
+          {
+            "Frame": 224,
+            "SurfaceId": "GlobalObjectId_V1-2-12e36b1e73341af4cb0b3d5263f839d4-112308-136100901",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.9199999570846558
+          },
+          {
+            "Frame": 353,
+            "SurfaceId": "GlobalObjectId_V1-2-12e36b1e73341af4cb0b3d5263f839d4-112308-211899190",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 1.6799999475479126
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-05",
+      "Fingerprint": "e969a7a413c0fb70c7f62eae6e06f256701c473089d9a1296f67eff33b520cd1",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 56,
+      "WallSeconds": 111.49920309999999,
+      "CompletionSeconds": 15.619999885559082,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 8,
+      "PerturbationTrials": 37,
+      "PerturbationSuccesses": 12,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.05999999865889549
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.07999999821186066
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-05",
+        "ScenePath": "Assets/Scenes/World1/Level5.unity",
+        "Fingerprint": "e969a7a413c0fb70c7f62eae6e06f256701c473089d9a1296f67eff33b520cd1",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 98,
+            "SurfaceId": "GlobalObjectId_V1-2-3ec34ffa4e8b8334ab1e4534ad6a0876-160196-495948844",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.5999999642372131
+          },
+          {
+            "Frame": 138,
+            "SurfaceId": "GlobalObjectId_V1-2-3ec34ffa4e8b8334ab1e4534ad6a0876-160196-859781463",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.019999999552965164
+          },
+          {
+            "Frame": 276,
+            "SurfaceId": "GlobalObjectId_V1-2-3ec34ffa4e8b8334ab1e4534ad6a0876-160196-1515466076",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.5600000023841858
+          },
+          {
+            "Frame": 482,
+            "SurfaceId": "GlobalObjectId_V1-2-3ec34ffa4e8b8334ab1e4534ad6a0876-160196-292539964",
+            "AttachmentOrdinal": 12,
+            "DelaySeconds": 0.8999999761581421
+          },
+          {
+            "Frame": 611,
+            "SurfaceId": "GlobalObjectId_V1-2-3ec34ffa4e8b8334ab1e4534ad6a0876-160196-1518422390",
+            "AttachmentOrdinal": 16,
+            "DelaySeconds": 0.3400000035762787
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-06",
+      "Fingerprint": "33ea3f72893a28002588206a467e5693ccf58b2fa930addaf6f8b40eb984babb",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 71,
+      "WallSeconds": 7.8894806,
+      "CompletionSeconds": 13.680000305175781,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 8,
+      "PerturbationTrials": 52,
+      "PerturbationSuccesses": 13,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0.07999999821186066
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-06",
+        "ScenePath": "Assets/Scenes/World1/Level6.unity",
+        "Fingerprint": "33ea3f72893a28002588206a467e5693ccf58b2fa930addaf6f8b40eb984babb",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 62,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-1794094681",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.0399999618530273
+          },
+          {
+            "Frame": 193,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-1072047076",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.6999999284744263
+          },
+          {
+            "Frame": 320,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-113838-873905833",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.5399999618530273
+          },
+          {
+            "Frame": 391,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-112308-1122952122",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.6200000047683716
+          },
+          {
+            "Frame": 501,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-619479335",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.9399999976158142
+          },
+          {
+            "Frame": 541,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-1133230562",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.6200000047683716
+          },
+          {
+            "Frame": 593,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-916422213",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.3999999761581421
+          },
+          {
+            "Frame": 661,
+            "SurfaceId": "GlobalObjectId_V1-2-9d6d4772a6d75b54a970d02a64176ebe-171948-184462585",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 0.5999999642372131
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-07",
+      "Fingerprint": "f3027243ca5c0fd82c4fb7ef8405ef1da8261fc85fd5528d63c554e36c3bae4b",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 53,
+      "WallSeconds": 6.097834499999999,
+      "CompletionSeconds": 10.760000228881836,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 4,
+      "PerturbationTrials": 34,
+      "PerturbationSuccesses": 9,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.03999999910593033
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-07",
+        "ScenePath": "Assets/Scenes/World1/Level7.unity",
+        "Fingerprint": "f3027243ca5c0fd82c4fb7ef8405ef1da8261fc85fd5528d63c554e36c3bae4b",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 71,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-171948-971761841",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.2599999904632568
+          },
+          {
+            "Frame": 165,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-171948-1486101382",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.3799999952316284
+          },
+          {
+            "Frame": 249,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-171948-764524990",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.3999999761581421
+          },
+          {
+            "Frame": 299,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-113838-644413711",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.5
+          },
+          {
+            "Frame": 417,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-171948-787051279",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 1.5
+          },
+          {
+            "Frame": 461,
+            "SurfaceId": "GlobalObjectId_V1-2-0729b9f3515854549bac33035bc64391-113838-1563445853",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.6399999856948853
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-08",
+      "Fingerprint": "be150fed14ccba690ea5769c8c5d3fed53d14c87a684e096598068f0a9f946c7",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 64,
+      "WallSeconds": 5.1008873999999995,
+      "CompletionSeconds": 10.420000076293945,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 45,
+      "PerturbationSuccesses": 10,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-08",
+        "ScenePath": "Assets/Scenes/World1/Level8.unity",
+        "Fingerprint": "be150fed14ccba690ea5769c8c5d3fed53d14c87a684e096598068f0a9f946c7",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 88,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-171948-1572591929",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.399999976158142
+          },
+          {
+            "Frame": 119,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-171948-1226959786",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.3400000035762787
+          },
+          {
+            "Frame": 169,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-171948-1937517607",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.23999999463558197
+          },
+          {
+            "Frame": 219,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-171948-997085947",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.17999999225139618
+          },
+          {
+            "Frame": 266,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-171948-964274491",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.2800000011920929
+          },
+          {
+            "Frame": 311,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-113838-381126048",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.23999999463558197
+          },
+          {
+            "Frame": 378,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-113838-1624889982",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.8799999952316284
+          },
+          {
+            "Frame": 414,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-113838-2077376806",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 0.3199999928474426
+          },
+          {
+            "Frame": 468,
+            "SurfaceId": "GlobalObjectId_V1-2-33c42ea5f328479439bf33d84ba6c0ed-113838-957305978",
+            "AttachmentOrdinal": 9,
+            "DelaySeconds": 0.6599999666213989
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-09",
+      "Fingerprint": "ddd09c73aef7a7d1663efadf9a101884dc27b5a66a0206350924e2418ab93cec",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 118,
+      "WallSeconds": 29.3778468,
+      "CompletionSeconds": 23,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 12,
+      "PerturbationTrials": 99,
+      "PerturbationSuccesses": 52,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": -0.11999999731779099,
+          "LastOffsetSeconds": -0.05999999865889549
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.05999999865889549
+        },
+        {
+          "JumpIndex": 9,
+          "FirstOffsetSeconds": -0.14000000059604645,
+          "LastOffsetSeconds": 0.05999999865889549
+        },
+        {
+          "JumpIndex": 10,
+          "FirstOffsetSeconds": -0.23999999463558197,
+          "LastOffsetSeconds": 0.23999999463558197
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-09",
+        "ScenePath": "Assets/Scenes/World1/Level9.unity",
+        "Fingerprint": "ddd09c73aef7a7d1663efadf9a101884dc27b5a66a0206350924e2418ab93cec",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 74,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-171948-1072183644",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.3600000143051147
+          },
+          {
+            "Frame": 174,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-171948-1734630247",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.5799999237060547
+          },
+          {
+            "Frame": 243,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-432256465",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.1999999284744263
+          },
+          {
+            "Frame": 306,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-178466715",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.5399999618530273
+          },
+          {
+            "Frame": 411,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-892651750",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 1.4199999570846558
+          },
+          {
+            "Frame": 479,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-492412614",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.7799999713897705
+          },
+          {
+            "Frame": 572,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-171948-658757280",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.9799999594688416
+          },
+          {
+            "Frame": 686,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-171948-752906868",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 1.8799999952316284
+          },
+          {
+            "Frame": 1004,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-1570817946",
+            "AttachmentOrdinal": 10,
+            "DelaySeconds": 2.5199999809265137
+          },
+          {
+            "Frame": 1055,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-133825940",
+            "AttachmentOrdinal": 11,
+            "DelaySeconds": 0.699999988079071
+          },
+          {
+            "Frame": 1140,
+            "SurfaceId": "GlobalObjectId_V1-2-ec5d805a361f14547b98faf4e4f53ec7-113838-2058343892",
+            "AttachmentOrdinal": 12,
+            "DelaySeconds": 1.399999976158142
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-10",
+      "Fingerprint": "66c752d57f5cfba0c987370277e664957a895c9f6ffad294c83e0f278b47c3ed",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 24,
+      "WallSeconds": 1.3527947,
+      "CompletionSeconds": 2.5999999046325684,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 5,
+      "PerturbationSuccesses": 3,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0.019999999552965164
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-10",
+        "ScenePath": "Assets/Scenes/World1/Level10.unity",
+        "Fingerprint": "66c752d57f5cfba0c987370277e664957a895c9f6ffad294c83e0f278b47c3ed",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 39,
+            "SurfaceId": "GlobalObjectId_V1-2-ad04178a8fde17c439064852c9fb88b5-171948-1019655607",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.5
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-11",
+      "Fingerprint": "2b3bd1a8be05c0802388f7d3a96f3cd3094af070a713a7f468a288b0bc4511bb",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 44,
+      "WallSeconds": 5.4172978999999994,
+      "CompletionSeconds": 10.699999809265137,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 25,
+      "PerturbationSuccesses": 5,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-11",
+        "ScenePath": "Assets/Scenes/World2/Level11.unity",
+        "Fingerprint": "2b3bd1a8be05c0802388f7d3a96f3cd3094af070a713a7f468a288b0bc4511bb",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 53,
+            "SurfaceId": "GlobalObjectId_V1-2-938dd91943519c040b7cee9d54f894c4-113838-1826073882",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.9199999570846558
+          },
+          {
+            "Frame": 174,
+            "SurfaceId": "GlobalObjectId_V1-2-938dd91943519c040b7cee9d54f894c4-171948-819191427",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.9799998998641968
+          },
+          {
+            "Frame": 308,
+            "SurfaceId": "GlobalObjectId_V1-2-938dd91943519c040b7cee9d54f894c4-171948-1283155232",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.1399999856948853
+          },
+          {
+            "Frame": 371,
+            "SurfaceId": "GlobalObjectId_V1-2-938dd91943519c040b7cee9d54f894c4-171948-1637492103",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.7199999690055847
+          },
+          {
+            "Frame": 471,
+            "SurfaceId": "GlobalObjectId_V1-2-938dd91943519c040b7cee9d54f894c4-171948-2063847660",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 1.059999942779541
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-12",
+      "Fingerprint": "5afe09ba6ac896f5627efe1e7e640a216ed474b8e1fcb8e4c22104904dbab129",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 83,
+      "WallSeconds": 12.3290595,
+      "CompletionSeconds": 13.180000305175781,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 12,
+      "PerturbationTrials": 64,
+      "PerturbationSuccesses": 36,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.05999999865889549
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": -0.23999999463558197,
+          "LastOffsetSeconds": 0.23999999463558197
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-12",
+        "ScenePath": "Assets/Scenes/World2/Level12.unity",
+        "Fingerprint": "5afe09ba6ac896f5627efe1e7e640a216ed474b8e1fcb8e4c22104904dbab129",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 55,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-113838-1908652286",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8799999952316284
+          },
+          {
+            "Frame": 112,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-160196-1635904015",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 1.059999942779541
+          },
+          {
+            "Frame": 157,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-112308-150697045",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.6800000071525574
+          },
+          {
+            "Frame": 258,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-171948-450782126",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 1.5399999618530273
+          },
+          {
+            "Frame": 306,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-113838-1978149298",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.17999999225139618
+          },
+          {
+            "Frame": 374,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-113838-365164492",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 1.100000023841858
+          },
+          {
+            "Frame": 472,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-160196-1099654190",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 1.5199999809265137
+          },
+          {
+            "Frame": 649,
+            "SurfaceId": "GlobalObjectId_V1-2-bf96d7f190433ec4187ef9d17bda3670-160196-1239530980",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 1.959999918937683
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-13",
+      "Fingerprint": "fc9b128a528623297dfe5eed4b7a527f3e30d0d77cf54a93f706f0ac0d5f1bee",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 59,
+      "WallSeconds": 9.1711938,
+      "CompletionSeconds": 13.979999542236328,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 40,
+      "PerturbationSuccesses": 9,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-13",
+        "ScenePath": "Assets/Scenes/World2/Level13.unity",
+        "Fingerprint": "fc9b128a528623297dfe5eed4b7a527f3e30d0d77cf54a93f706f0ac0d5f1bee",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 57,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-114055398",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.7799999713897705
+          },
+          {
+            "Frame": 280,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-1312161133",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 3.8999998569488525
+          },
+          {
+            "Frame": 348,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-1996859351",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.8799999952316284
+          },
+          {
+            "Frame": 395,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-538936003",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.4399999976158142
+          },
+          {
+            "Frame": 456,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-171948-1815591398",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.7199999690055847
+          },
+          {
+            "Frame": 507,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-1396352850",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.5399999618530273
+          },
+          {
+            "Frame": 567,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-1048181076",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.5199999809265137
+          },
+          {
+            "Frame": 635,
+            "SurfaceId": "GlobalObjectId_V1-2-9dbc13b257356de42b5cf38df2a0aec0-113838-124665533",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 1.0399999618530273
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-14",
+      "Fingerprint": "c32494d1ca1a3d159abc42e4f6e0f92470e83e3febe6dcf48a8bf50ee15b45b1",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 69,
+      "WallSeconds": 10.692548,
+      "CompletionSeconds": 12.420000076293945,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 12,
+      "PerturbationTrials": 50,
+      "PerturbationSuccesses": 31,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": -0.23999999463558197,
+          "LastOffsetSeconds": 0.23999999463558197
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-14",
+        "ScenePath": "Assets/Scenes/World2/Level14.unity",
+        "Fingerprint": "c32494d1ca1a3d159abc42e4f6e0f92470e83e3febe6dcf48a8bf50ee15b45b1",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 64,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-113838-1028029235",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.1200000047683716
+          },
+          {
+            "Frame": 145,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-113838-2139023627",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.3199999928474426
+          },
+          {
+            "Frame": 223,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-171948-930101729",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.2799999713897705
+          },
+          {
+            "Frame": 293,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-171948-2124871170",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.7400000095367432
+          },
+          {
+            "Frame": 466,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-171948-1634149179",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.7799999713897705
+          },
+          {
+            "Frame": 619,
+            "SurfaceId": "GlobalObjectId_V1-2-c59b0ed7d9ed78a41b702e937e2210ce-171948-1715695308",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 1.3600000143051147
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-15",
+      "Fingerprint": "1492edce120db84bc37e368a0e9aaec715496ef1b95d15cf4008bdf8434bf2f8",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 59,
+      "WallSeconds": 6.3082585,
+      "CompletionSeconds": 12,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 40,
+      "PerturbationSuccesses": 8,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-15",
+        "ScenePath": "Assets/Scenes/World2/Level15.unity",
+        "Fingerprint": "1492edce120db84bc37e368a0e9aaec715496ef1b95d15cf4008bdf8434bf2f8",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 47,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-113838-1842343263",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.7799999713897705
+          },
+          {
+            "Frame": 79,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-171948-257067831",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.11999999731779099
+          },
+          {
+            "Frame": 195,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-171948-481874029",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 1.8600000143051147
+          },
+          {
+            "Frame": 311,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-113838-1234008792",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 1.459999918937683
+          },
+          {
+            "Frame": 362,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-113838-1927976382",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.41999998688697815
+          },
+          {
+            "Frame": 410,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-151876-1184994823",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.2800000011920929
+          },
+          {
+            "Frame": 482,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-171948-1246260911",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.85999995470047
+          },
+          {
+            "Frame": 551,
+            "SurfaceId": "GlobalObjectId_V1-2-4bde1973462d3bd43b5db2072a28850b-171948-205185690",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 0.8999999761581421
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-16",
+      "Fingerprint": "b096ddd7b1d224cad46ed63860927b822e82878dedc4efe4a3803ebe52525c1d",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 83,
+      "WallSeconds": 11.0787695,
+      "CompletionSeconds": 14.779999732971191,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 8,
+      "PerturbationTrials": 64,
+      "PerturbationSuccesses": 17,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 9,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 10,
+          "FirstOffsetSeconds": -0.09999999403953552,
+          "LastOffsetSeconds": 0
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-16",
+        "ScenePath": "Assets/Scenes/World2/Level16.unity",
+        "Fingerprint": "b096ddd7b1d224cad46ed63860927b822e82878dedc4efe4a3803ebe52525c1d",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 57,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-113838-2002847658",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.8799999952316284
+          },
+          {
+            "Frame": 125,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-2015424376-0",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.5999999642372131
+          },
+          {
+            "Frame": 134,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-113838-851886517",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.019999999552965164
+          },
+          {
+            "Frame": 290,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-113838-378540851",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.7999999523162842
+          },
+          {
+            "Frame": 309,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-151876-32600230",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.03999999910593033
+          },
+          {
+            "Frame": 344,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-113838-378540851",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.3400000035762787
+          },
+          {
+            "Frame": 523,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-171948-1532011810",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 2.700000047683716
+          },
+          {
+            "Frame": 570,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-119104-987592199",
+            "AttachmentOrdinal": 9,
+            "DelaySeconds": 0.25999999046325684
+          },
+          {
+            "Frame": 610,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-171948-877180905",
+            "AttachmentOrdinal": 10,
+            "DelaySeconds": 0.3400000035762787
+          },
+          {
+            "Frame": 656,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-119104-1662021639",
+            "AttachmentOrdinal": 11,
+            "DelaySeconds": 0.23999999463558197
+          },
+          {
+            "Frame": 711,
+            "SurfaceId": "GlobalObjectId_V1-2-e9b37052d3f0851418474b196235f149-171948-520137353",
+            "AttachmentOrdinal": 12,
+            "DelaySeconds": 0.7599999904632568
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-17",
+      "Fingerprint": "39119e38a5877414b0a5afb05823777b1f9a62c25a045573dcb4c1c960735b3e",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 74,
+      "WallSeconds": 9.6320287,
+      "CompletionSeconds": 13.319999694824219,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 8,
+      "PerturbationTrials": 55,
+      "PerturbationSuccesses": 18,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.09999999403953552
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": -0.07999999821186066,
+          "LastOffsetSeconds": 0.03999999910593033
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-17",
+        "ScenePath": "Assets/Scenes/World2/Level17.unity",
+        "Fingerprint": "39119e38a5877414b0a5afb05823777b1f9a62c25a045573dcb4c1c960735b3e",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 49,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-113838-1870441712",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.7199999690055847
+          },
+          {
+            "Frame": 316,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-151876-1302098769",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.5999999642372131
+          },
+          {
+            "Frame": 402,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-113838-149020008",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.35999998450279236
+          },
+          {
+            "Frame": 430,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-119104-816118358",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 0.14000000059604645
+          },
+          {
+            "Frame": 506,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-171948-10544932",
+            "AttachmentOrdinal": 9,
+            "DelaySeconds": 0.85999995470047
+          },
+          {
+            "Frame": 564,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-113838-886346104",
+            "AttachmentOrdinal": 10,
+            "DelaySeconds": 0.41999998688697815
+          },
+          {
+            "Frame": 627,
+            "SurfaceId": "GlobalObjectId_V1-2-90e3cc85085ae044684b7b31c2e0a0f5-151876-1485902622",
+            "AttachmentOrdinal": 12,
+            "DelaySeconds": 0.09999999403953552
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-18",
+      "Fingerprint": "3378f594e6c919e6f58b6ee72a81c4a9ad5e941437728647110e825f034f4333",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 67,
+      "WallSeconds": 8.132538,
+      "CompletionSeconds": 16.739999771118164,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 48,
+      "PerturbationSuccesses": 12,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 9,
+          "FirstOffsetSeconds": -0.019999999552965164,
+          "LastOffsetSeconds": 0.019999999552965164
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-18",
+        "ScenePath": "Assets/Scenes/World2/Level18.unity",
+        "Fingerprint": "3378f594e6c919e6f58b6ee72a81c4a9ad5e941437728647110e825f034f4333",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 63,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-113838-1606694111",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 0.6399999856948853
+          },
+          {
+            "Frame": 98,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-151876-961672888",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.2199999988079071
+          },
+          {
+            "Frame": 119,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-151876-1031588415",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 0.019999999552965164
+          },
+          {
+            "Frame": 179,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-185312-222274006",
+            "AttachmentOrdinal": 4,
+            "DelaySeconds": 0.6599999666213989
+          },
+          {
+            "Frame": 235,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-113838-1390008968",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.3400000035762787
+          },
+          {
+            "Frame": 295,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-113838-1625364183",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.5199999809265137
+          },
+          {
+            "Frame": 378,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-171948-784690819",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.8999999761581421
+          },
+          {
+            "Frame": 591,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-113838-1371613827",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 3.6999998092651367
+          },
+          {
+            "Frame": 660,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-119104-668586490",
+            "AttachmentOrdinal": 10,
+            "DelaySeconds": 0.29999998211860657
+          },
+          {
+            "Frame": 797,
+            "SurfaceId": "GlobalObjectId_V1-2-1f5729062a59e524cb1187a002611968-171948-1532146746",
+            "AttachmentOrdinal": 11,
+            "DelaySeconds": 1.8399999141693115
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-19",
+      "Fingerprint": "a6184cf895fafb06a5216553dccd94990841b82c5bd7edfb2a32d8921d049dc6",
+      "Outcome": 0,
+      "Reason": "Reached the authored finish through normal input and reproduced the route.",
+      "Trials": 89,
+      "WallSeconds": 20.4859509,
+      "CompletionSeconds": 22.15999984741211,
+      "OxygenRemaining": -1,
+      "AnalysisComplete": true,
+      "TimingRadiusTicks": 2,
+      "PerturbationTrials": 70,
+      "PerturbationSuccesses": 15,
+      "TimingWindows": [
+        {
+          "JumpIndex": 0,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 1,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 2,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 3,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 4,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 5,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 6,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 7,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 8,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 9,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 10,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 11,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 12,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0
+        },
+        {
+          "JumpIndex": 13,
+          "FirstOffsetSeconds": 0,
+          "LastOffsetSeconds": 0.019999999552965164
+        }
+      ],
+      "Profiles": [
+        {
+          "FramesPerSecond": 30,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 60,
+          "Completed": true,
+          "Reason": "Completed"
+        },
+        {
+          "FramesPerSecond": 120,
+          "Completed": true,
+          "Reason": "Completed"
+        }
+      ],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable).",
+        "Recorded inputs are a proposal only; the old certificate is not trusted. Fresh verification is required."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "level-19",
+        "ScenePath": "Assets/Scenes/World2/Level19.unity",
+        "Fingerprint": "a6184cf895fafb06a5216553dccd94990841b82c5bd7edfb2a32d8921d049dc6",
+        "UnityVersion": "6000.6.8f1",
+        "FramesPerSecond": 30,
+        "Seed": 1729,
+        "Jumps": [
+          {
+            "Frame": 66,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-113838-1244181867",
+            "AttachmentOrdinal": 1,
+            "DelaySeconds": 1.100000023841858
+          },
+          {
+            "Frame": 87,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-1410484798-0",
+            "AttachmentOrdinal": 2,
+            "DelaySeconds": 0.05999999865889549
+          },
+          {
+            "Frame": 264,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-113838-1244181867",
+            "AttachmentOrdinal": 3,
+            "DelaySeconds": 3.179999828338623
+          },
+          {
+            "Frame": 367,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-113838-587189003",
+            "AttachmentOrdinal": 5,
+            "DelaySeconds": 0.25999999046325684
+          },
+          {
+            "Frame": 405,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-563189573-0",
+            "AttachmentOrdinal": 6,
+            "DelaySeconds": 0.07999999821186066
+          },
+          {
+            "Frame": 459,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-151876-538091331",
+            "AttachmentOrdinal": 7,
+            "DelaySeconds": 0.3400000035762787
+          },
+          {
+            "Frame": 542,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-171948-16015546",
+            "AttachmentOrdinal": 8,
+            "DelaySeconds": 1.1399999856948853
+          },
+          {
+            "Frame": 624,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-474445176-0",
+            "AttachmentOrdinal": 9,
+            "DelaySeconds": 1.0399999618530273
+          },
+          {
+            "Frame": 647,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-2054168099-0",
+            "AttachmentOrdinal": 10,
+            "DelaySeconds": 0.07999999821186066
+          },
+          {
+            "Frame": 768,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-1445032198-0",
+            "AttachmentOrdinal": 11,
+            "DelaySeconds": 2.240000009536743
+          },
+          {
+            "Frame": 816,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-171948-1357443410",
+            "AttachmentOrdinal": 12,
+            "DelaySeconds": 0.5
+          },
+          {
+            "Frame": 875,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-113838-80876200",
+            "AttachmentOrdinal": 13,
+            "DelaySeconds": 0.5399999618530273
+          },
+          {
+            "Frame": 912,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-113838-1917265070",
+            "AttachmentOrdinal": 14,
+            "DelaySeconds": 0.23999999463558197
+          },
+          {
+            "Frame": 1010,
+            "SurfaceId": "GlobalObjectId_V1-2-56e69e8ec5b037a449d9ec32b1b3f3ad-171948-930296345",
+            "AttachmentOrdinal": 15,
+            "DelaySeconds": 0.7999999523162842
+          }
+        ]
+      },
+      "HasReplay": true,
+      "Status": "VerifiedReachable",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    },
+    {
+      "Version": 1,
+      "LevelId": "level-20",
+      "Fingerprint": "9a2858c7701ad6715ff93f0768718218772ede323bf33d95374fc30cc44f34b8",
+      "Outcome": 1,
+      "Reason": "No active authored finish trigger.",
+      "Trials": 0,
+      "WallSeconds": 0.0000101,
+      "CompletionSeconds": 0,
+      "OxygenRemaining": 0,
+      "AnalysisComplete": false,
+      "TimingRadiusTicks": 0,
+      "PerturbationTrials": 0,
+      "PerturbationSuccesses": 0,
+      "TimingWindows": [],
+      "Profiles": [],
+      "Diagnostics": [
+        "No active oxygen component; oxygen readings use -1 (unavailable)."
+      ],
+      "Replay": {
+        "Version": 2,
+        "LevelId": "",
+        "ScenePath": "",
+        "Fingerprint": "",
+        "UnityVersion": "",
+        "FramesPerSecond": 60,
+        "Seed": 0,
+        "Jumps": []
+      },
+      "HasReplay": false,
+      "Status": "InvalidContent",
+      "Coverage": {
+        "ActionsTried": 0,
+        "FrontiersReached": 0,
+        "MaximumRouteJumps": 0,
+        "TimedOutTrials": 0,
+        "SurfacesReached": []
+      }
+    }
+  ],
+  "LevelSources": {
+    "level-01": "TestResults/Catalog/Selected/summary.json",
+    "level-02": "TestResults/Catalog/Selected/summary.json",
+    "level-03": "TestResults/Catalog/Selected/summary.json",
+    "level-04": "TestResults/Catalog/Selected/summary.json",
+    "level-05": "TestResults/Catalog/Selected/summary.json",
+    "level-06": "TestResults/Catalog/Selected/summary.json",
+    "level-07": "TestResults/Catalog/Selected/summary.json",
+    "level-08": "TestResults/Catalog/Selected/summary.json",
+    "level-09": "TestResults/Catalog/Selected/summary.json",
+    "level-10": "TestResults/Catalog/Selected/summary.json",
+    "level-11": "TestResults/Catalog/Selected/summary.json",
+    "level-12": "TestResults/Catalog/Selected/summary.json",
+    "level-13": "TestResults/Catalog/Selected/summary.json",
+    "level-14": "TestResults/Catalog/Selected/summary.json",
+    "level-15": "TestResults/Catalog/Selected/summary.json",
+    "level-16": "TestResults/Catalog/Selected/summary.json",
+    "level-17": "TestResults/Catalog/Selected/summary.json",
+    "level-18": "TestResults/Catalog/Selected/summary.json",
+    "level-19": "TestResults/Catalog/Selected/summary.json",
+    "level-20": "TestResults/Catalog/Selected/summary.json"
+  },
+  "Sources": [
+    "TestResults/Catalog/Selected/summary.json"
+  ],
+  "Purpose": "Report snapshot; full replay checkpoints are maintained in ValidationRoutes/*.replay.json.",
+  "Validation": {
+    "Date": "2026-11-06",
+    "UnityVersion": "6000.6.8f1",
+    "UnitySourceCommit": "1337c0688f65581d71d8b552a5a147fbc03a26f3",
+    "Platform": "Windows Editor",
+    "SimulationHz": 50,
+    "EditModePassed": 136,
+    "PlayModePassed": 45,
+    "MainStrictReplayPassed": 19,
+    "IndependentStrictReplayPassed": 19,
+    "RenderingProfiles": [
+      30,
+      60,
+      120
+    ],
+    "RawRuns": [
+      "TestResults/Catalog/Final-Catalog",
+      "TestResults/LevelValidation/Final19-Recertified",
+      "TestResults/Catalog/Selected/Replay",
+      "TestResults/LevelValidation/Independent-Strict"
+    ]
+  }
+}

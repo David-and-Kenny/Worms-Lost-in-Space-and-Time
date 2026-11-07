@@ -209,21 +209,31 @@ the change and run strict batch replay before committing. See
 [LEVEL_VALIDATION_RESULTS.md](LEVEL_VALIDATION_RESULTS.md) for the initial catalog
 matrix, suite evidence and outstanding content/device checks.
 
-### Completion times and provisional difficulty
+### Completion times and timing demand
 
 Generate a shareable report from completed runs without Unity or AI tokens:
 
 ```powershell
 node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/run/summary.json --output TestResults/level-report.md --csv TestResults/level-report.csv
+
+# Publish compact report data without local trajectories or duplicate checkpoints.
+node scripts/report-level-validation.mjs --summary TestResults/Catalog/Selected/summary.json --output TestResults/preview.md --csv TestResults/preview.csv --evidence docs/LEVEL_VALIDATION_EVIDENCE.json
+# Regenerate the shared table from the tracked snapshot, without Unity or a model.
+node scripts/report-level-validation.mjs --summary docs/LEVEL_VALIDATION_EVIDENCE.json --output docs/FIXED_TICK_LEVEL_REPORT.md --csv docs/FIXED_TICK_LEVEL_REPORT.csv
 ```
 
 Repeat `--summary` to combine the catalog scan with deeper per-level runs from the
 same source fingerprints. A verified route survives a later inconclusive retry.
 Partial runs and conflicting fingerprints are rejected. The report records replay
-completion time, jump count, sampled timing tolerance and a provisional Low,
-Moderate or High route difficulty. Its explicit rules are printed in the report.
+completion time, jump count, sampled timing tolerance and Low, Moderate or High
+timing demand. Attempts, sampled failure ratios and total jump count do not set
+the band; tight-jump counts and chains are separate. Rules are printed in the report.
 Incomplete timing analysis stays Not rated; these bands are not human playtest
 ratings or proof that an easier route does not exist.
+The tracked snapshot is report data, not a replay certificate; complete expected
+checkpoints remain in `ValidationRoutes/*.replay.json`. The current iteration
+certifies Levels 1–19; Level 20 has no authored finish. See
+[the full validation evidence](SOLVER_COVERAGE.md).
 
 ## Visual replay and development
 

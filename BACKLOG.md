@@ -26,7 +26,7 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | ID | Priority | Status | Area | Outcome | Depends on / blocker |
 | --- | --- | --- | --- | --- | --- |
 | BL-001 | P0 | Ready | Content | Give Level 20 a reachable exit | Designer must author and playtest the exit |
-| BL-002 | P0 | Ready | Quality | Verify natural traversal of every level | BL-001 for Level 20 |
+| BL-002 | P0 | In progress | Quality | Verify natural traversal of every level | Levels 1–19 certified; BL-001 for Level 20; human/device acceptance remains |
 | BL-003 | P0 | Blocked | Mobile | Validate Android controls and app lifecycle | Physical Android device/tester |
 | BL-004 | P1 | Proposed | Direction | Write the game vision and description | Product/design decisions |
 | BL-005 | P1 | Proposed | Gameplay | Evaluate the core loop and retention | BL-004; representative playtesters |
@@ -38,14 +38,13 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-011 | P2 | Proposed | State | Decide legacy-save compatibility policy | Existing `.dat` files are retained, not imported |
 | BL-012 | P1 | Proposed | Levels | Define authoring and difficulty rules | BL-004 and BL-002 observations |
 | BL-013 | P1 | Proposed | Tooling | Build maintainable level-authoring tools | BL-012 |
-| BL-014 | P1 | In progress | Tooling | Validate generated/authored level feasibility | Utility implemented; validation/review in progress |
 | BL-015 | P2 | Proposed | Tooling | Generate and evaluate batches of candidate levels | BL-013 and BL-014 |
 | BL-017 | P2 | Proposed | Monetization | Model ad revenue across usage scenarios | BL-016; sourced assumptions, not forecasts |
 | BL-018 | P2 | Blocked | Monetization | Finish live acceptance of the approved ads integration | Code merged in PR #8; account/configuration/device work in BL-023–BL-031 |
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
-| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Code/tests and 20-level iteration complete; Level 8 manual route check and device acceptance |
+| BL-022 | P1 | In progress | Gameplay | Make precision jumps consistent across render rates | Levels 1–19 complete at 30/60/120 FPS; physical-device acceptance remains |
 | BL-023 | P1 | Ready | Accounts | Establish AdMob and store account access, agreements and payments | Account owner to complete console setup |
 | BL-024 | P1 | Blocked | Monetization | Register Android/iOS AdMob apps and interstitial units | BL-023; confirm existing store identifiers |
 | BL-025 | P1 | Ready | Web | Publish developer website, privacy policy and app-ads.txt | BL-024 for the authorized seller entry |
@@ -84,6 +83,9 @@ Follow [PLAYTEST_SCRIPT.md](docs/PLAYTEST_SCRIPT.md) for Levels 1–20. Record r
 hazards, attachment/camera/oxygen behavior, completion time and next destination.
 File reproducible defects with level IDs. Startup tests and simulated finish
 triggers must not be presented as proof of natural reachability.
+The [current report](docs/FIXED_TICK_LEVEL_REPORT.md) records natural-input routes
+for Levels 1–19, complete timing analysis and strict replay in two checkouts.
+Level 20 is content-blocked; camera/input feel and device acceptance remain manual.
 
 ### BL-003 — Verify on a physical Android device
 
@@ -168,9 +170,10 @@ Define a repeatable movement simulation or agent probe with recorded seed/input
 and budgets. Report demonstrated routes separately from inconclusive or failed
 search; a solver timeout must not be labelled proof that a level is impossible.
 Validate results against known playable and deliberately invalid fixtures.
-The initial [level-validation utility](docs/LEVEL_VALIDATION.md) implements local
-search, certificates and replay without AI tokens; unresolved catalog routes and
-physical-device acceptance remain explicit in its reports.
+The [level-validation utility](docs/LEVEL_VALIDATION.md) implements local search,
+certificates, profile retries and replay without AI tokens. Levels 1–19 are
+certified; Level 20 lacks a finish. See [coverage evidence](docs/SOLVER_COVERAGE.md).
+Physical-device acceptance remains BL-003; human difficulty is not calibrated.
 
 ### BL-015 — Generate candidate level batches
 
@@ -243,10 +246,9 @@ The implementation and measured evidence are in
 [FIXED_TICK_GAMEPLAY.md](docs/FIXED_TICK_GAMEPLAY.md). Physical input still has
 render-sampling latency; the fix makes simulation outcomes consistent for observed
 tick commands without claiming that every phone feels identical.
-The completed iteration certifies levels 1, 3, 4 and 10. Level 8's old route could
-not be recertified within the bounded searches and needs a manual check; fifteen
-levels remain unresolved and Level 20 lacks a finish. See
-[completion times and provisional difficulty](docs/FIXED_TICK_LEVEL_REPORT.md).
+The solver iteration now certifies Levels 1–19, including Level 8, with successful
+30/60/120 FPS policy runs. Level 20 lacks a finish. See
+[completion times and measured timing demand](docs/FIXED_TICK_LEVEL_REPORT.md).
 
 ### BL-023 — Prepare publisher and store accounts
 
@@ -354,6 +356,9 @@ provider requires a separate decision.
 
 ## Completed foundation
 
+- [x] **BL-014:** reusable token-free viability search, certificates, complementary
+  profiles and reporting; all 20 levels evaluated, 19 certified and strictly
+  replayed in two checkouts — [evidence](docs/SOLVER_COVERAGE.md).
 - [x] Recover and upgrade the Unity project; remove tracked caches/obsolete ad SDK
   and establish a shared Git workflow — [PR #1](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/1).
 - [x] Introduce testable models/adapters, JSON saves, catalog/navigation, Canvas UI

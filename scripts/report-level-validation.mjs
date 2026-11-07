@@ -68,6 +68,20 @@ export class LevelValidationReport {
       Sources: [...new Set(this.rows().map(row => row.source))] }, null, 2) + '\n';
   }
 
+  evidence() {
+    const snapshot = JSON.parse(this.json());
+    snapshot.Purpose = 'Report snapshot; full replay checkpoints are maintained in ValidationRoutes/*.replay.json.';
+    snapshot.Levels = snapshot.Levels.map(level => {
+      const { Trajectory, ...metrics } = level;
+      if (metrics.Replay) {
+        const { Expected, ...inputs } = metrics.Replay;
+        metrics.Replay = inputs;
+      }
+      return metrics;
+    });
+    return JSON.stringify(snapshot, null, 2) + '\n';
+  }
+
   markdown() {
     const rows = this.rows();
     const certified = rows.filter(row => row.level.Status === 'VerifiedReachable');
@@ -121,7 +135,7 @@ function cell(value) { return String(value ?? '').replaceAll('|', '/').replace(/
 
 function main(args) {
   const summaries = [];
-  let output, csv, json;
+  let output, csv, json, evidence;
   for (let index = 0; index < args.length; index += 2) {
     const [option, value] = args.slice(index, index + 2);
     if (!value) throw new Error(`Missing value for ${option}`);
@@ -129,16 +143,18 @@ function main(args) {
     else if (option === '--output') output = value;
     else if (option === '--csv') csv = value;
     else if (option === '--json') json = value;
+    else if (option === '--evidence') evidence = value;
     else throw new Error(`Unknown argument: ${option}`);
   }
   if (summaries.length === 0 || !output || !csv)
-    throw new Error('Usage: node scripts/report-level-validation.mjs --summary run/summary.json [--summary other/summary.json] --output report.md --csv report.csv');
+    throw new Error('Usage: node scripts/report-level-validation.mjs --summary run/summary.json [--summary other/summary.json] --output report.md --csv report.csv [--json summary.json] [--evidence snapshot.json]');
   const report = new LevelValidationReport();
   for (const file of summaries) report.add(JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')), file);
-  for (const destination of [output, csv, json].filter(Boolean)) fs.mkdirSync(path.dirname(destination), { recursive: true });
+  for (const destination of [output, csv, json, evidence].filter(Boolean)) fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.writeFileSync(output, report.markdown());
   fs.writeFileSync(csv, report.csv());
   if (json) fs.writeFileSync(json, report.json());
+  if (evidence) fs.writeFileSync(evidence, report.evidence());
   console.log(`Wrote ${report.levels.size} level results to ${output} and ${csv}.`);
 }
 
