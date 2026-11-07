@@ -218,6 +218,24 @@ namespace Worms.LevelValidation
             Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
         }
         [Test]
+        public void FinishContactEnvelopeDoesNotRelaxEarlierDecisionPoses()
+        {
+            var first = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Completed", Frame = 10 } } };
+            var second = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {
+                new TraversalSample { Kind = "Completed", Frame = 10, Y = .004f } } };
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.True);
+            second.Events[0].Y = .011f;
+            Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+            second.Events[0].Y = .004f;
+            foreach (string kind in new[] { "Launched", "AttachmentCheckpoint" })
+            {
+                first.Events[0].Kind = kind; second.Events[0].Kind = kind;
+                Assert.That(ReplayComparison.Equivalent(first, second, out _), Is.False);
+            }
+        }
+
+        [Test]
         public void ContactDiagnosticsAreSeparateFromAuthoritativeAttachmentCheckpoints()
         {
             var first = new TrialResult { Outcome = TrialOutcome.Completed, Events = new List<TraversalSample> {

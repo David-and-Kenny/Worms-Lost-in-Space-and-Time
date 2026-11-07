@@ -147,7 +147,10 @@ namespace Worms.LevelValidation
                     // Collision callbacks expose a transient solver pose, retained for diagnostics.
                     // Stable attachment poses are checked separately after following has run.
                     if (left.Kind == "Attached") continue;
-                    if (Math.Abs(left.X - right.X) > .001f || Math.Abs(left.Y - right.Y) > .001f
+                    // Finish callbacks can expose contact correction within the pinned physics contact offset.
+                    // Earlier decision poses, event timing and all velocities retain their tighter checks.
+                    float positionTolerance = left.Kind == "Completed" ? .01f : .001f;
+                    if (Math.Abs(left.X - right.X) > positionTolerance || Math.Abs(left.Y - right.Y) > positionTolerance
                         || Math.Abs(left.VelocityX - right.VelocityX) > .001f || Math.Abs(left.VelocityY - right.VelocityY) > .001f
                         || Math.Abs(left.Oxygen - right.Oxygen) > .01f || angle > .1f)
                     { reason = "Traversal diverged at event " + index + "."; break; }
