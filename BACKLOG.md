@@ -40,13 +40,34 @@ planning the next increment; the table is an inventory, not a delivery schedule.
 | BL-013 | P1 | Proposed | Tooling | Build maintainable level-authoring tools | BL-012 |
 | BL-014 | P1 | In progress | Tooling | Validate generated/authored level feasibility | Utility implemented; validation/review in progress |
 | BL-015 | P2 | Proposed | Tooling | Generate and evaluate batches of candidate levels | BL-013 and BL-014 |
-| BL-016 | P2 | Proposed | Monetization | Assess a current ads integration | BL-004; ads currently inactive |
 | BL-017 | P2 | Proposed | Monetization | Model ad revenue across usage scenarios | BL-016; sourced assumptions, not forecasts |
-| BL-018 | P2 | Proposed | Monetization | Integrate approved ad placements | BL-016 and BL-017; product approval |
+| BL-018 | P2 | Blocked | Monetization | Finish live acceptance of the approved ads integration | Code merged in PR #8; account/configuration/device work in BL-023–BL-031 |
 | BL-019 | P1 | Proposed | Release | Define Android/iOS publishing requirements | Platform/account/distribution decisions |
 | BL-020 | P1 | Proposed | Release | Create and execute a release readiness checklist | BL-019 and release blockers above |
 | BL-021 | P2 | Proposed | CI | Provision a trusted Unity validation runner | Licensed Windows host and runner owner |
 | BL-022 | P1 | Proposed | Gameplay | Make precision jumps consistent across render rates | Measured fixed-simulation/input/attachment design; physical-device verification |
+| BL-023 | P1 | Ready | Accounts | Establish AdMob and store account access, agreements and payments | Account owner to complete console setup |
+| BL-024 | P1 | Blocked | Monetization | Register Android/iOS AdMob apps and interstitial units | BL-023; confirm existing store identifiers |
+| BL-025 | P1 | Ready | Web | Publish developer website, privacy policy and app-ads.txt | BL-024 for the authorized seller entry |
+| BL-026 | P1 | Blocked | Purchases | Configure Remove Ads products and store testers | BL-023; store agreements and Google Play public licensing key |
+| BL-027 | P1 | Ready | Privacy | Review audience, child protections and store disclosures | Final audience/category decisions and BL-019 |
+| BL-028 | P1 | Blocked | Configuration | Configure Unity IDs and sandbox monetization | BL-024–BL-027; production stays disabled |
+| BL-029 | P1 | Blocked | Android | Accept ads and purchases on physical Android hardware | BL-028; device and licensed store tester |
+| BL-030 | P1 | Blocked | iOS | Build and accept ads and purchases on iPhone | BL-028; Apple access, macOS/Xcode and physical iPhone |
+| BL-031 | P1 | Blocked | Release | Approve and activate production monetization | BL-023–BL-030; approved release checklist and explicit release decision |
+| BL-032 | P1 | Proposed | Maintenance | Evaluate migration to Google's Next-Gen Android ads backend | Verify Unity compatibility and Families SDK status before June 30, 2027 |
+| BL-033 | P2 | Blocked | Monetization | Review live ad/purchase health and player impact | BL-031; real production data |
+
+### Monetization launch sequence
+
+The provider decision and initial code are complete in
+[PR #8](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/8).
+BL-018 remains open for live acceptance; BL-017 revenue modeling is useful research,
+not a prerequisite for the already approved integration. Use
+[MONETIZATION.md](docs/MONETIZATION.md) for exact fields, switches and evidence.
+Start with BL-023, BL-025 and BL-027, then configure the app/products, test both
+platforms and request the release decision. These items track future work; adding
+them does not enable ads, approve an audience declaration or authorize publication.
 
 ## Acceptance criteria
 
@@ -160,10 +181,11 @@ build/cache output from source control.
 
 ### BL-016 — Assess ads compatibility and placement
 
-Research maintained SDK/mediation choices, current Unity/platform compatibility,
-dependencies, consent/privacy needs and player-friendly placement options. Record
-dated primary sources, costs/tradeoffs and a recommendation. The obsolete SDK was
-removed; this item is discovery, not permission to activate ads.
+**Done — November 6, 2026.** Selected Google AdMob and documented supported Unity/
+platform dependencies, privacy requirements, tradeoffs and placement policy in
+[MONETIZATION.md](docs/MONETIZATION.md), with dated verification and primary-source
+links. Initial code merged in PR #8. Account setup, audience declarations, device
+acceptance and production activation are separate work below.
 
 ### BL-017 — Estimate monetization scenarios
 
@@ -174,10 +196,14 @@ data. Treat results as conditional estimates and keep test traffic out of revenu
 
 ### BL-018 — Implement approved ads
 
-After a placement/provider decision, integrate test ads with isolated adapters.
-Validate reward-once behavior, no-fill/failure/offline paths, consent and lifecycle,
-and ensure ads do not interrupt critical gameplay. Keep keys/configuration handled
-appropriately and record Android/iOS device tests before enabling production ads.
+Initial AdMob/IAP adapters, editable settings, ownership persistence and automated
+checks are merged in PR #8. The approved policy makes an ad eligible after 25
+failed runs or 3 completions, with a five-minute foreground opening grace and
+three-minute shared cooldown. A death plus Retry counts once. Ordinary developer
+testing makes no ad requests; explicit preview uses Google sample units only.
+Rewarded ads and banners are deferred. Close this parent after BL-023–BL-031 are
+accepted with actual Android/iOS evidence; code/build passes alone do not establish
+live ad delivery or purchase restoration.
 
 ### BL-019 — Map the publishing path
 
@@ -193,6 +219,9 @@ Create a repeatable checklist for functional/device/performance checks, content
 completion, art/licenses, save upgrades, privacy, signing, store metadata and staged
 distribution/rollback. Produce an installable candidate and record test evidence.
 Store submission/public release requires a separate explicit release decision.
+For a monetized release, include the configuration, platform acceptance and account
+approval evidence tracked by BL-023–BL-030. BL-031 uses this readiness checklist for
+the separate activation decision and subsequent rollout verification.
 
 ### BL-021 — Run licensed Unity checks in CI
 
@@ -211,12 +240,120 @@ choose a measured mobile rendering policy. Preserve force/contact baselines and
 recertify routes after the change; measure actual FPS and display refresh separately
 on devices. This gameplay refactor is separate from the level-validation utility.
 
+### BL-023 — Prepare publisher and store accounts
+
+Confirm who owns and can administer the existing Google publisher/AdMob and Play
+Console accounts. Establish Apple Developer/App Store Connect access. Complete
+required identity verification, paid-app agreements, banking/tax/payment setup and
+test access. Record each platform's status and remaining blockers without storing
+passwords, service-account credentials or signing material in Git.
+
+### BL-024 — Create platform-specific AdMob inventory
+
+Confirm the real store package/bundle identifiers before changing
+`com.KOGaming.worms`. Create or link separate Android and iOS AdMob apps and one
+interstitial ad unit per app. Record all four app/ad-unit IDs and link public store
+listings when available. Unpublished setup is acceptable initially; readiness
+approval is required by BL-031.
+
+### BL-025 — Publish website, policy and authorized seller file
+
+Publish a developer website with support contact, an HTTPS privacy policy matching
+actual SDK/data practices, and root-level `app-ads.txt` with AdMob's exact seller
+entry. Link the website and policy from the appropriate store listings. Verify
+public accessibility and AdMob's successful seller-file crawl; retain the URLs
+and verification result as release evidence. Coordinate policy content with BL-027.
+
+### BL-026 — Configure the permanent Remove Ads purchase
+
+Create/activate `remove_ads` as a permanent non-consumable/one-time product in both
+stores, with a $2.99 US base price, localized prices and descriptions. Configure
+Google Play license testers and Apple sandbox/TestFlight access. Obtain Google's
+public Play licensing key for local receipt verification. Confirm product
+availability and identifiers; store purchase/restore acceptance belongs to
+BL-029/BL-030. Purchases restore within their store account; cross-store transfer
+is outside this launch scope.
+
+### BL-027 — Complete audience and privacy review
+
+Record the actual intended age groups and Apple category; the game currently adds
+no age/download gate. Review the all-user child-protection/G-rated ad settings,
+the exact SDK's Families status, merged Android advertising-ID permissions and any
+neutral-age-screen or parental-gate requirements. File any needed code changes
+before acceptance. Complete Google Play ads/audience/Data safety and Apple age/
+privacy declarations and configure applicable AdMob Privacy & messaging. Keep the
+no-ATT/no-cross-app-tracking intent consistent with the built apps. Record review
+evidence before enabling Audience And Privacy Reviewed; child flags alone are not
+proof of compliance.
+
+### BL-028 — Configure the project for platform testing
+
+Enter both platform app IDs in Worms MonetizationSettings and Google Mobile Ads
+settings, with matching values. Enter both interstitial IDs, policy URL, public
+Play licensing key and `remove_ads` product ID. Enable Store Purchases only once
+test products/accounts are ready. Keep Production Enabled off and Preview Test Ads
+off during ordinary development; enable preview explicitly for sample-ad testing.
+Verify that development builds cannot select production ad units and incomplete
+production configurations are rejected. Rebuild after configuration changes.
+
+### BL-029 — Accept Android monetization on a device
+
+Use an Android ARM64 build, Google sample ads and a licensed sandbox tester.
+Execute DEVICE-ADS-01 and DEVICE-IAP-01 from
+[PLAYTEST_SCRIPT.md](docs/PLAYTEST_SCRIPT.md): natural completion/retry placement,
+death/retry deduplication, grace/cooldown, no-fill/offline handling, focus/audio/
+input recovery, purchase/cancellation/deferred approval where supported, restore,
+reinstall and offline ownership. Record build/device/OS, results and defects. Do
+not click live ads or treat a successful APK build as device acceptance.
+
+### BL-030 — Accept iOS monetization on a device
+
+Build/sign through macOS/Xcode and distribute to sandbox/TestFlight testers.
+Execute the same monetization scenarios on a physical iPhone, including Restore
+Purchases after reinstall, lifecycle/audio/input behavior and no ATT prompt. Verify
+safe-area rendering and the exported SDK privacy/attribution configuration. Record
+device/OS/build and results; unavailable Apple hardware or signing/account access
+remains a blocker rather than a pass.
+
+### BL-031 — Enable and release approved monetization
+
+Record publisher/app readiness approval, app-ads.txt verification, available store
+products, accepted declarations and BL-029/BL-030 evidence. Obtain the separate
+release decision required by BL-020. For each approved platform, set Store
+Purchases Enabled, Audience And Privacy Reviewed and Production Enabled on; keep
+Preview Test Ads off and Unity Development Build off. Build/sign a fresh release
+candidate with real matching IDs and submit through the agreed rollout process.
+Verify production delivery and purchaser ad suppression after launch without
+generating developer test impressions/clicks on live units. Document rollback via
+an ads-disabled build; these switches are built into the app, not remote controls.
+
+### BL-032 — Plan the Android ads backend upgrade
+
+Before June 30, 2027, recheck Google's support timeline for the standard 25.x
+backend and evaluate the current Next-Gen alternative. Verify Unity/plugin and
+Families SDK compatibility, migrate in a focused PR if approved, and rerun native
+build, privacy, sample-ad and device acceptance checks. Keep production traffic
+off during developer validation and record the selected versions and evidence.
+
+### BL-033 — Review production monetization health
+
+After launch, review Android and iOS separately using existing AdMob/store reports:
+ad availability/fill, impressions and revenue per active player, purchase/restore
+issues, crashes and available retention/player-feedback signals. Exclude developer
+test traffic, compare observations with BL-017 assumptions, and propose frequency
+changes with player-impact evidence. Adding another analytics SDK or mediation
+provider requires a separate decision.
+
 ## Completed foundation
 
 - [x] Recover and upgrade the Unity project; remove tracked caches/obsolete ad SDK
   and establish a shared Git workflow — [PR #1](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/1).
 - [x] Introduce testable models/adapters, JSON saves, catalog/navigation, Canvas UI
   and regression suites — [PR #2](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/2).
+- [x] **BL-016:** select AdMob and merge the initial ads/Remove Ads code, safe
+  developer defaults and automated checks — [PR #8](https://github.com/David-and-Kenny/Worms-Lost-in-Space-and-Time/pull/8).
+  Live account/configuration/device/release acceptance remains BL-018 and
+  BL-023–BL-031.
 
 These foundations do not close the product/device acceptance items above. Current
 evidence and limitations are in [REFACTOR_VALIDATION.md](docs/REFACTOR_VALIDATION.md).
