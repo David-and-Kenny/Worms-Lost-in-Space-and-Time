@@ -121,7 +121,7 @@ signing and an actual device; record BLOCKED when unavailable.
 For the timing follow-up, record editor/build revision, device, native display
 refresh and actual rendered FPS separately. Use currently certified levels from
 `ValidationRoutes/` for natural play; replay automation does not replace touch
-acceptance. The numerical force/speed baseline remains 3/10/5.
+acceptance. The movement-speed baseline remains 3/10/5.
 
 1. Try deliberate short taps and held jumps on rotating wheels and conveyors.
    Check prompt response, one launch per observed tap, correct launch direction,

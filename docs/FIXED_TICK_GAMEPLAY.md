@@ -64,7 +64,7 @@ Unity references read for the legacy Rigidbody2D implementation:
 ## Executed regression checks
 
 The unchanged 39-test PlayMode baseline passed before editing production code.
-The final suites pass **92 EditMode tests and 43 PlayMode tests**, with no failed
+Before merging parallel AdMob work, the suites passed **92 EditMode tests and 43 PlayMode tests**, with no failed
 tests. The seven validation-runner harness cases and scene validation also pass.
 The full Windows development build and Android IL2CPP/ARM64 development build
 succeeded with the final runtime implementation. Subsequent changes only affect
@@ -120,8 +120,12 @@ timing change but has not been recertified; treat it as an unresolved regression
 risk requiring a manual playtest or further search. Its obsolete certificate is
 not retained as a passing regression. No level geometry or content was changed.
 
-See [the generated completion/difficulty report](FIXED_TICK_LEVEL_REPORT.md) and
-its [CSV](FIXED_TICK_LEVEL_REPORT.csv). The ratings describe the found routes,
+The original completed scan is preserved as
+[the iteration snapshot](FIXED_TICK_CATALOG_ITERATION.md) and its
+[CSV](FIXED_TICK_CATALOG_ITERATION.csv). The current
+[completion/difficulty report](FIXED_TICK_LEVEL_REPORT.md) and
+[CSV](FIXED_TICK_LEVEL_REPORT.csv) use the integrated-source evidence described
+below. The ratings describe the found routes,
 using explicit sampled-timing and jump-count rules. All four currently rate High;
 that does not establish that every possible route through each level is hard.
 
@@ -141,8 +145,35 @@ different source fingerprints cannot be combined by the report tool.
 Regenerate the report without Unity or AI tokens:
 
 ```powershell
-node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/FixedTick-Catalog-Final/summary.json --summary TestResults/LevelValidation/FixedTick-Deep03/summary.json --summary TestResults/LevelValidation/FixedTick-Deep08/summary.json --summary TestResults/LevelValidation/FixedTick-Analysis04/summary.json --output docs/FIXED_TICK_LEVEL_REPORT.md --csv docs/FIXED_TICK_LEVEL_REPORT.csv
+node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/FixedTick-Catalog-Final/summary.json --summary TestResults/LevelValidation/FixedTick-Deep03/summary.json --summary TestResults/LevelValidation/FixedTick-Deep08/summary.json --summary TestResults/LevelValidation/FixedTick-Analysis04/summary.json --output docs/FIXED_TICK_CATALOG_ITERATION.md --csv docs/FIXED_TICK_CATALOG_ITERATION.csv
 ```
 
 The six report-tool tests pass, including its actual Markdown/CSV command. They
 run in repository CI alongside existing hygiene and runner checks.
+
+## Integration with the parallel AdMob change
+
+Master advanced to `f0fdebd` while validation was running. The integration at
+`5aef1a3` retains both sets of functionality/documentation and removes the obsolete
+Level 8 certificate. Gameplay movement code is unchanged by that integration.
+The merged source passed **122 EditMode tests, 44 PlayMode tests, scene validation,
+and fresh Windows/Android development builds**. Standard `TestResults/EditMode.xml`,
+`PlayMode.xml`, `validation-summary.json` and the build logs now refer to this run.
+The six report-tool tests and all eight merged runner-harness cases also pass.
+
+All four routes were freshly certified with completed timing analysis against the
+merged source. Their recorded times remain 7.96s, 9.32s, 9.86s and 2.60s, with
+successful 30/60/120 FPS profiles. `Integrated-Structure/` inspects all twenty
+current scenes, and `Integrated-Certification/` records the four full certifications.
+The current report combines those matching fingerprints. Its other fifteen rows
+explicitly say structure-only: their longer traversal search results remain in
+the earlier iteration snapshot, rather than being relabelled as new-source runs.
+Level 20's missing finish is confirmed again on the integrated source.
+
+`Integrated-Strict-Replay/` records strict replay of the refreshed certificates in
+the implementation checkout; certification ran in the separate verification
+checkout. Physical-device acceptance remains open.
+
+```powershell
+node scripts/report-level-validation.mjs --summary TestResults/LevelValidation/Integrated-Structure/summary.json --summary TestResults/LevelValidation/Integrated-Certification/summary.json --output docs/FIXED_TICK_LEVEL_REPORT.md --csv docs/FIXED_TICK_LEVEL_REPORT.csv
+```

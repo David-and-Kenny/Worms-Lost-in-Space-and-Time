@@ -27,28 +27,26 @@ An easier alternative route may exist. Incomplete analysis stays Not rated.
 
 | Level | Status | Reason |
 | --- | --- | --- |
-| level-02 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-05 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-06 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-07 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-08 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-09 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-11 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-12 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-13 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-14 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-15 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-16 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-17 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-18 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
-| level-19 | Inconclusive | No route found within the configured search frontier/budget. This is not proof of impossibility. |
+| level-02 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-05 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-06 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-07 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-08 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-09 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-11 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-12 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-13 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-14 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-15 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-16 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-17 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-18 | Inconclusive | Structure inspected; reachability has not been tested. |
+| level-19 | Inconclusive | Structure inspected; reachability has not been tested. |
 | level-20 | InvalidContent | No active authored finish trigger. |
 
 Inconclusive searches do not prove impossibility. A missing authored finish is a content blocker.
 
 ## Evidence
 
-- TestResults/LevelValidation/FixedTick-Catalog-Final/summary.json
-- TestResults/LevelValidation/FixedTick-Deep03/summary.json
-- TestResults/LevelValidation/FixedTick-Analysis04/summary.json
-- TestResults/LevelValidation/FixedTick-Deep08/summary.json
+- TestResults/LevelValidation/Integrated-Certification/summary.json
+- TestResults/LevelValidation/Integrated-Structure/summary.json

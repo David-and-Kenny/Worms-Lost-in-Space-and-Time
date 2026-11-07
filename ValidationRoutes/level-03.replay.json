@@ -2,7 +2,7 @@
     "Version": 2,
     "LevelId": "level-03",
     "ScenePath": "Assets/Scenes/World1/Level3.unity",
-    "Fingerprint": "9886fe6b2a04ec0b5abc90fbe99b17c8f0338836e0fed7c157a552f42aa45fc1",
+    "Fingerprint": "4d77a1d8d1a878b3bd0b9cd77bad0def5ed821544539cf434f8bbd764e8efd4a",
     "UnityVersion": "6000.6.8f1",
     "FramesPerSecond": 60,
     "Seed": 1729,
@@ -17,13 +17,13 @@
             "Frame": 125,
             "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-182825984",
             "AttachmentOrdinal": 2,
-            "DelaySeconds": 0.6000000238418579
+            "DelaySeconds": 0.5999999642372131
         },
         {
             "Frame": 232,
             "SurfaceId": "GlobalObjectId_V1-2-d48223fa98d8cb24fb834176bda4591f-171948-1766192336",
             "AttachmentOrdinal": 3,
-            "DelaySeconds": 1.3200000524520874
+            "DelaySeconds": 1.3199999332427979
         },
         {
             "Frame": 335,
