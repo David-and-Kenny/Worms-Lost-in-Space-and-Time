@@ -100,6 +100,27 @@ For new behavior, start with the scenario/test layer in `TESTING.md`, implement
 the smallest cohesive object, then wire its Unity adapter. Keep migrations, game
 behavior changes, art/layout work and unrelated cleanup distinguishable in diffs.
 
+## Level 1 art review
+
+Level 1 uses scene-level sprite and UI overrides for its first cartoon
+steampunk-space pass. New textures live in `Assets/Artwork/Level1`; original
+shared artwork/prefabs and the main character remain unchanged. The editor-only
+`Level1ArtTools` inventories the instantiated scene and imports concept art while
+preserving sprite world bounds, pivots, scene transforms, colliders, and callback
+bindings. Its explicit Apply command updates only Level 1. Source generations and
+prompts live in `art/concepts/level-01`; the selected background is round 02 V04.
+
+The owner approved the Level 1 artwork for use. Replaced source images retain
+their existing folders with `.legacy` before the extension, preserving their
+bytes, GUIDs, and shared references. `Level1ArtTools.MarkOriginalArtLegacy` performs
+this explicit rename. Keep these legacy images until the owner approves final
+asset cleanup; the main character is excluded from replacement.
+
+`Level1ArtCaptureTests` verifies the new sprite bounds, unchanged character, and
+advancing simulation using disposable storage. Its optional graphics capture
+renders the runtime camera plus existing Canvas UI. Captures are local reports
+under `TestResults/Art`, not production assets or traversal proofs.
+
 ## Monetization
 
 `AdBreakPolicy`, `AdBreakController`, `ForegroundClock`, and `RemoveAdsEntitlement` are ordinary Core

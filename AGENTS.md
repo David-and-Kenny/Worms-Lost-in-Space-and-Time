@@ -26,6 +26,10 @@ documents in the same change; do not assume a planned feature is implemented.
 - Keep changes focused and use a PR. Commit source, metadata, catalog/prefab
   assets, package manifests/lockfiles, and shared settings. Exclude caches,
   build outputs, local reports, credentials, and signing material.
+- When replacing artwork, retain the original in its existing folder with
+  `.legacy` before the file extension (for example `cog2.legacy.png`). Preserve
+  its Unity GUID and references. Keep legacy assets until the owner explicitly
+  approves final asset cleanup; keep the main character unchanged unless asked.
 - Use `scripts/validate-levels.ps1` and `docs/LEVEL_VALIDATION.md` for traversal
   testing. Validation must not depend on an AI model or consume AI tokens. Do not
   teleport, invoke completion APIs, or replace certificate hashes to obtain a pass.
